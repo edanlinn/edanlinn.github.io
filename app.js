@@ -8,6 +8,39 @@ document.querySelector('#updated').textContent=d.updatedAt;
 const roadmap=document.querySelector('#roadmap');
 roadmap.innerHTML=d.roadmap.map((x,i)=>`<span class="${i<5?'done':''}">${x}</span>`).join('');
 
+function renderSkillMap(){
+  const s=d.skillMap;
+  document.querySelector('#skill-summary').innerHTML=s.summary.map(x=>`
+    <div class="skill-summary-card"><span>${x.label}</span><b>${x.value}</b></div>`).join('');
+
+  document.querySelector('#skill-domains').innerHTML=s.domains.map((x,i)=>`
+    <div class="skill-domain">
+      <div class="skill-domain-head">
+        <h3>${String(i+1).padStart(2,'0')}｜${x.name}</h3>
+        <span class="status-pill status-${x.status}">${x.statusLabel}</span>
+      </div>
+      <ul>${x.items.map(y=>`<li>${y}</li>`).join('')}</ul>
+    </div>`).join('');
+
+  const groups=[
+    {key:'mastered',title:'已掌握',className:'mastered'},
+    {key:'confused',title:'容易混淆',className:'confused'},
+    {key:'upcoming',title:'尚未深入',className:'upcoming'}
+  ];
+  document.querySelector('#skill-status-groups').innerHTML=groups.map(g=>`
+    <div class="skill-state-card ${g.className}">
+      <h3>${g.title}</h3>
+      <ul>${s[g.key].map(x=>`<li>${x}</li>`).join('')}</ul>
+    </div>`).join('');
+
+  const flow=(items,currentIndex=-1)=>items.map((x,i)=>
+    `<span class="flow-node ${i===currentIndex?'current':'done'}">${x}</span>${i<items.length-1?'<span class="flow-arrow">→</span>':''}`
+  ).join('');
+  document.querySelector('#architecture-flow').innerHTML=flow(s.architectureFlow,s.architectureCurrentIndex);
+  document.querySelector('#thinking-flow').innerHTML=flow(s.thinkingFlow,-1);
+}
+renderSkillMap();
+
 const root=document.querySelector('#days');
 function render(filter='all',q=''){
   const query=q.trim().toLowerCase();
