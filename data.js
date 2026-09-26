@@ -48,6 +48,86 @@ window.CLOUD_SA_DATA = {
     architectureCurrentIndex:6,
     thinkingFlow:['Requirement','Constraint','Failure Mode','Architecture','Security','Reliability','Cost','Trade-off']
   },
+  practicalExamples: [
+    {
+      tag:'Networking + Compute + DB',
+      title:'案例 1｜客戶查詢貸款餘額',
+      subtitle:'從手機送出 Request，到資料庫回傳結果',
+      description:'情境：客戶在網銀 App 點「查詢貸款餘額」。',
+      steps:[
+        {aws:'Internet / IGW',real:'客戶的 HTTPS Request 進入 AWS VPC'},
+        {aws:'AWS WAF',real:'先擋惡意 IP、SQL Injection、異常 Request'},
+        {aws:'ALB',real:'把正常流量分配到健康的 Loan API EC2'},
+        {aws:'EC2 + ASG',real:'Loan API 執行查詢；流量高時可擴容'},
+        {aws:'RDS Multi-AZ',real:'查詢貸款主檔；Primary 故障時可 Failover'}
+      ],
+      memory:'WAF 管「這個 Request 該不該進」；ALB 管「要送去哪台」；ASG 管「要有幾台」；RDS 管「資料」。'
+    },
+    {
+      tag:'IAM / Security',
+      title:'案例 2｜Production 半夜故障，工程師需要查資料',
+      subtitle:'AssumeRole、Temporary Credentials 與 Audit',
+      description:'情境：Arthur 平常沒有 Production Admin 權限，凌晨 Incident 需要查看 EC2、RDS、CloudWatch。',
+      steps:[
+        {aws:'Arthur Identity',real:'公司帳號 / Federated Identity'},
+        {aws:'sts:AssumeRole',real:'提出切換到 ProdReadOnlyRole 的請求'},
+        {aws:'Trust Policy + MFA',real:'確認這個人是否被允許 Assume'},
+        {aws:'Temporary Credentials',real:'拿到限時的 Production 權限'},
+        {aws:'CloudTrail',real:'記錄誰、何時、做了什麼'}
+      ],
+      memory:'Trust Policy 決定「誰能進」；Permission Policy 決定「進去後能做什麼」。'
+    },
+    {
+      tag:'Auto Scaling',
+      title:'案例 3｜EC2 壞掉 vs 貸款活動流量暴增',
+      subtitle:'Replacement 與 Scale Out 是兩件不同的事',
+      description:'同一個 ASG 可能因為「故障」或「負載」增加 EC2，但原因完全不同。',
+      steps:[
+        {aws:'ALB Health Check',real:'發現 EC2-A 不健康，停止送流量'},
+        {aws:'ASG Replacement',real:'Desired=2、Actual=1，所以補 EC2-C'},
+        {aws:'Scaling Metric',real:'另一種情況：兩台都健康，但 Request / CPU 過高'},
+        {aws:'Scale Out',real:'Desired 2→3→4，增加 Capacity'},
+        {aws:'Instance Warm-up',real:'新 EC2 啟動 Application 後才真正能接流量'}
+      ],
+      compare:[
+        {title:'故障',text:'目標是把容量補回 Desired Capacity。'},
+        {title:'流量過高',text:'目標是提高 Desired Capacity，增加服務能力。'}
+      ],
+      memory:'Replacement = 壞一台補一台；Scale Out = 沒壞，但現在不夠用。'
+    },
+    {
+      tag:'Storage / S3',
+      title:'案例 4｜每天產生 Loan Report，保存 7 年',
+      subtitle:'Least Privilege、Lifecycle、Versioning 與 Audit',
+      description:'情境：Production EC2 每晚產生放款報表，近期常查、長期依法保存。',
+      steps:[
+        {aws:'EC2 IAM Role',real:'Application 不存長期 Access Key'},
+        {aws:'s3:PutObject',real:'只能把 Loan Report 上傳指定 Prefix'},
+        {aws:'S3 Standard',real:'近期 30 天頻繁查詢'},
+        {aws:'Lifecycle',real:'31 天後自動轉到較便宜的 Storage Class'},
+        {aws:'Glacier',real:'長期 1～7 年低頻保存'}
+      ],
+      compare:[
+        {title:'保護',text:'Versioning 防誤覆蓋；SSE-KMS 做靜態資料加密。'},
+        {title:'稽核',text:'CloudTrail + S3 Data Events 記錄 Object 操作。'}
+      ],
+      memory:'Storage Class 不是越便宜越好，要同時看 Retrieval Time、Access Frequency、Retention 與 Cost。'
+    },
+    {
+      tag:'Networking',
+      title:'案例 5｜Private EC2 要更新套件',
+      subtitle:'NAT Gateway 不是使用者 Request Path',
+      description:'情境：Private Subnet 裡的 EC2 要下載 OS / Application Patch。',
+      steps:[
+        {aws:'Private EC2',real:'沒有直接對 Internet 開放'},
+        {aws:'Private Route',real:'0.0.0.0/0 指向 NAT Gateway'},
+        {aws:'NAT Gateway',real:'讓 EC2 主動向外連線'},
+        {aws:'Internet Gateway',real:'由 Public Subnet 對外進 Internet'},
+        {aws:'Vendor / Package Repo',real:'下載 Patch 或套件'}
+      ],
+      memory:'客戶 Request 不會經 NAT；NAT 是給 Private Resource 主動出 Internet。'
+    }
+  ],
   days: [
     {
       day:1, date:'2026-09-16', topic:'High Availability / RDS', score:72, status:'completed',
