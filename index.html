@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<title>Edan Cloud SA Learning Hub</title>
+<meta name="description" content="Edan 的 Cloud Solutions Architect 學習、錯題、必背觀念與進度 Dashboard。">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top"><div class="shell"><div class="brand">Edan Cloud SA Learning Hub<small>AWS 主線 · Solutions Architect 微訓練</small></div><div class="nav"><button id="expand">全部展開</button><button id="collapse">全部收合</button></div></div></header>
+<main class="shell">
+<section class="hero">
+  <div class="muted">持續更新的個人 Cloud SA 學習站</div>
+  <h1>把每天的錯題，累積成真正的架構能力。</h1>
+  <p class="muted">每次你在 ChatGPT 完成作答後，網站同步記錄：分數、已掌握、需要修正、必背觀念，以及下一階段學習進度。</p>
+  <div class="stats"><div class="stat"><span class="muted">完成日數</span><b id="completed">-</b></div><div class="stat"><span class="muted">平均分數</span><b><span id="avg">-</span></b></div><div class="stat"><span class="muted">目前主題</span><b id="track">-</b></div><div class="stat"><span class="muted">最後更新</span><b id="updated" style="font-size:18px">-</b></div></div>
+  <div id="roadmap" class="track"></div>
+</section>
+<div class="toolbar"><input id="search" class="search" placeholder="搜尋：IAM、NAT、S3、Warm-up…"><div class="filter"><button class="active" data-filter="all">全部</button><button data-filter="mistakes">只看錯題</button><button data-filter="mastered">已掌握</button></div></div>
+<section id="days" class="days"></section><div id="empty" class="empty">找不到符合條件的內容。</div>
+</main>
+<footer class="footer shell">Edan Cloud SA Learning Hub · 內容依每日訓練持續更新</footer>
+<script src="data.js"></script><script src="app.js"></script>
+</body></html>
