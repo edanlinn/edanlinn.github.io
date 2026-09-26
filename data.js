@@ -8,6 +8,46 @@ window.CLOUD_SA_DATA = {
   roadmap: [
     'Architecture','Networking','IAM / Security','Compute','Storage','Database','High Availability','DR','Migration','Modernization','Terraform','Docker','Kubernetes','CI/CD','Observability','FinOps','GenAI / Bedrock','GCP 對照'
   ],
+  skillMap: {
+    summary: [
+      {label:'完成訓練', value:'Day 1–9'},
+      {label:'目前主題', value:'Storage / S3'},
+      {label:'已建立基礎', value:'5 大領域'},
+      {label:'下一階段', value:'DR / Database'}
+    ],
+    domains: [
+      {
+        name:'Architecture', status:'stable', statusLabel:'基礎已建立',
+        items:['Requirement / Constraint / Trade-off','Failure Mode 思考','High Availability 基本概念','RTO / RPO 基礎判斷','Multi-AZ vs Multi-Region','Security / Reliability / Cost 平衡']
+      },
+      {
+        name:'Networking', status:'stable', statusLabel:'掌握度穩定',
+        items:['VPC','Public / Private Subnet','Internet Gateway','NAT Gateway','Security Group','NACL','ALB / WAF 基本角色','Private App / DB Network Pattern']
+      },
+      {
+        name:'IAM / Security', status:'strengthen', statusLabel:'持續強化',
+        items:['IAM User / Role / Policy','Temporary Credentials','Least Privilege','sts:AssumeRole','Trust Policy','Permission Policy','Explicit Deny','AWS Organizations / SCP 基礎','CloudTrail Audit']
+      },
+      {
+        name:'Compute', status:'stable', statusLabel:'掌握度穩定',
+        items:['EC2','Application Load Balancer','Auto Scaling Group','Launch Template','Replacement vs Scale Out','Min / Desired / Max Capacity','CPUUtilization','RequestCountPerTarget','Instance Warm-up','Scheduled Scaling']
+      },
+      {
+        name:'Storage / S3', status:'current', statusLabel:'目前學習中',
+        items:['S3 Object Storage','Bucket / Object / Key','Versioning','Lifecycle Policy','S3 Standard','Standard-IA','Glacier 基礎','SSE-KMS','S3 IAM Object ARN','CloudTrail S3 Data Events']
+      },
+      {
+        name:'下一階段', status:'next', statusLabel:'接下來',
+        items:['S3 Object Lock / WORM','S3 Replication','RPO / RTO 深化','RDS / Aurora','Multi-AZ / Read Replica 深化','Backup / Disaster Recovery','Migration / Modernization']
+      }
+    ],
+    mastered:['IGW / NAT Gateway','Public / Private Subnet','SG vs NACL','ALB / ASG / Launch Template','Replacement vs Scaling','Instance Warm-up','S3 Versioning','S3 Lifecycle','Least Privilege 基本思維'],
+    confused:['Trust Policy vs Permission Policy','SCP vs IAM Permission','Authentication vs Authorization','ALB Health Check vs ASG Replacement','S3 ARN vs s3:// URI','CloudTrail vs S3 Data Events','Versioning vs Backup'],
+    upcoming:['Database 深入','Disaster Recovery','Migration','Modernization','Terraform','Docker / Kubernetes','CI/CD','Observability','FinOps','Bedrock / GenAI','GCP Architecture'],
+    architectureFlow:['Internet','IGW','WAF','ALB','EC2 + ASG','RDS Multi-AZ','S3'],
+    architectureCurrentIndex:6,
+    thinkingFlow:['Requirement','Constraint','Failure Mode','Architecture','Security','Reliability','Cost','Trade-off']
+  },
   days: [
     {
       day:1, date:'2026-09-16', topic:'High Availability / RDS', score:72, status:'completed',
