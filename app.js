@@ -41,6 +41,35 @@ function renderSkillMap(){
 }
 renderSkillMap();
 
+function renderExamples(){
+  const root=document.querySelector('#example-cases');
+  root.innerHTML=d.practicalExamples.map(c=>`
+    <article class="example-card">
+      <div class="example-head">
+        <div><h3>${c.title}</h3><div class="muted">${c.subtitle}</div></div>
+        <span class="tag">${c.tag}</span>
+      </div>
+      <div class="example-desc">${c.description}</div>
+      <div class="example-flow">
+        ${c.steps.map((s,i)=>`
+          <div class="example-step">
+            <span class="aws">${s.aws}</span>
+            <span class="real">${s.real}</span>
+          </div>
+          ${i<c.steps.length-1?'<div class="example-arrow">→</div>':''}
+        `).join('')}
+      </div>
+      ${c.compare ? `
+        <div class="example-compare">
+          <div><b>${c.compare[0].title}</b><div class="muted">${c.compare[0].text}</div></div>
+          <div><b>${c.compare[1].title}</b><div class="muted">${c.compare[1].text}</div></div>
+        </div>` : ''}
+      <div class="example-note"><b>你要聯想到：</b> ${c.memory}</div>
+    </article>
+  `).join('');
+}
+renderExamples();
+
 const root=document.querySelector('#days');
 function render(filter='all',q=''){
   const query=q.trim().toLowerCase();
