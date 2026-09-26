@@ -4,11 +4,11 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#07111f">
 <title>Edan Cloud SA Learning Hub</title>
-<meta name="description" content="Edan 的 Cloud Solutions Architect 學習、錯題、必背觀念與進度 Dashboard。">
+<meta name="description" content="Edan 的 Cloud Solutions Architect 學習、錯題、必背觀念、能力地圖與進度 Dashboard。">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="top"><div class="shell"><div class="brand">Edan Cloud SA Learning Hub<small>AWS 主線 · Solutions Architect 微訓練</small></div><div class="nav"><button id="expand">全部展開</button><button id="collapse">全部收合</button></div></div></header>
+<header class="top"><div class="shell"><div class="brand">Edan Cloud SA Learning Hub<small>AWS 主線 · Solutions Architect 微訓練</small></div><div class="nav"><a href="#skill-map">能力地圖</a><a href="#daily">每日紀錄</a><button id="expand">全部展開</button><button id="collapse">全部收合</button></div></div></header>
 <main class="shell">
 <section class="hero">
   <div class="muted">持續更新的個人 Cloud SA 學習站</div>
@@ -17,8 +17,39 @@
   <div class="stats"><div class="stat"><span class="muted">完成日數</span><b id="completed">-</b></div><div class="stat"><span class="muted">平均分數</span><b><span id="avg">-</span></b></div><div class="stat"><span class="muted">目前主題</span><b id="track">-</b></div><div class="stat"><span class="muted">最後更新</span><b id="updated" style="font-size:18px">-</b></div></div>
   <div id="roadmap" class="track"></div>
 </section>
-<div class="toolbar"><input id="search" class="search" placeholder="搜尋：IAM、NAT、S3、Warm-up…"><div class="filter"><button class="active" data-filter="all">全部</button><button data-filter="mistakes">只看錯題</button><button data-filter="mastered">已掌握</button></div></div>
-<section id="days" class="days"></section><div id="empty" class="empty">找不到符合條件的內容。</div>
+
+<section id="skill-map" class="skill-map-panel">
+  <div class="section-kicker">CURRENT SKILL MAP</div>
+  <h2>Cloud SA 能力地圖</h2>
+  <p class="muted">依 Day 1～目前實際作答結果整理。狀態代表目前學習掌握程度，不是 AWS 證照分數。</p>
+  <div id="skill-summary" class="skill-summary"></div>
+  <div id="skill-domains" class="skill-domains"></div>
+
+  <h3 class="skill-section-title">目前學習狀態</h3>
+  <div id="skill-status-groups" class="skill-status-groups"></div>
+
+  <div class="concept-map">
+    <div class="concept-title">目前已能理解的 AWS 架構鏈</div>
+    <div id="architecture-flow" class="flow-row"></div>
+    <p class="concept-note">圖上的箭頭用來表達架構與責任關係；IAM Role、ASG 等不一定是實際 Network Packet 必經的 Hop。</p>
+  </div>
+
+  <div class="concept-map">
+    <div class="concept-title">目前正在建立的 Solutions Architect 思考流程</div>
+    <div id="thinking-flow" class="flow-row"></div>
+  </div>
+</section>
+
+<section id="daily">
+  <div class="daily-title">
+    <div>
+      <div class="section-kicker">DAILY TRAINING</div>
+      <h2>每日訓練紀錄</h2>
+    </div>
+  </div>
+  <div class="toolbar"><input id="search" class="search" placeholder="搜尋：IAM、NAT、S3、Warm-up…"><div class="filter"><button class="active" data-filter="all">全部</button><button data-filter="mistakes">只看錯題</button><button data-filter="mastered">已掌握</button></div></div>
+  <section id="days" class="days"></section><div id="empty" class="empty">找不到符合條件的內容。</div>
+</section>
 </main>
 <footer class="footer shell">Edan Cloud SA Learning Hub · 內容依每日訓練持續更新</footer>
 <script src="data.js"></script><script src="app.js"></script>
