@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="top"><div class="shell"><div class="brand">Edan Cloud SA Learning Hub<small>AWS 主線 · Solutions Architect 微訓練</small></div><div class="nav"><a href="#skill-map">能力地圖</a><a href="#examples">案例對照</a><a href="#daily">每日紀錄</a><button id="expand">全部展開</button><button id="collapse">全部收合</button></div></div></header>
+<header class="top"><div class="shell"><div class="brand">Edan Cloud SA Learning Hub<small>AWS 主線 · Solutions Architect 微訓練</small></div><div class="nav"><a href="#skill-map">能力地圖</a><a href="#examples">案例對照</a><a href="#quiz">小測驗</a><a href="#daily">每日紀錄</a><button id="expand">全部展開</button><button id="collapse">全部收合</button></div></div></header>
 <main class="shell">
 <section class="hero">
   <div class="muted">持續更新的個人 Cloud SA 學習站</div>
@@ -45,6 +45,44 @@
   <h2>實際案例對照</h2>
   <p class="muted">把 AWS 名詞對應到「銀行放款系統真的在做什麼」，幫你從概念直接聯想到實際情境。</p>
   <div id="example-cases" class="example-cases"></div>
+</section>
+
+<section id="quiz" class="quiz-panel">
+  <div class="section-kicker">PRACTICE QUIZ</div>
+  <div class="quiz-top">
+    <div>
+      <h2>Cloud SA 累積題庫</h2>
+      <p class="muted">隨時練習目前學過的範圍。答錯會保留錯題紀錄，並顯示完整解析。</p>
+    </div>
+    <div class="quiz-bank-count"><span>目前題庫</span><b id="quiz-bank-count">-</b></div>
+  </div>
+
+  <div class="quiz-stats">
+    <div><span>作答次數</span><b id="quiz-attempts">0</b></div>
+    <div><span>正確率</span><b id="quiz-accuracy">-</b></div>
+    <div><span>錯題數</span><b id="quiz-missed">0</b></div>
+    <div><span>本題難度</span><b id="quiz-difficulty">-</b></div>
+  </div>
+
+  <div class="quiz-controls">
+    <select id="quiz-category" aria-label="選擇題目分類">
+      <option value="all">全部主題</option>
+    </select>
+    <button id="quiz-random" class="quiz-action active">隨機出題</button>
+    <button id="quiz-missed-only" class="quiz-action">只練錯題</button>
+    <button id="quiz-reset" class="quiz-action secondary">重設本機紀錄</button>
+  </div>
+
+  <div id="quiz-card" class="quiz-card">
+    <div class="quiz-meta"><span id="quiz-category-label"></span><span id="quiz-number"></span></div>
+    <h3 id="quiz-question">載入題目中…</h3>
+    <div id="quiz-options" class="quiz-options"></div>
+    <div id="quiz-result" class="quiz-result"></div>
+    <div class="quiz-footer">
+      <button id="quiz-next" class="quiz-next" disabled>下一題</button>
+    </div>
+  </div>
+  <p class="quiz-device-note">答題紀錄目前儲存在這台裝置的瀏覽器；換手機或電腦時題庫相同，但作答紀錄不會同步。</p>
 </section>
 
 <section id="daily">
