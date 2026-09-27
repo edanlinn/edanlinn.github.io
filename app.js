@@ -71,6 +71,51 @@ function renderExamples(){
 renderExamples();
 
 
+
+function renderGlossary(query=''){
+  const root=document.querySelector('#glossary-results');
+  document.querySelector('#glossary-count').textContent=d.glossary.length+' 個';
+  const q=query.trim().toLowerCase();
+  let items=d.glossary.filter(item=>{
+    if(!q) return true;
+    const hay=[item.term,item.fullName,item.category,item.definition,item.example,item.confusion,...(item.aliases||[]),...(item.related||[])].join(' ').toLowerCase();
+    return hay.includes(q);
+  });
+  if(!q) items=items.slice(0,8);
+  if(!items.length){
+    root.innerHTML='<div class="glossary-empty">找不到這個名詞。可以試試英文縮寫、完整名稱或中文關鍵字。</div>';
+    return;
+  }
+  root.innerHTML=items.map(item=>`
+    <article class="glossary-card">
+      <div class="glossary-title-row">
+        <div>
+          <div class="glossary-title">${item.term}</div>
+          <div class="glossary-full">${item.fullName||''}</div>
+        </div>
+        <span class="glossary-category">${item.category}</span>
+      </div>
+      <div class="glossary-definition">${item.definition}</div>
+      <div class="glossary-grid">
+        <div class="glossary-box"><b>實際例子</b>${item.example}</div>
+        <div class="glossary-box"><b>容易混淆</b>${item.confusion}</div>
+      </div>
+      ${item.related&&item.related.length?'<div class="glossary-related">'+item.related.map(x=>'<span>'+x+'</span>').join('')+'</div>':''}
+      ${item.aliases&&item.aliases.length?'<div class="glossary-alias">也可搜尋：'+item.aliases.join('、')+'</div>':''}
+    </article>
+  `).join('');
+}
+const glossarySearch=document.querySelector('#glossary-search');
+glossarySearch.addEventListener('input',e=>renderGlossary(e.target.value));
+document.querySelector('#glossary-clear').addEventListener('click',()=>{
+  glossarySearch.value='';renderGlossary('');glossarySearch.focus();
+});
+document.querySelectorAll('[data-glossary-query]').forEach(btn=>btn.addEventListener('click',()=>{
+  glossarySearch.value=btn.dataset.glossaryQuery;renderGlossary(btn.dataset.glossaryQuery);
+  document.querySelector('#glossary').scrollIntoView({behavior:'smooth',block:'start'});
+}));
+renderGlossary();
+
 const quizStateKey='edan-cloud-sa-quiz-progress-v1';
 let quizMode='all';
 let currentQuestion=null;
