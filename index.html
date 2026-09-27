@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="top"><div class="shell"><div class="brand">Edan Cloud SA Learning Hub<small>AWS 主線 · Solutions Architect 微訓練</small></div><div class="nav"><a href="#skill-map">能力地圖</a><a href="#examples">案例對照</a><a href="#quiz">小測驗</a><a href="#daily">每日紀錄</a><button id="expand">全部展開</button><button id="collapse">全部收合</button></div></div></header>
+<header class="top"><div class="shell"><div class="brand">Edan Cloud SA Learning Hub<small>AWS 主線 · Solutions Architect 微訓練</small></div><div class="nav"><a href="#skill-map">能力地圖</a><a href="#examples">案例對照</a><a href="#glossary">名詞搜尋</a><a href="#quiz">小測驗</a><a href="#daily">每日紀錄</a><button id="expand">全部展開</button><button id="collapse">全部收合</button></div></div></header>
 <main class="shell">
 <section class="hero">
   <div class="muted">持續更新的個人 Cloud SA 學習站</div>
@@ -45,6 +45,31 @@
   <h2>實際案例對照</h2>
   <p class="muted">把 AWS 名詞對應到「銀行放款系統真的在做什麼」，幫你從概念直接聯想到實際情境。</p>
   <div id="example-cases" class="example-cases"></div>
+</section>
+
+<section id="glossary" class="glossary-panel">
+  <div class="section-kicker">CLOUD GLOSSARY</div>
+  <div class="glossary-head">
+    <div>
+      <h2>Cloud SA 名詞搜尋</h2>
+      <p class="muted">輸入 AWS 名詞、縮寫或中文概念，直接查看定義、銀行實例、容易混淆與相關名詞。</p>
+    </div>
+    <div class="glossary-count"><span>目前收錄</span><b id="glossary-count">-</b></div>
+  </div>
+  <div class="glossary-search-wrap">
+    <input id="glossary-search" class="glossary-search" placeholder="例如：RTO、RPO、NAT、SCP、Warm-up、Versioning…" autocomplete="off">
+    <button id="glossary-clear" class="glossary-clear">清除</button>
+  </div>
+  <div class="glossary-hints">
+    <span>常用：</span>
+    <button data-glossary-query="RTO">RTO</button>
+    <button data-glossary-query="RPO">RPO</button>
+    <button data-glossary-query="NAT Gateway">NAT Gateway</button>
+    <button data-glossary-query="IAM Role">IAM Role</button>
+    <button data-glossary-query="SCP">SCP</button>
+    <button data-glossary-query="Versioning">Versioning</button>
+  </div>
+  <div id="glossary-results" class="glossary-results"></div>
 </section>
 
 <section id="quiz" class="quiz-panel">
