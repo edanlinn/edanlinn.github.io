@@ -70,6 +70,137 @@ function renderExamples(){
 }
 renderExamples();
 
+
+const quizStateKey='edan-cloud-sa-quiz-progress-v1';
+let quizMode='all';
+let currentQuestion=null;
+let answered=false;
+
+function loadQuizState(){
+  try{
+    return JSON.parse(localStorage.getItem(quizStateKey)) || {attempts:0,correct:0,missed:{}};
+  }catch(e){
+    return {attempts:0,correct:0,missed:{}};
+  }
+}
+function saveQuizState(state){
+  localStorage.setItem(quizStateKey,JSON.stringify(state));
+}
+function quizState(){
+  return loadQuizState();
+}
+function renderQuizStats(){
+  const s=quizState();
+  document.querySelector('#quiz-bank-count').textContent=d.quizBank.length+' 題';
+  document.querySelector('#quiz-attempts').textContent=s.attempts;
+  document.querySelector('#quiz-accuracy').textContent=s.attempts?Math.round((s.correct/s.attempts)*100)+'%':'-';
+  document.querySelector('#quiz-missed').textContent=Object.keys(s.missed||{}).length;
+  document.querySelector('#quiz-difficulty').textContent=currentQuestion?currentQuestion.difficulty:'-';
+}
+function setupQuizCategories(){
+  const select=document.querySelector('#quiz-category');
+  const cats=[...new Set(d.quizBank.map(q=>q.category))];
+  cats.forEach(c=>{
+    const op=document.createElement('option');
+    op.value=c;op.textContent=c;select.appendChild(op);
+  });
+  select.addEventListener('change',()=>nextQuizQuestion());
+}
+function quizCandidates(){
+  const category=document.querySelector('#quiz-category').value;
+  const s=quizState();
+  let items=d.quizBank.filter(q=>category==='all'||q.category===category);
+  if(quizMode==='missed') items=items.filter(q=>s.missed&&s.missed[q.id]);
+  return items;
+}
+function nextQuizQuestion(){
+  const items=quizCandidates();
+  const result=document.querySelector('#quiz-result');
+  result.className='quiz-result';
+  result.innerHTML='';
+  document.querySelector('#quiz-next').disabled=true;
+  answered=false;
+
+  if(!items.length){
+    currentQuestion=null;
+    document.querySelector('#quiz-category-label').textContent='';
+    document.querySelector('#quiz-number').textContent='';
+    document.querySelector('#quiz-question').textContent=quizMode==='missed'?'目前沒有符合條件的錯題。':'這個分類目前還沒有題目。';
+    document.querySelector('#quiz-options').innerHTML='';
+    renderQuizStats();
+    return;
+  }
+  let pool=items.filter(q=>!currentQuestion||q.id!==currentQuestion.id);
+  if(!pool.length) pool=items;
+  currentQuestion=pool[Math.floor(Math.random()*pool.length)];
+  document.querySelector('#quiz-category-label').textContent=currentQuestion.category;
+  document.querySelector('#quiz-number').textContent='題號 '+currentQuestion.id;
+  document.querySelector('#quiz-question').textContent=currentQuestion.question;
+  document.querySelector('#quiz-options').innerHTML=currentQuestion.options.map((o,i)=>`
+    <button class="quiz-option" data-index="${i}">
+      <span class="letter">${String.fromCharCode(65+i)}.</span> ${o}
+    </button>`).join('');
+  document.querySelectorAll('.quiz-option').forEach(btn=>btn.addEventListener('click',()=>answerQuiz(Number(btn.dataset.index))));
+  renderQuizStats();
+}
+function answerQuiz(selected){
+  if(answered||!currentQuestion)return;
+  answered=true;
+  const correct=currentQuestion.answer;
+  const ok=selected===correct;
+  const state=quizState();
+  state.attempts=(state.attempts||0)+1;
+  if(ok){
+    state.correct=(state.correct||0)+1;
+    if(state.missed) delete state.missed[currentQuestion.id];
+  }else{
+    state.missed=state.missed||{};
+    state.missed[currentQuestion.id]=(state.missed[currentQuestion.id]||0)+1;
+  }
+  saveQuizState(state);
+
+  document.querySelectorAll('.quiz-option').forEach((btn,i)=>{
+    btn.disabled=true;
+    if(i===correct) btn.classList.add('correct');
+    if(i===selected&&!ok) btn.classList.add('wrong');
+  });
+
+  const result=document.querySelector('#quiz-result');
+  result.className='quiz-result show '+(ok?'correct':'wrong');
+  result.innerHTML=`
+    <div class="quiz-result-title">${ok?'✓ 答對了':'✕ 答錯了'}</div>
+    <p><b>正確答案：</b>${String.fromCharCode(65+correct)}. ${currentQuestion.options[correct]}</p>
+    <p class="quiz-explain"><b>解析：</b>${currentQuestion.explanation}</p>
+    ${currentQuestion.memory?'<p class="quiz-explain"><b>記憶點：</b>'+currentQuestion.memory+'</p>':''}
+  `;
+  document.querySelector('#quiz-next').disabled=false;
+  renderQuizStats();
+}
+document.querySelector('#quiz-next').addEventListener('click',nextQuizQuestion);
+document.querySelector('#quiz-random').addEventListener('click',()=>{
+  quizMode='all';
+  document.querySelector('#quiz-random').classList.add('active');
+  document.querySelector('#quiz-missed-only').classList.remove('active');
+  nextQuizQuestion();
+});
+document.querySelector('#quiz-missed-only').addEventListener('click',()=>{
+  quizMode='missed';
+  document.querySelector('#quiz-missed-only').classList.add('active');
+  document.querySelector('#quiz-random').classList.remove('active');
+  nextQuizQuestion();
+});
+document.querySelector('#quiz-reset').addEventListener('click',()=>{
+  if(confirm('確定要清除這台裝置的答題紀錄嗎？')){
+    localStorage.removeItem(quizStateKey);
+    quizMode='all';
+    document.querySelector('#quiz-random').classList.add('active');
+    document.querySelector('#quiz-missed-only').classList.remove('active');
+    nextQuizQuestion();
+  }
+});
+setupQuizCategories();
+nextQuizQuestion();
+
 const root=document.querySelector('#days');
 function render(filter='all',q=''){
   const query=q.trim().toLowerCase();
