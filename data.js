@@ -1,19 +1,19 @@
 window.CLOUD_SA_DATA = {
-  updatedAt: '2026-09-27',
-  completedDays: 9,
-  currentTrack: 'Storage / S3',
+  updatedAt: '2026-09-29',
+  completedDays: 10,
+  currentTrack: 'Database / RDS',
   scores: [
-    {day:1, score:72},{day:2, score:84},{day:3, score:88},{day:4, score:87},{day:5, score:81},{day:6, score:83},{day:7, score:86},{day:8, score:94},{day:9, score:92}
+    {day:1, score:72},{day:2, score:84},{day:3, score:88},{day:4, score:87},{day:5, score:81},{day:6, score:83},{day:7, score:86},{day:8, score:94},{day:9, score:92},{day:10, score:91}
   ],
   roadmap: [
     'Architecture','Networking','IAM / Security','Compute','Storage','Database','High Availability','DR','Migration','Modernization','Terraform','Docker','Kubernetes','CI/CD','Observability','FinOps','GenAI / Bedrock','GCP 對照'
   ],
   skillMap: {
     summary: [
-      {label:'完成訓練', value:'Day 1–9'},
-      {label:'目前主題', value:'Storage / S3'},
+      {label:'完成訓練', value:'Day 1–10'},
+      {label:'目前主題', value:'Database / RDS'},
       {label:'已建立基礎', value:'5 大領域'},
-      {label:'下一階段', value:'DR / Database'}
+      {label:'下一階段', value:'Database / HA'}
     ],
     domains: [
       {
@@ -34,16 +34,16 @@ window.CLOUD_SA_DATA = {
       },
       {
         name:'Storage / S3', status:'current', statusLabel:'目前學習中',
-        items:['S3 Object Storage','Bucket / Object / Key','Versioning','Lifecycle Policy','S3 Standard','Standard-IA','Glacier 基礎','SSE-KMS','S3 IAM Object ARN','CloudTrail S3 Data Events']
+        items:['S3 Object Storage','Bucket / Object / Key','Versioning','Lifecycle Policy','S3 Standard','Standard-IA','Glacier 基礎','SSE-KMS','S3 IAM Object ARN','CloudTrail S3 Data Events','Object Lock / WORM','Compliance vs Governance','Cross-Region Replication','RTO / RPO 基礎','S3 RTC 與 SLA 思維']
       },
       {
         name:'下一階段', status:'next', statusLabel:'接下來',
-        items:['S3 Object Lock / WORM','S3 Replication','RPO / RTO 深化','RDS / Aurora','Multi-AZ / Read Replica 深化','Backup / Disaster Recovery','Migration / Modernization']
+        items:['RDS / Aurora','Multi-AZ / Read Replica 深化','RDS Backup / PITR','Backup / Disaster Recovery 深化','Migration / Modernization']
       }
     ],
-    mastered:['IGW / NAT Gateway','Public / Private Subnet','SG vs NACL','ALB / ASG / Launch Template','Replacement vs Scaling','Instance Warm-up','S3 Versioning','S3 Lifecycle','Least Privilege 基本思維'],
-    confused:['Trust Policy vs Permission Policy','SCP vs IAM Permission','Authentication vs Authorization','ALB Health Check vs ASG Replacement','S3 ARN vs s3:// URI','CloudTrail vs S3 Data Events','Versioning vs Backup'],
-    upcoming:['Database 深入','Disaster Recovery','Migration','Modernization','Terraform','Docker / Kubernetes','CI/CD','Observability','FinOps','Bedrock / GenAI','GCP Architecture'],
+    mastered:['IGW / NAT Gateway','Public / Private Subnet','SG vs NACL','ALB / ASG / Launch Template','Replacement vs Scaling','Instance Warm-up','S3 Versioning','S3 Lifecycle','Least Privilege 基本思維','RTO vs RPO','S3 Object Lock Compliance','S3 CRR 非同步複寫'],
+    confused:['Trust Policy vs Permission Policy','SCP vs IAM Permission','Authentication vs Authorization','ALB Health Check vs ASG Replacement','S3 ARN vs s3:// URI','CloudTrail vs S3 Data Events','Versioning vs Backup','S3 RTC 15 分鐘 SLA vs Business RPO 10 分鐘','Replication vs 完整 Backup'],
+    upcoming:['Database 深入','RDS Multi-AZ / Read Replica','Backup / Disaster Recovery 深化','Migration','Modernization','Terraform','Docker / Kubernetes','CI/CD','Observability','FinOps','Bedrock / GenAI','GCP Architecture'],
     architectureFlow:['Internet','IGW','WAF','ALB','EC2 + ASG','RDS Multi-AZ','S3'],
     architectureCurrentIndex:6,
     thinkingFlow:['Requirement','Constraint','Failure Mode','Architecture','Security','Reliability','Cost','Trade-off']
@@ -127,6 +127,24 @@ window.CLOUD_SA_DATA = {
       ],
       memory:'客戶 Request 不會經 NAT；NAT 是給 Private Resource 主動出 Internet。'
     }
+    {
+      tag:'DR + Storage',
+      title:'案例 6｜Loan Audit Report 保存 7 年且跨 Region 保護',
+      subtitle:'Retention、Immutability、RPO/RTO 與 Replication 要分開設計',
+      description:'情境：Loan Audit Report 必須保存 7 年、管理員不得提前永久刪除，Region Disaster 時最多接受 10 分鐘資料損失、30 分鐘恢復。',
+      steps:[
+        {aws:'S3 + Versioning',real:'保存 Object 歷史版本，作為 Object Lock 與復原基礎'},
+        {aws:'Object Lock Compliance',real:'7 年 Retention 期間不可提前永久刪除受保護 Version'},
+        {aws:'SSE-KMS',real:'敏感金融資料使用受控 KMS Key 加密'},
+        {aws:'CRR',real:'將新 Object 非同步複寫到另一個 Region'},
+        {aws:'CloudTrail Data Events',real:'稽核 Get / Put / Delete 等 Object-level 操作'}
+      ],
+      compare:[
+        {title:'RPO ≤ 10 分鐘',text:'這是 Business Requirement；不能因 S3 RTC 提供 15 分鐘 SLA 就直接宣稱滿足。'},
+        {title:'RTO ≤ 30 分鐘',text:'除了資料副本，還必須驗證 Application、DNS、IAM、Runbook 等恢復流程。'}
+      ],
+      memory:'Retention = 留多久；Object Lock = 能不能刪；RPO = 可掉多少資料；RTO = 可停多久。'
+    },
   ],
   glossary: [
     {term:'RTO',fullName:'Recovery Time Objective｜復原時間目標',category:'DR / Reliability',aliases:['復原時間','Recovery Time','多久恢復'],definition:'發生中斷後，業務可以接受「系統最多多久必須恢復服務」。它衡量的是時間，不是資料量。',example:'放款系統 RTO = 30 分鐘：若主系統故障，目標是在 30 分鐘內恢復可用。',confusion:'RTO 問「多久恢復服務」；RPO 問「最多可以損失多少時間範圍的資料」。',related:['RPO','DR','Failover','High Availability']},
@@ -170,6 +188,12 @@ window.CLOUD_SA_DATA = {
     {term:'ARN',fullName:'Amazon Resource Name',category:'IAM',aliases:['Resource ARN','AWS ARN'],definition:'AWS 用來唯一識別 Resource 的標準名稱格式，常出現在 IAM Policy 的 Resource。',example:'S3 Object Resource：arn:aws:s3:::prod-loan-report/loan/*。',confusion:'s3://bucket/path 是 URI 表示法；IAM Resource 通常要 ARN。',related:['IAM Policy','S3','Resource']},
     {term:'RDS',fullName:'Amazon Relational Database Service',category:'Database',aliases:['Relational Database','託管資料庫'],definition:'AWS 託管式關聯式資料庫服務，降低自管 DB OS、Patch、Backup、HA 等基礎營運工作。',example:'Loan Application 透過 RDS Endpoint 連到 RDS MySQL；使用 Multi-AZ 提升 HA。',confusion:'RDS 本身就是 Database Service，不需再畫 RDS → DB。',related:['RDS Multi-AZ','Read Replica','Endpoint']},
     {term:'Read Replica',fullName:'RDS Read Replica',category:'Database',aliases:['讀取副本','Read Scaling'],definition:'建立資料庫的唯讀副本，主要用於分散 Read Workload，也可用於部分 DR / reporting 情境，具體能力依 Engine 而異。',example:'報表查詢量很大時，把部分 Read Traffic 導向 Read Replica，避免壓垮 Primary。',confusion:'Read Replica 主要解決 Read Scaling；Multi-AZ 主要解決 HA / Failover。',related:['RDS','Multi-AZ','Read Scaling']}
+    {term:'S3 Object Lock',fullName:'Amazon S3 Object Lock｜WORM',category:'Storage / Compliance',aliases:['Object Lock','WORM','不可變更'],definition:'以 Write Once Read Many 模式保護特定 S3 Object Version，在指定 Retention 或 Legal Hold 條件下避免被覆寫或永久刪除。',example:'Loan Audit Report 法規保存 7 年，搭配 Versioning 與 Object Lock 保護每個 Version。',confusion:'Versioning 是保留歷史版本；Object Lock 是讓受保護 Version 在期限內不可被永久刪除。',related:['Versioning','Compliance Mode','Governance Mode','Legal Hold']},
+    {term:'Compliance Mode',fullName:'S3 Object Lock Compliance Mode',category:'Storage / Compliance',aliases:['Compliance','合規模式'],definition:'Retention 期間內受保護 Object Version 不能被永久刪除，Retention 不能被縮短，包含 AWS Account Root User。',example:'銀行要求 7 年內任何管理員都不能提前永久刪除稽核資料，可評估 Compliance Mode。',confusion:'Governance Mode 可由具備特定 Bypass 權限的人員繞過；Compliance Mode 更嚴格。',related:['S3 Object Lock','Governance Mode','Retention']},
+    {term:'Governance Mode',fullName:'S3 Object Lock Governance Mode',category:'Storage / Compliance',aliases:['Governance','治理模式'],definition:'Retention 期間一般使用者無法刪除受保護 Version，但具備特定 Bypass 權限的人員可在受控條件下繞過。',example:'企業內部需要不可變更保護，但仍保留少數緊急管理例外時可評估 Governance。',confusion:'它不是 Compliance Mode；高權限人員可能有繞過機制。',related:['Compliance Mode','S3 Object Lock','Retention']},
+    {term:'Legal Hold',fullName:'S3 Object Lock Legal Hold',category:'Storage / Compliance',aliases:['法律保留','Legal Hold'],definition:'對特定 Object Version 施加無固定到期日的保護，直到被授權的人員解除。',example:'某筆貸款資料進入司法調查，即使原 Retention 期限將到，也可維持 Legal Hold。',confusion:'Retention 有到期時間；Legal Hold 本身沒有固定到期日。',related:['Retention','S3 Object Lock']},
+    {term:'CRR',fullName:'S3 Cross-Region Replication',category:'Storage / DR',aliases:['Cross-Region Replication','跨 Region 複寫'],definition:'將 S3 Object 非同步複寫到另一個 AWS Region 的 Bucket，以建立跨 Region 副本。',example:'Region A 的 Loan Report 持續複寫到 Region B，降低單一 Region 災難風險。',confusion:'Replication 不等於完整 Backup；仍要考慮刪除行為、Recovery、權限、KMS 與故障域。',related:['S3 RTC','RPO','Backup','Replication']},
+    {term:'S3 RTC',fullName:'S3 Replication Time Control',category:'Storage / DR',aliases:['RTC','Replication Time Control'],definition:'S3 Replication 的時間控制能力，提供較可預測的複寫時間與監控指標；其 SLA 不能直接替代 Business RPO。',example:'若需要更可預測的跨 Region 複寫時間，可評估 RTC；但 RPO ≤ 10 分鐘時不能只用 15 分鐘 SLA 宣稱達標。',confusion:'RTC 是技術能力 / SLA；RPO 是 Business Requirement。',related:['CRR','RPO','Replication']},
   ],
   quizBank: [
     {id:'A01',category:'Architecture',difficulty:'基礎',question:'一個系統要求 99.99% Availability。下列哪個思考順序最像 Solutions Architect？',options:['先選最貴的 AWS 服務','先確認 Requirement、Failure Mode、RTO/RPO，再設計架構','先做 Multi-Region 再說','只看 CPU 使用率'],answer:1,explanation:'SA 應先把需求、限制與故障模式定義清楚，再決定需要 Multi-AZ、Multi-Region 或其他設計。最強架構不等於最適合的架構。',memory:'Requirement → Constraint → Failure Mode → Architecture → Trade-off。'},
@@ -196,6 +220,11 @@ window.CLOUD_SA_DATA = {
     {id:'ST02',category:'Storage',difficulty:'基礎',question:'Production EC2 的需求只有「上傳」Loan Report，Least Privilege 最適合的 Action 是？',options:['s3:*','s3:GetObject + s3:PutObject','s3:PutObject','AdministratorAccess'],answer:2,explanation:'需求只有 Write，就只給 s3:PutObject。不要預先加入目前不存在的 Read 需求。',memory:'需求只有 Write，就不要順手給 Read。'},
     {id:'ST03',category:'Storage',difficulty:'中等',question:'IAM Policy 要限制 S3 Object Resource，哪種寫法比較正確？',options:['s3://prod-loan-report/','arn:aws:s3:::prod-loan-report/loan/*','https://s3.amazonaws.com/prod-loan-report','0.0.0.0/0'],answer:1,explanation:'IAM Resource 應使用 ARN。s3:// 是位置 URI，不是 IAM Policy Resource 的 ARN 表示法。',memory:'S3 URI 是位置；IAM Resource 用 ARN。'},
     {id:'ST04',category:'Storage',difficulty:'中等',question:'CloudTrail 已啟用，是否代表所有 S3 GetObject / PutObject 一定都有被記錄？',options:['一定','不一定，S3 Object 操作屬於 Data Events，需要另外啟用','只有 NAT 存在時才記錄','只有使用 SSE-KMS 才記錄'],answer:1,explanation:'S3 Object-level API 屬於 CloudTrail Data Events。若要完整做 Object Audit，需要明確設定 S3 Data Events。',memory:'CloudTrail 有開 ≠ S3 Data Events 一定有開。'}
+    {id:'ST05',category:'Storage',difficulty:'中等',question:'銀行要求 S3 稽核資料 7 年內連 Root User 都不能提前永久刪除，最適合哪個設計？',options:['只開 Versioning','Object Lock Governance Mode','Object Lock Compliance Mode','只放 Glacier Deep Archive'],answer:2,explanation:'Compliance Mode 在 Retention 期間內提供更嚴格的不可變更保護，Retention 不能被縮短；Versioning 或 Glacier 本身不等同這種 WORM 保護。',memory:'Root 也不能提前永久刪除 → 想到 Compliance Mode。'},
+    {id:'DR01',category:'Architecture',difficulty:'基礎',question:'業務要求「最多損失 5 分鐘資料，30 分鐘內恢復服務」，哪個對應正確？',options:['RTO=5、RPO=30','RPO=5、RTO=30','Retention=5、RTO=30','RPO=30、Retention=5'],answer:1,explanation:'RPO 是可接受的資料損失時間窗口；RTO 是中斷後恢復服務的目標時間。',memory:'RPO 看 Data；RTO 看 Time to Service Recovery。'},
+    {id:'DR02',category:'Storage',difficulty:'中等',question:'Region A 的 S3 要持續建立 Region B 副本，最直接的機制是？',options:['S3 Lifecycle','S3 Cross-Region Replication','RDS Multi-AZ','NAT Gateway'],answer:1,explanation:'Cross-Region Replication（CRR）用於跨 Region 非同步複寫 S3 Object。',memory:'CRR = Cross-Region、Asynchronous Replication。'},
+    {id:'DR03',category:'Storage',difficulty:'進階',question:'Business RPO 要求 ≤10 分鐘，而 S3 RTC 提供 15 分鐘等級的 Replication SLA。SA 應如何描述？',options:['直接宣稱達標','把 Business RPO 改成 15 分鐘','不能直接宣稱達標，需重新評估資料保護方案','關閉 Versioning'],answer:2,explanation:'Business RPO 是需求，不能由服務規格反向修改。若技術 SLA 無法證明滿足 RPO，就必須重新評估整體寫入、複寫與復原設計。',memory:'Service SLA ≠ Business RPO。'},
+
   ],
   days: [
     {
@@ -288,6 +317,17 @@ window.CLOUD_SA_DATA = {
         ['CloudTrail 有開就一定有 S3 Object Audit','S3 Object Put/Get/Delete 屬於 Data Events，需要明確啟用 S3 Data Events。']
       ],
       memory:['Versioning = 回復歷史版本。','Lifecycle = 自動轉換 Storage Tier。','S3 IAM Resource = ARN，不是 s3:// URI。','CloudTrail 有開 ≠ S3 Data Events 一定有開。']
+    }
+    ,{
+      day:10, date:'2026-09-29', topic:'S3 Object Lock / Replication / RTO-RPO', score:91, status:'completed',
+      mastered:['RTO = 恢復服務時間；RPO = 可接受資料損失時間','Object Lock Compliance Mode 適合高強度不可變更需求','S3 CRR 是跨 Region 非同步複寫','Replication 不等於完整 Backup'],
+      corrections:[
+        ['Replication 只寫 asynchronous replication','機制名稱應明確寫 S3 Cross-Region Replication（CRR）；Asynchronous 是其運作方式。'],
+        ['RPO 10 分鐘直接搭 S3 RTC','S3 RTC 的技術 SLA 不能直接證明 Business RPO ≤ 10 分鐘；若需求更嚴格需重新評估資料保護架構。'],
+        ['Audit 只寫 CloudTrail','若要追 S3 GetObject / PutObject / DeleteObject 等 Object 操作，要明確啟用 CloudTrail S3 Data Events。'],
+        ['Object Lock 說成誰都不能動','更精準：Retention 期間受保護 Object Version 不能被永久刪除，Compliance Mode 的 Retention 不能被縮短；仍可讀取與建立新 Version。']
+      ],
+      memory:['Retention = 要留多久；Object Lock = 這段期間能不能刪。','RPO = 可以掉多少資料；RTO = 可以停多久。','CRR = 跨 Region 非同步複寫。','RTC 的技術 SLA ≠ 自動滿足更嚴格的 Business RPO。']
     }
   ]
 };
