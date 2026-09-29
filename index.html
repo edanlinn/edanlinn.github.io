@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="top"><div class="shell"><div class="brand">Edan Cloud SA Learning Hub<small>AWS 主線 · Solutions Architect 微訓練</small></div><div class="nav"><a href="#skill-map">能力地圖</a><a href="#examples">案例對照</a><a href="#glossary">名詞搜尋</a><a href="#quiz">小測驗</a><a href="#daily">每日紀錄</a><button id="expand">全部展開</button><button id="collapse">全部收合</button></div></div></header>
+<header class="top"><div class="shell"><div class="brand">Edan Cloud SA Learning Hub<small>AWS 主線 · Solutions Architect 微訓練</small></div><div class="nav"><a href="#modules">模組首頁</a><a href="#daily" data-open-module="daily">每日紀錄</a><button id="expand">展開模組</button><button id="collapse">收合模組</button></div></div></header>
 <main class="shell">
 <section class="hero">
   <div class="muted">持續更新的個人 Cloud SA 學習站</div>
@@ -18,7 +18,37 @@
   <div id="roadmap" class="track"></div>
 </section>
 
-<section id="skill-map" class="skill-map-panel">
+<section id="modules" class="module-dashboard">
+  <div class="section-kicker">LEARNING MODULES</div>
+  <div class="module-dashboard-head">
+    <div>
+      <h2>學習模組</h2>
+      <p class="muted">先選你現在要看的內容，不用一次捲過整個網站。</p>
+    </div>
+    <div class="module-dashboard-actions">
+      <button id="open-last-module">開啟上次模組</button>
+    </div>
+  </div>
+  <div class="module-grid">
+    <button class="module-card" data-target-module="skill-map">
+      <span class="module-code">MAP</span><b>能力地圖</b><small>目前會什麼、哪裡容易混淆</small><span class="module-meta">Architecture / Security / Compute</span>
+    </button>
+    <button class="module-card" data-target-module="examples">
+      <span class="module-code">CASE</span><b>實際案例</b><small>用銀行情境對應 AWS 架構</small><span class="module-meta" id="module-case-count">案例持續累積</span>
+    </button>
+    <button class="module-card" data-target-module="glossary">
+      <span class="module-code">DOC</span><b>名詞搜尋</b><small>查 RTO、RPO、SCP、NAT…</small><span class="module-meta" id="module-glossary-count">Glossary</span>
+    </button>
+    <button class="module-card" data-target-module="quiz">
+      <span class="module-code">QUIZ</span><b>累積題庫</b><small>隨機題、錯題複習、詳細解析</small><span class="module-meta" id="module-quiz-count">題庫</span>
+    </button>
+    <button class="module-card" data-target-module="daily">
+      <span class="module-code">DAY</span><b>每日紀錄</b><small>分數、錯題、必背觀念</small><span class="module-meta" id="module-day-count">學習進度</span>
+    </button>
+  </div>
+</section>
+
+<section id="skill-map" data-module-section="skill-map" class="skill-map-panel">
   <div class="section-kicker">CURRENT SKILL MAP</div>
   <h2>Cloud SA 能力地圖</h2>
   <p class="muted">依 Day 1～目前實際作答結果整理。狀態代表目前學習掌握程度，不是 AWS 證照分數。</p>
@@ -40,14 +70,14 @@
   </div>
 </section>
 
-<section id="examples" class="examples-panel">
+<section id="examples" data-module-section="examples" class="examples-panel">
   <div class="section-kicker">REAL-WORLD MAPPING</div>
   <h2>實際案例對照</h2>
   <p class="muted">把 AWS 名詞對應到「銀行放款系統真的在做什麼」，幫你從概念直接聯想到實際情境。</p>
   <div id="example-cases" class="example-cases"></div>
 </section>
 
-<section id="glossary" class="glossary-panel">
+<section id="glossary" data-module-section="glossary" class="glossary-panel">
   <div class="section-kicker">CLOUD GLOSSARY</div>
   <div class="glossary-head">
     <div>
@@ -72,7 +102,7 @@
   <div id="glossary-results" class="glossary-results"></div>
 </section>
 
-<section id="quiz" class="quiz-panel">
+<section id="quiz" data-module-section="quiz" class="quiz-panel">
   <div class="section-kicker">PRACTICE QUIZ</div>
   <div class="quiz-top">
     <div>
@@ -110,7 +140,7 @@
   <p class="quiz-device-note">答題紀錄目前儲存在這台裝置的瀏覽器；換手機或電腦時題庫相同，但作答紀錄不會同步。</p>
 </section>
 
-<section id="daily">
+<section id="daily" data-module-section="daily">
   <div class="daily-title">
     <div>
       <div class="section-kicker">DAILY TRAINING</div>
