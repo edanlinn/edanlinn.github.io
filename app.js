@@ -8,6 +8,103 @@ document.querySelector('#updated').textContent=d.updatedAt;
 const roadmap=document.querySelector('#roadmap');
 roadmap.innerHTML=d.roadmap.map((x,i)=>`<span class="${i<5?'done':''}">${x}</span>`).join('');
 
+const moduleConfig={
+  'skill-map':{code:'MAP',title:'能力地圖',desc:'掌握範圍、易混淆概念與架構思維'},
+  'examples':{code:'CASE',title:'實際案例',desc:'用銀行與企業情境對應 AWS 服務'},
+  'glossary':{code:'DOC',title:'名詞搜尋',desc:'快速查定義、例子與容易混淆'},
+  'quiz':{code:'QUIZ',title:'累積題庫',desc:'隨機練習、錯題複習與解析'},
+  'daily':{code:'DAY',title:'每日訓練紀錄',desc:'每日分數、錯題與必背觀念'}
+};
+const moduleStateKey='edan-cloud-sa-module-state-v1';
+const sections=[...document.querySelectorAll('[data-module-section]')];
+
+function decorateModules(){
+  sections.forEach(section=>{
+    const id=section.dataset.moduleSection;
+    const cfg=moduleConfig[id];
+    if(!cfg||section.querySelector(':scope > .module-togglebar')) return;
+    const children=[...section.children];
+    const content=document.createElement('div');
+    content.className='module-content';
+    children.forEach(node=>content.appendChild(node));
+    const bar=document.createElement('div');
+    bar.className='module-togglebar';
+    bar.innerHTML=`
+      <div class="module-togglebar-left">
+        <span class="module-togglemark">${cfg.code}</span>
+        <div class="module-togglecopy"><b>${cfg.title}</b><span>${cfg.desc}</span></div>
+      </div>
+      <button class="module-togglebtn" type="button">展開 <span class="chev">⌄</span></button>`;
+    section.appendChild(bar);
+    section.appendChild(content);
+    section.classList.add('module-collapsed');
+    bar.querySelector('.module-togglebtn').addEventListener('click',()=>toggleModule(id));
+  });
+}
+
+function saveModuleState(id){
+  try{localStorage.setItem(moduleStateKey,id||'');}catch(e){}
+}
+function lastModule(){
+  try{return localStorage.getItem(moduleStateKey)||'daily';}catch(e){return 'daily';}
+}
+function setModule(id,open,scroll=false){
+  const section=document.querySelector('[data-module-section="'+id+'"]');
+  if(!section)return;
+  section.classList.toggle('module-collapsed',!open);
+  const btn=section.querySelector(':scope > .module-togglebar .module-togglebtn');
+  if(btn) btn.innerHTML=(open?'收合':'展開')+' <span class="chev">⌄</span>';
+  document.querySelectorAll('.module-card').forEach(card=>card.classList.toggle('active',open&&card.dataset.targetModule===id));
+  if(open){
+    saveModuleState(id);
+    if(scroll){
+      section.scrollIntoView({behavior:'smooth',block:'start'});
+      section.classList.remove('module-focus');
+      void section.offsetWidth;
+      section.classList.add('module-focus');
+    }
+  }
+}
+function toggleModule(id,forceOpen=false,scroll=false){
+  const section=document.querySelector('[data-module-section="'+id+'"]');
+  if(!section)return;
+  const willOpen=forceOpen||section.classList.contains('module-collapsed');
+  setModule(id,willOpen,scroll);
+}
+function openOnlyModule(id,scroll=true){
+  sections.forEach(s=>setModule(s.dataset.moduleSection,s.dataset.moduleSection===id,false));
+  if(scroll){
+    const section=document.querySelector('[data-module-section="'+id+'"]');
+    if(section)section.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+}
+decorateModules();
+
+document.querySelectorAll('[data-target-module]').forEach(btn=>btn.addEventListener('click',()=>openOnlyModule(btn.dataset.targetModule,true)));
+document.querySelectorAll('[data-open-module]').forEach(link=>link.addEventListener('click',e=>{
+  e.preventDefault();openOnlyModule(link.dataset.openModule,true);
+}));
+document.querySelector('#open-last-module').addEventListener('click',()=>openOnlyModule(lastModule(),true));
+
+document.querySelector('#module-case-count').textContent=(d.practicalExamples?.length||0)+' 個案例';
+document.querySelector('#module-glossary-count').textContent=(d.glossary?.length||0)+' 個名詞';
+document.querySelector('#module-quiz-count').textContent=(d.quizBank?.length||0)+' 題';
+document.querySelector('#module-day-count').textContent=(d.days?.length||0)+' 天紀錄';
+
+document.querySelector('#expand').onclick=()=>sections.forEach(s=>setModule(s.dataset.moduleSection,true,false));
+document.querySelector('#collapse').onclick=()=>sections.forEach(s=>setModule(s.dataset.moduleSection,false,false));
+
+if(location.hash){
+  const id=location.hash.slice(1);
+  if(moduleConfig[id]) setTimeout(()=>openOnlyModule(id,false),0);
+}
+
+const backTop=document.createElement('button');
+backTop.className='back-top';backTop.type='button';backTop.setAttribute('aria-label','回到頂部');backTop.textContent='↑';
+document.body.appendChild(backTop);
+backTop.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+window.addEventListener('scroll',()=>backTop.classList.toggle('show',window.scrollY>700));
+
 function renderSkillMap(){
   const s=d.skillMap;
   document.querySelector('#skill-summary').innerHTML=s.summary.map(x=>`
@@ -283,5 +380,3 @@ document.querySelector('#search').addEventListener('input',e=>render(document.qu
 document.querySelectorAll('.filter button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.filter button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.filter,document.querySelector('#search').value);
 }));
-document.querySelector('#expand').onclick=()=>document.querySelectorAll('.day').forEach(x=>x.classList.add('open'));
-document.querySelector('#collapse').onclick=()=>document.querySelectorAll('.day').forEach(x=>x.classList.remove('open'));
