@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1d29"><title>訪談前整理｜方向訪談</title><meta name="description" content="在談話前整理目前處境、期待、能量和可選方向。"><link rel="stylesheet" href="styles.css"><script defer src="intake.js"></script></head>
+<body class="form-page">
+  <header class="form-head"><a class="identity" href="./"><span class="seal">方</span><span>方向訪談<small>BY EDAN</small></span></a><a href="./">返回訪談入口</a></header>
+  <main class="form-shell">
+    <div class="form-intro"><div><p class="eyebrow">BEFORE WE TALK / 01</p><h1>先整理此刻的你。</h1><p class="lead">約需 10–15 分鐘。只寫你願意分享的內容；具體例子比「我就是這種人」更能幫助我們理解。</p></div><aside><strong>談話由你決定。</strong><p>可以略過非必填題、修正答案或在訪談時提出不同看法。表單不是測驗，也不會替你下診斷。</p></aside></div>
+    <form id="intake-form" novalidate>
+      <section class="form-section"><div class="form-section-head"><span>01</span><div><h2>現在的處境</h2><p>從眼前最想談的問題開始。</p></div></div>
+        <div class="form-two"><label>希望怎麼稱呼你 <b>*</b><input name="name" maxlength="60" autocomplete="name" required placeholder="名字或暱稱"></label><label>我們的關係<select name="relationship"><option value="">選填</option><option>同事</option><option>下屬</option><option>朋友</option><option>其他</option></select></label></div>
+        <div class="form-two"><label>這次想談的主題<select name="topic"><option value="career">職涯方向</option><option value="life">生活與心情</option><option value="both">兩者交織</option></select></label><label>目前對方向的清晰度<select name="clarity"><option value="">選填</option><option value="1">1 · 完全沒有頭緒</option><option value="2">2 · 有模糊想法</option><option value="3">3 · 有幾個選項</option><option value="4">4 · 大致清楚</option><option value="5">5 · 已有明確方向</option></select></label></div>
+        <label>最近最困擾你的事是什麼？ <b>*</b><small>發生了什麼、持續多久？請盡量用一個具體事件描述。</small><textarea name="situation" maxlength="1600" required rows="4"></textarea></label>
+        <label>如果這次談話有幫助，你希望帶走什麼？ <b>*</b><small>例如：釐清選擇、找到下一步、被理解。</small><textarea name="desired" maxlength="1600" required rows="3"></textarea></label>
+      </section>
+      <section class="form-section"><div class="form-section-head"><span>02</span><div><h2>你的能量與能力</h2><p>回想實際的工作和生活片段。</p></div></div>
+        <label>哪些工作或生活片段讓你有能量？<small>什麼時候你會投入、忘記時間，或感到有意義？</small><textarea name="energizers" maxlength="1600" rows="3"></textarea></label>
+        <label>哪些情境最消耗你？<small>人、任務、節奏或環境都可以；有沒有例外？</small><textarea name="drainers" maxlength="1600" rows="3"></textarea></label>
+        <label>別人常找你幫什麼忙？你做成過什麼？<small>寫一兩件具體經驗，比人格標籤更有用。</small><textarea name="strengths" maxlength="1600" rows="3"></textarea></label>
+      </section>
+      <section class="form-section"><div class="form-section-head"><span>03</span><div><h2>重要的事與可行的路</h2><p>把理想與現實條件放在一起看。</p></div></div>
+        <label>下一階段你最想守住的三件事？<small>例如收入、成長、穩定、自由、關係或健康。</small><textarea name="values" maxlength="1600" rows="3"></textarea></label>
+        <label>你想過哪些選項？各自吸引你和讓你擔心的是什麼？<small>尚未有選項也可以直說。</small><textarea name="options" maxlength="1600" rows="3"></textarea></label>
+        <label>目前有哪些現實限制或可用資源？<small>時間、財務、家庭、支持者或學習機會。</small><textarea name="constraints" maxlength="1600" rows="3"></textarea></label>
+      </section>
+      <section class="form-section"><div class="form-section-head"><span>04</span><div><h2>你希望怎麼被支持</h2><p>這場談話的節奏可以由你決定。</p></div></div>
+        <label>壓力大時你通常如何撐過去？希望我怎麼陪你談？<small>只寫你願意分享的部分。</small><textarea name="support" maxlength="1600" rows="3"></textarea></label>
+        <fieldset><legend>談話中你最需要什麼？</legend><label><input type="radio" name="need" value="傾聽與釐清" checked> 傾聽與釐清</label><label><input type="radio" name="need" value="分析選項"> 分析選項</label><label><input type="radio" name="need" value="具體行動"> 具體行動</label></fieldset>
+      </section>
+      <section class="form-section final"><div class="form-section-head"><span>05</span><div><h2>確認與送出</h2><p>邀請碼由 Edan 私下提供，每組只能使用一次。</p></div></div>
+        <label>一次性邀請碼 <b>*</b><input name="code" autocomplete="off" spellcheck="false" maxlength="48" required placeholder="貼上 48 碼邀請碼"></label>
+        <label class="check"><input type="checkbox" name="consent" required><span>我理解這是職涯與生活方向對話，並非心理治療或醫療診斷；同意將填答保存在受保護的資料服務中，供 Edan 準備和進行訪談。我可以要求刪除。</span></label>
+        <p class="privacy">避免填入身分證號、病歷、密碼及他人的個資。若你有立即的人身安全危險，請直接聯絡當地緊急服務或可信任的人，不要等待這份表單回覆。</p>
+        <div class="form-submit"><p id="form-status" role="status" aria-live="polite"></p><button type="submit" class="primary">送出預訪表</button></div>
+      </section>
+    </form>
+    <div id="success" class="complete" hidden><p class="eyebrow">RECEIVED</p><h2>謝謝你願意整理這些想法。</h2><p>Edan 會以你提出的問題為起點。訪談時，你仍可以補充、修正或不同意任何理解。</p><a class="subtle" href="./">返回訪談入口</a></div>
+  </main>
+  <footer><span>© 2026 Edan · 方向訪談</span><span>尊重 · 保密 · 共同驗證</span></footer>
+</body></html>
