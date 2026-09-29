@@ -148,7 +148,7 @@ window.CLOUD_SA_DATA = {
         {title:'RTO ≤ 30 分鐘',text:'除了資料副本，還必須驗證 Application、DNS、IAM、Runbook 等恢復流程。'}
       ],
       memory:'Retention = 留多久；Object Lock = 能不能刪；RPO = 可掉多少資料；RTO = 可停多久。'
-    },,
+    },
     {
       tag:'Database / RDS',
       title:'案例 7｜Loan DB：故障、月底報表、誤刪資料',
@@ -216,13 +216,14 @@ window.CLOUD_SA_DATA = {
     {term:'Legal Hold',fullName:'S3 Object Lock Legal Hold',category:'Storage / Compliance',aliases:['法律保留','Legal Hold'],definition:'對特定 Object Version 施加無固定到期日的保護，直到被授權的人員解除。',example:'某筆貸款資料進入司法調查，即使原 Retention 期限將到，也可維持 Legal Hold。',confusion:'Retention 有到期時間；Legal Hold 本身沒有固定到期日。',related:['Retention','S3 Object Lock']},
     {term:'CRR',fullName:'S3 Cross-Region Replication',category:'Storage / DR',aliases:['Cross-Region Replication','跨 Region 複寫'],definition:'將 S3 Object 非同步複寫到另一個 AWS Region 的 Bucket，以建立跨 Region 副本。',example:'Region A 的 Loan Report 持續複寫到 Region B，降低單一 Region 災難風險。',confusion:'Replication 不等於完整 Backup；仍要考慮刪除行為、Recovery、權限、KMS 與故障域。',related:['S3 RTC','RPO','Backup','Replication']},
     {term:'S3 RTC',fullName:'S3 Replication Time Control',category:'Storage / DR',aliases:['RTC','Replication Time Control'],definition:'S3 Replication 的時間控制能力，提供較可預測的複寫時間與監控指標；其 SLA 不能直接替代 Business RPO。',example:'若需要更可預測的跨 Region 複寫時間，可評估 RTC；但 RPO ≤ 10 分鐘時不能只用 15 分鐘 SLA 宣稱達標。',confusion:'RTC 是技術能力 / SLA；RPO 是 Business Requirement。',related:['CRR','RPO','Replication']},
-  ],
+
 
     {term:'RDS Multi-AZ DB instance',fullName:'RDS Multi-AZ DB Instance Deployment',category:'Database / HA',aliases:['Multi-AZ Standby','Primary Standby'],definition:'一個 Primary DB 搭配另一個 AZ 的 Standby，用同步複寫提高 High Availability；Standby 不用來承接一般 Read Traffic。',example:'Loan DB Primary 在 AZ-A，Standby 在 AZ-B；Primary 或 AZ 故障時由 RDS 執行 Failover。',confusion:'它主要是 HA，不是 Read Scaling，也不是 Backup。',related:['Read Replica','PITR','Failover','RDS']},
     {term:'RDS Multi-AZ DB cluster',fullName:'RDS Multi-AZ DB Cluster',category:'Database / HA',aliases:['Multi-AZ Cluster','Writer + Readers'],definition:'RDS 的 Multi-AZ Cluster 架構含 Writer 與可讀 Reader instances，跨多個 AZ，同時提供 HA 與額外 Read Capacity。',example:'交易由 Writer 處理，Reader 可承接部分查詢；節點故障時可進行 Failover。',confusion:'不要把它和傳統 Multi-AZ DB instance 的「不可讀 Standby」混為一談。',related:['RDS Multi-AZ DB instance','Read Replica','HA']},
     {term:'PITR',fullName:'Point-in-Time Recovery｜時間點還原',category:'Database / Recovery',aliases:['Point in Time Recovery','時間點恢復','RDS PITR'],definition:'利用 Automated Backup 與資料庫 Log，在保留期限內把資料庫還原到指定時間點；通常會建立新的 DB Instance / Cluster。',example:'14:03 DBA 誤刪 Loan Transaction，14:20 發現後將 DB 還原到 14:02:50，再驗證並切換 Application。',confusion:'PITR 解 Logical / Human Error；Multi-AZ Failover 解 Infrastructure Failure。',related:['Automated Backup','RDS','RTO','RPO']},
     {term:'Replica Lag',fullName:'Read Replica Replication Lag',category:'Database / Read Scaling',aliases:['Replication Lag','複寫延遲'],definition:'Read Replica 因非同步複寫而落後 Primary 的時間差，因此 Replica 可能暫時讀不到剛寫入的最新資料。',example:'客戶剛完成還款後立即查餘額，如果查到 Replica，可能短時間看到舊餘額。',confusion:'需要 Read-after-write 一致性的流程通常要回 Primary 或使用符合一致性需求的設計。',related:['Read Replica','Primary','Eventual Consistency']},
     {term:'Automated Backup',fullName:'RDS Automated Backups',category:'Database / Recovery',aliases:['自動備份','RDS Backup'],definition:'RDS 自動建立備份並保留資料庫變更資訊，以支援 Backup Retention Period 內的 Point-in-Time Recovery。',example:'Production Loan DB 開啟 Automated Backup，誤刪資料時可還原到事故發生前。',confusion:'Backup 與 Multi-AZ 目的不同：前者 Recovery，後者 HA。',related:['PITR','Multi-AZ','RPO','Backup Retention']}
+  ],
   quizBank: [
     {id:'A01',category:'Architecture',difficulty:'基礎',question:'一個系統要求 99.99% Availability。下列哪個思考順序最像 Solutions Architect？',options:['先選最貴的 AWS 服務','先確認 Requirement、Failure Mode、RTO/RPO，再設計架構','先做 Multi-Region 再說','只看 CPU 使用率'],answer:1,explanation:'SA 應先把需求、限制與故障模式定義清楚，再決定需要 Multi-AZ、Multi-Region 或其他設計。最強架構不等於最適合的架構。',memory:'Requirement → Constraint → Failure Mode → Architecture → Trade-off。'},
     {id:'A02',category:'Architecture',difficulty:'基礎',question:'RDS Multi-AZ 最主要解決哪一個問題？',options:['Read Scaling','Database High Availability / Failover','Internet Routing','Web Application Firewall'],answer:1,explanation:'RDS Multi-AZ 的核心目的是提高資料庫可用性與 Failover 能力；Read Replica 才主要用於讀取擴展。',memory:'Multi-AZ = HA；Read Replica = Read Scaling。'},
@@ -252,7 +253,6 @@ window.CLOUD_SA_DATA = {
     {id:'DR01',category:'Architecture',difficulty:'基礎',question:'業務要求「最多損失 5 分鐘資料，30 分鐘內恢復服務」，哪個對應正確？',options:['RTO=5、RPO=30','RPO=5、RTO=30','Retention=5、RTO=30','RPO=30、Retention=5'],answer:1,explanation:'RPO 是可接受的資料損失時間窗口；RTO 是中斷後恢復服務的目標時間。',memory:'RPO 看 Data；RTO 看 Time to Service Recovery。'},
     {id:'DR02',category:'Storage',difficulty:'中等',question:'Region A 的 S3 要持續建立 Region B 副本，最直接的機制是？',options:['S3 Lifecycle','S3 Cross-Region Replication','RDS Multi-AZ','NAT Gateway'],answer:1,explanation:'Cross-Region Replication（CRR）用於跨 Region 非同步複寫 S3 Object。',memory:'CRR = Cross-Region、Asynchronous Replication。'},
     {id:'DR03',category:'Storage',difficulty:'進階',question:'Business RPO 要求 ≤10 分鐘，而 S3 RTC 提供 15 分鐘等級的 Replication SLA。SA 應如何描述？',options:['直接宣稱達標','把 Business RPO 改成 15 分鐘','不能直接宣稱達標，需重新評估資料保護方案','關閉 Versioning'],answer:2,explanation:'Business RPO 是需求，不能由服務規格反向修改。若技術 SLA 無法證明滿足 RPO，就必須重新評估整體寫入、複寫與復原設計。',memory:'Service SLA ≠ Business RPO。'},
-,
     {id:'DB01',category:'Database',difficulty:'基礎',question:'RDS Primary / AZ 故障，但 Read Load 不高，最優先要解的是？',options:['Read Replica','Multi-AZ DB instance deployment','S3 Versioning','NAT Gateway'],answer:1,explanation:'這是 Availability / Failover 問題，傳統 Multi-AZ DB instance 的 Primary + Standby 正是用來降低 DB/AZ 故障造成的中斷。',memory:'機器壞 → Multi-AZ。'},
     {id:'DB02',category:'Database',difficulty:'中等',question:'月底 BI 報表 SELECT 很多，Primary Write 正常但 Read 壓力高，較合適的設計是？',options:['把所有 Write 送 Read Replica','新增 Read Replica 並把適合的 Read 導過去','只做 Multi-AZ Standby','關閉 Automated Backup'],answer:1,explanation:'Read Replica 用來承接 Read-heavy Workload。一般 RDS Read Replica 使用非同步複寫，因此需留意 Replica Lag。',memory:'讀太多 → Read Replica。'},
     {id:'DB03',category:'Database',difficulty:'中等',question:'DBA 誤 DELETE 大量 Production 資料，Multi-AZ Standby 能直接救回刪除前資料嗎？',options:['可以，直接 Failover','不行，錯誤通常也會同步；應使用 Backup / PITR','可以，只要有 Read Replica','只要 ALB Health Check 通過即可'],answer:1,explanation:'Multi-AZ 處理基礎設施故障，不是 Logical Error。錯誤 DELETE 會被資料庫複寫機制帶到另一側；需要 PITR 還原到事故前。',memory:'HA ≠ Backup；資料搞壞 → PITR。'},
