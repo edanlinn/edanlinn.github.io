@@ -16,17 +16,18 @@ function gameDay(s){const g=gameState(s);return g.days[localDay()]||{objective:[
 function gameLevel(xp){return {level:Math.floor(xp/200)+1,progress:xp%200,remaining:200-xp%200};}
 function gameStreak(g){let streak=0,t=new Date();if(!g.days[localDay(t)])t.setDate(t.getDate()-1);for(let i=0;i<3660;i++){const item=g.days[localDay(t)];if(!item||!(item.objective.length+item.short.length))break;streak++;t.setDate(t.getDate()-1);}return streak;}
 function rewardPractice(q,ok,self,wasDue){
- const s=quizState(),g=gameState(s),today=localDay();g.days=g.days||{};g.rewarded=g.rewarded||{};
+ const s=quizState(),g=gameState(s),today=localDay(),oldLevel=gameLevel(g.xp||0).level;g.days=g.days||{};g.rewarded=g.rewarded||{};
  const day=g.days[today]||{objective:[],short:[],review:[]};const list=self?day.short:day.objective;if(!list.includes(q.id))list.push(q.id);if(wasDue&&!day.review.includes(q.id))day.review.push(q.id);
  const key=today+':'+q.id,points=self?(ok?15:5):(ok?20:5),prior=g.rewarded[key]||0,earned=Math.max(0,points-prior);
  g.xp=(g.xp||0)+earned;g.rewarded[key]=Math.max(prior,points);g.days[today]=day;s.game=g;saveQuizState(s);
  const banner=document.querySelector('#game-feedback');if(banner){banner.textContent=earned?'+'+earned+' XP · '+(ok?'完成一次練習':'練習已記錄，明天再挑戰'):'練習已記錄 · 同題同日獎勵已領取';banner.classList.remove('visible');void banner.offsetWidth;banner.classList.add('visible');banner.classList.toggle('success',ok);}
  renderGameDashboard();
+ const newLevel=gameLevel(g.xp||0).level;if(newLevel>oldLevel){if(banner)banner.textContent='升級！LV. '+newLevel+' · '+(newLevel===3?'解鎖聖騎士職業':newLevel===5?'解鎖遊俠職業':'新的冒險里程碑');const hero=document.querySelector('.hero');if(hero){hero.classList.remove('level-up');void hero.offsetWidth;hero.classList.add('level-up');}}
 }
 function scoreChart(scores){
  const width=560,height=155,pad=28,min=50,max=100,x=i=>pad+i*(width-2*pad)/Math.max(1,scores.length-1),y=n=>height-pad-(n-min)/(max-min)*(height-2*pad);
  const points=scores.map((s,i)=>x(i)+','+y(s.score)).join(' '),line=scores.map((s,i)=>(i?'L':'M')+x(i)+' '+y(s.score)).join(' ');
- return '<svg class="score-chart" viewBox="0 0 '+width+' '+height+'" role="img" aria-label="每日訓練分數，50 至 100 分；詳細數值列於下方"><defs><linearGradient id="score-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8de5c0" stop-opacity=".25"/><stop offset="1" stop-color="#8de5c0" stop-opacity="0"/></linearGradient></defs>'+[60,80,100].map(n=>'<path d="M'+pad+' '+y(n)+'H'+(width-pad)+'" stroke="#293940" stroke-dasharray="3 6"/><text x="0" y="'+(y(n)+4)+'" fill="#869999" font-size="10">'+n+'</text>').join('')+'<path d="'+line+'L'+x(scores.length-1)+' '+(height-pad)+'L'+pad+' '+(height-pad)+'Z" fill="url(#score-fill)"/><polyline points="'+points+'" fill="none" stroke="#8de5c0" stroke-width="2.5"/>'+scores.map((s,i)=>'<circle cx="'+x(i)+'" cy="'+y(s.score)+'" r="3.5" fill="#132527" stroke="#8de5c0" stroke-width="2"><title>Day '+s.day+'：'+s.score+' 分</title></circle><text x="'+x(i)+'" y="'+(height-5)+'" text-anchor="middle" fill="#899b9c" font-size="10">'+s.day+'</text>').join('')+'</svg>';
+ return '<svg class="score-chart" viewBox="0 0 '+width+' '+height+'" role="img" aria-label="每日訓練分數，50 至 100 分；詳細數值列於下方"><defs><linearGradient id="score-fill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#73a4d0" stop-opacity=".25"/><stop offset="1" stop-color="#73a4d0" stop-opacity="0"/></linearGradient></defs>'+[60,80,100].map(n=>'<path d="M'+pad+' '+y(n)+'H'+(width-pad)+'" stroke="#d8e5f0" stroke-dasharray="3 6"/><text x="0" y="'+(y(n)+4)+'" fill="#7793aa" font-size="10">'+n+'</text>').join('')+'<path d="'+line+'L'+x(scores.length-1)+' '+(height-pad)+'L'+pad+' '+(height-pad)+'Z" fill="url(#score-fill)"/><polyline points="'+points+'" fill="none" stroke="#73a4d0" stroke-width="2.5"/>'+scores.map((s,i)=>'<circle cx="'+x(i)+'" cy="'+y(s.score)+'" r="3.5" fill="#edf6ff" stroke="#73a4d0" stroke-width="2"><title>Day '+s.day+'：'+s.score+' 分</title></circle><text x="'+x(i)+'" y="'+(height-5)+'" text-anchor="middle" fill="#7896ac" font-size="10">'+s.day+'</text>').join('')+'</svg>';
 }
 function renderGameDashboard(){
  const s=quizState(),g=gameState(s),level=gameLevel(g.xp||0),day=gameDay(s),due=quizBank.filter(q=>dueQuestion(q,s)).length;
@@ -46,6 +47,7 @@ function renderGameDashboard(){
  const allDays=Object.values(g.days),totalPractice=allDays.reduce((n,t)=>n+t.objective.length+t.short.length,0),shortCount=allDays.reduce((n,t)=>n+t.short.length,0);
  const badges=[{title:'啟程',desc:'完成第一題',ok:totalPractice>=1},{title:'架構表達',desc:'完成一題短答自評',ok:shortCount>=1},{title:'持續精進',desc:'連續練習 3 天',ok:gameStreak(g)>=3}];
  const badgeRoot=document.querySelector('#game-badges');if(badgeRoot)badgeRoot.innerHTML=badges.map(b=>'<div class="achievement '+(b.ok?'unlocked':'')+'"><span>'+gameIcon('trophy')+'</span><div><b>'+b.title+'</b><small>'+b.desc+'</small></div><em>'+(b.ok?'已解鎖':'待解鎖')+'</em></div>').join('');
+ if(typeof renderFantasyGame==='function')renderFantasyGame();
  const session=document.querySelector('#game-session');if(session){const n=day.objective.length+day.short.length;session.innerHTML='<div><span class="live-dot"></span>今日訓練 <b>'+n+' 題</b></div><div class="session-steps">'+Array.from({length:5},(_,i)=>'<i class="'+(i<n?'filled':'')+'"></i>').join('')+'</div><span>'+Math.max(0,5-n)+' 題達成今日 5 題目標</span>';}
 }
 function startGamePractice(type='all',mode='all'){
