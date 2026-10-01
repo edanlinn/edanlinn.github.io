@@ -13,6 +13,7 @@ function renderFantasyGame(){
  const roleEl=document.querySelector('#game-character-role');if(roleEl)roleEl.textContent=role.name+' · 職業稱號隨等級成長';
  const next=role.titles.find(t=>t.level>level),sub=document.querySelector('#game-next-title');if(sub)sub.textContent=next?'LV. '+next.level+' 解鎖「'+next.name+'」':'已解鎖本職業全部稱號';
  const collection=document.querySelector('#role-collection');if(collection){collection.innerHTML=fantasyRoles.map(r=>{const unlocked=level>=r.unlock;return '<button class="role-card '+(r.id===role.id?'equipped':'')+'" data-select-role="'+r.id+'" '+(!unlocked?'disabled':'')+'><span class="role-sprite" data-role="'+r.id+'" aria-hidden="true"></span><b>'+r.name+'</b><small>'+r.description+'</small><em>'+(unlocked?(r.id===role.id?'目前職業':'選擇職業'):'LV. '+r.unlock+' 解鎖')+'</em></button>';}).join('');collection.querySelectorAll('[data-select-role]').forEach(b=>b.onclick=()=>{const s=quizState(),g=gameState(s);g.role=b.dataset.selectRole;s.game=g;saveQuizState(s);renderFantasyGame();});}
+ if(typeof renderArena==='function')renderArena();
  const titles=document.querySelector('#title-collection');if(titles)titles.innerHTML=fantasyRoles.flatMap(r=>r.titles.map(t=>'<div class="title-row '+(level>=t.level?'earned':'')+'"><span>'+gameIcon('trophy')+'</span><div><b>'+t.name+'</b><small>'+r.name+' · LV. '+t.level+'</small></div><em>'+(level>=t.level?'已解鎖':'待解鎖')+'</em></div>')).join('');
 }
 const worldNodes=[

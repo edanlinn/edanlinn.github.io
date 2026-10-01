@@ -19,9 +19,11 @@ function rewardPractice(q,ok,self,wasDue){
  const s=quizState(),g=gameState(s),today=localDay(),oldLevel=gameLevel(g.xp||0).level;g.days=g.days||{};g.rewarded=g.rewarded||{};
  const day=g.days[today]||{objective:[],short:[],review:[]};const list=self?day.short:day.objective;if(!list.includes(q.id))list.push(q.id);if(wasDue&&!day.review.includes(q.id))day.review.push(q.id);
  const key=today+':'+q.id,points=self?(ok?15:5):(ok?20:5),prior=g.rewarded[key]||0,earned=Math.max(0,points-prior);
+ const newWeapons=typeof trackCorrectChain==='function'?trackCorrectChain(g,q,ok,self,today):[];
  g.xp=(g.xp||0)+earned;g.rewarded[key]=Math.max(prior,points);g.days[today]=day;s.game=g;saveQuizState(s);
  const banner=document.querySelector('#game-feedback');if(banner){banner.textContent=earned?'+'+earned+' XP · '+(ok?'完成一次練習':'練習已記錄，明天再挑戰'):'練習已記錄 · 同題同日獎勵已領取';banner.classList.remove('visible');void banner.offsetWidth;banner.classList.add('visible');banner.classList.toggle('success',ok);}
  renderGameDashboard();
+ if(newWeapons.length&&banner){const role=availableRole(gameLevel(g.xp||0).level,g.role).id;banner.textContent='武器獲得！'+newWeapons.map(w=>w.names[role]).join('、')+' · '+g.chain+' 連擊';}
  const newLevel=gameLevel(g.xp||0).level;if(newLevel>oldLevel){if(banner)banner.textContent='升級！LV. '+newLevel+' · '+(newLevel===3?'解鎖聖騎士職業':newLevel===5?'解鎖遊俠職業':'新的冒險里程碑');const hero=document.querySelector('.hero');if(hero){hero.classList.remove('level-up');void hero.offsetWidth;hero.classList.add('level-up');}}
 }
 function scoreChart(scores){
