@@ -1,28 +1,40 @@
-# Shared leaderboard setup
+# Server-scored online competition
 
-The weapon system works immediately with the existing local quiz state. Global rankings stay visibly offline until a real shared service is configured. No fake player records are supplied.
+The GitHub Pages frontend includes a separate daily competition. Local practice XP and weapons remain local and are never imported into the online ranking. The competition stays explicitly offline until Supabase is connected.
 
-## Enable the shared service
+## Connect a Supabase project
 
-1. Create or select a Supabase project under the owner's account.
-2. Run `backend/rankings.sql` once in the Supabase SQL Editor. The table uses Row Level Security: anyone can read deliberately published aliases and game scores; an authenticated player can modify or withdraw only their own entry.
-3. Enable anonymous sign-ins in Authentication settings. Anonymous players do not need to provide an email or password. Plan rate limiting / CAPTCHA before opening the service broadly; CAPTCHA would require adding a token widget to the sign-in flow.
-4. Set the project's HTTPS URL and **publishable** key in `ranking-config.js`. This implementation accepts `https://<project-ref>.supabase.co` and `sb_publishable_...`. Do not put a secret key, service-role key, database password, or access token into GitHub or the browser.
-5. Publish the config change, then verify with two independent browsers: opt into publishing two distinct nicknames; reload each list; each should see both scores. Updating or withdrawing player A must not change player B's entry. Verify logged-out and different-user writes are rejected through RLS.
+1. In the project SQL Editor, run `competition.sql`, then `competition-questions.sql`. These files are not automatically installed by GitHub Pages. The former creates private tables and the validated `public.cloud_competition` RPC; the latter seeds the current 54 questions.
+2. Enable anonymous sign-ins in Supabase Auth. Public nicknames and server-scored results are published only after the player opts in. No email/password is required, but an anonymous account cannot recover its identity on another browser.
+3. In `ranking-config.js`, set the project's `https://<ref>.supabase.co` URL and `sb_publishable_...` key. Never publish service-role/secret keys, access tokens, or database passwords. No table grants or exposed-schema settings for `competition_private` are needed: keep it outside the exposed schemas.
+4. Run Supabase security advisors. Inspect the private privileged handler: empty search_path, explicit identity checks for mutations, no direct client table access, restricted EXECUTE grants. The public wrapper uses SECURITY INVOKER.
+5. Verify with two independent browsers: join, answer, reload, compare rankings, and withdraw. Confirm direct table writes and answer-key reads are rejected. Verify reconnect/replay does not add points twice. The local PostgreSQL verification is not a substitute for these production integration checks.
 
-The browser lazily loads Supabase JS 2.57.4 from jsDelivr only when the config is present. Rank order is XP descending, highest correct chain descending, UUID ascending for stable ties. Only the first 50 are shown, so players outside that list receive no guessed rank. Uploads are opt-in and manually initiated through “加入／更新排名”. A browser's anonymous identity does not provide cross-device account recovery. Daily puzzle missions count combo, vocabulary matching and ordering questions. Local XP, weapons and practice history remain local; the shared table is a public score summary.
+## Rules and trust boundary
 
-## Verification limitations
+- Every player receives the same daily question ordering, using the server's Asia/Taipei date.
+- At most 10 attempts per player per day, +20 XP per correct answer; no retry for extra credit.
+- Questions are issued with an owner-bound attempt token and ten-minute expiry. A pending question is resumed rather than replaced. Expired questions count as wrong and reset the chain.
+- Answers and correct/incorrect outcomes are compared by PostgreSQL against a private answer key. The request contains no user ID, XP, or correctness claim.
+- A row lock serializes each player's changes; an attempt is finalized once. Repeated or concurrent submissions cannot award duplicate XP.
+- Joining accepts only nickname and profession. Withdrawing hides a profile, retaining verified score and daily cap so withdrawal cannot reset the competition.
+- Ranking orders verified XP descending, best chain descending, UUID ascending. The service returns the actual player's rank even beyond the displayed top 50. The list refreshes every 30 seconds while the page is visible.
+- `rankings.sql` is a legacy self-reported-score schema and must not be used for this competition. If present, the new setup revokes client mutation grants from its table. The new website never writes or reads that legacy table.
 
-No project URL / publishable key was available during implementation, so live persistence and RLS checks must run after the owner connects a project. Scores are self-reported by the browser. This is a learning/community leaderboard, not a server-verified competitive score system. Real competitive anti-cheat requires server-side question delivery and grading; never treat these client uploads as verified results.
+## Limits
 
-## Weapon rules
+This prevents editing browser storage/JavaScript or submitting arbitrary XP from changing server scores. It does not prevent multiple anonymous accounts, consulting public solutions, automated answering, or account/session theft. The seed source and practice explanations are public. Use privately maintained question banks, a recoverable identity provider, and abuse controls before running high-stakes or prize competitions.
 
-- New objective correct answers add one to the chain; the same question may count only once per local calendar day.
-- Any wrong objective answer resets the chain; retries of a question already counted that day do not add it again.
-- Every current game question is automatically graded. Legacy short-answer self-assessments are kept in historical storage but are no longer offered in the game.
-- Chains survive navigation, refresh and a change of day. Rewards start tracking at this release; prior correct totals are not interpreted as a historical chain.
-- At 3 / 5 / 10 / 20, unlock mist / frost / sky / star weapons permanently in that browser. Players can equip any earned tier. Each tier appears as a staff, sword or bow according to their current profession.
-- Resetting local practice history also resets local equipment; it does not withdraw an already published ranking. Use “退出排名” separately.
+## Reproducible checks
 
-Official references: https://supabase.com/docs/guides/auth/auth-anonymous ; https://supabase.com/docs/guides/database/postgres/row-level-security ; https://supabase.com/docs/guides/getting-started/api-keys
+From the repository root:
+
+```sh
+node --check arena.js
+node --check drag-quiz.js
+node backend/build-question-seed.cjs
+npm install --no-save --package-lock=false @electric-sql/pglite@0.5.8
+node backend/verify-competition.cjs
+```
+
+The verification runs the actual SQL in embedded PostgreSQL with a mocked auth schema. It covers authentication, private table denial, score injection, owner isolation, resume, correct/wrong/expired grading, replay, daily cap, and withdrawal. It does not test live Supabase Auth, PostgREST, or production advisors.

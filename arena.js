@@ -34,57 +34,124 @@ function renderArena(){
  put('arena-equipped',weapon?weapon.names[role]:'尚未裝備 · 3 連擊獲得首件武器');
  const cards=document.querySelector('#weapon-cards');if(cards){cards.innerHTML=weaponTiers.map(w=>{const unlocked=owned.includes(w.id);return '<article class="weapon-card '+(unlocked?'unlocked':'locked')+'" style="--rarity:'+w.color+'"><span class="weapon-rarity">'+w.rarity+'</span>'+weaponArt(role,w)+'<h4>'+w.names[role]+'</h4><p>連續答對 '+w.need+' 題解鎖</p><button data-equip="'+w.id+'" '+(!unlocked?'disabled':'')+'>'+(weapon?.id===w.id?'已裝備':unlocked?'裝備':'尚未解鎖')+'</button></article>';}).join('');cards.querySelectorAll('[data-equip]').forEach(b=>b.onclick=()=>{const s=quizState(),g=gameState(s);if(!(g.weapons||[]).includes(b.dataset.equip))return;g.equippedWeapon=b.dataset.equip;s.game=g;saveQuizState(s);renderArena();});}
 }
-let arenaClient=null,arenaBusy=false;
+let arenaClient=null,arenaBusy=false,competitionAttempt=null,competitionLocked=false;
 function rankingConfigured(){const c=window.CLOUD_RANKING_CONFIG;return Boolean(c&&/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(c.url)&&/^sb_publishable_[A-Za-z0-9_-]+$/.test(c.publishableKey));}
 function rankingMessage(text){const el=document.querySelector('#ranking-status');if(el)el.textContent=text;}
 async function rankingClient(){
- if(!rankingConfigured())throw Error('尚未連接排行榜資料庫');
+ if(!rankingConfigured())throw Error('排行榜服務尚未連接');
  if(!arenaClient){const {createClient}=await import('https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4/+esm');const c=window.CLOUD_RANKING_CONFIG;arenaClient=createClient(c.url,c.publishableKey);}
  return arenaClient;
 }
-function renderRankingRows(rows,myId){
- const body=document.querySelector('#ranking-rows');body.innerHTML=rows.map((r,i)=>{const role=fantasyRoles.find(x=>x.id===r.role)||fantasyRoles[0];return '<tr class="'+(r.id===myId?'ranking-me':'')+'"><td><span class="rank-place rank-'+(i+1)+'">'+(i+1)+'</span></td><td><b>'+escapeQuiz(r.nickname)+'</b>'+(r.id===myId?'<small>你</small>':'')+'</td><td>'+role.name+'</td><td>'+Number(r.xp).toLocaleString()+'</td><td>'+Number(r.best_chain)+' 連擊</td></tr>';}).join('');
+async function competitionCall(action,payload={}){
+ const client=await rankingClient();const {data,error}=await client.rpc('cloud_competition',{action,payload});
+ if(error)throw error;return data;
+}
+function renderRankingRows(rows,myId,myRank){
+ document.querySelector('#ranking-rows').innerHTML=rows.map(r=>{const role=fantasyRoles.find(x=>x.id===r.role)||fantasyRoles[0];return '<tr class="'+(r.id===myId?'ranking-me':'')+'"><td><span class="rank-place">'+Number(r.rank)+'</span></td><td><b>'+escapeQuiz(r.nickname)+'</b>'+(r.id===myId?'<small>你</small>':'')+'</td><td>'+escapeQuiz(role.name)+'</td><td>'+Number(r.xp).toLocaleString()+'</td><td>'+Number(r.best_chain)+' 連擊</td></tr>';}).join('');
  document.querySelector('#ranking-empty').hidden=rows.length>0;document.querySelector('#ranking-table').hidden=!rows.length;
- document.querySelector('#ranking-mine').textContent=myId?(rows.some(r=>r.id===myId)?'你的排名：第 '+(rows.findIndex(r=>r.id===myId)+1)+' 名':'本裝置未上榜，或排名在前 50 名以外'):'輸入暱稱，選擇加入排名後顯示你的名次';
+ document.querySelector('#ranking-mine').textContent=myRank?'你的線上排名：第 '+Number(myRank)+' 名':'加入競賽後顯示你的線上名次';
 }
 async function refreshRanking(){
- if(arenaBusy)return;arenaBusy=true;rankingMessage('正在讀取線上排名…');
- try{const client=await rankingClient();const {data,error}=await client.from('cloud_rankings').select('id,nickname,xp,best_chain,role').order('xp',{ascending:false}).order('best_chain',{ascending:false}).order('id',{ascending:true}).limit(50);if(error)throw error;const session=await client.auth.getSession();if(session.error)throw session.error;renderRankingRows(data||[],session.data.session?.user.id);rankingMessage('已更新 · '+new Date().toLocaleTimeString('zh-TW')+' · 前 50 名');}
- catch(e){rankingMessage('排名暫時無法讀取，請稍後重試。');}
+ if(arenaBusy||!rankingConfigured())return;arenaBusy=true;
+ try{const data=await competitionCall('leaderboard');const client=await rankingClient(),session=await client.auth.getSession();renderRankingRows(data.rows||[],session.data.session?.user.id,data.myRank);rankingMessage('線上榜單已更新 · '+new Date().toLocaleTimeString('zh-TW'));}
+ catch{rankingMessage('線上競賽服務尚未就緒或連線失敗；本機練習可正常使用。');}
  finally{arenaBusy=false;}
-}
-async function publishRanking(){
- const nick=document.querySelector('#ranking-nickname').value.trim();if([...nick].length<2||[...nick].length>20){rankingMessage('請輸入 2～20 字的公開暱稱。');return;}
- if(!document.querySelector('#ranking-consent').checked){rankingMessage('勾選同意公開暱稱與成績後，才能加入排名。');return;}
- if(arenaBusy)return;let published=false;arenaBusy=true;document.querySelector('#ranking-join').disabled=true;rankingMessage('正在同步成績…');
- try{const client=await rankingClient();let {data,error}=await client.auth.getSession();if(error)throw error;let user=data.session?.user;if(!user){const login=await client.auth.signInAnonymously();if(login.error)throw login.error;user=login.data.user;}if(!user)throw Error('No user');
- const s=quizState(),g=gameState(s),role=availableRole(gameLevel(g.xp||0).level,g.role).id;
- const result=await client.from('cloud_rankings').upsert({id:user.id,nickname:nick,xp:Math.min(100000000,Math.max(0,Math.floor(g.xp||0))),best_chain:Math.min(1000000,Math.max(0,Math.floor(g.bestChain||0))),role});if(result.error)throw result.error;
- published=true;localStorage.setItem('edan-ranking-profile-v1',JSON.stringify({nickname:nick,joined:true}));document.querySelector('#ranking-withdraw').hidden=false;rankingMessage('已加入排名。練習後可按「加入／更新排名」同步最新成績。');
- }catch(e){rankingMessage('同步失敗。請確認網路與排行榜服務設定，再重試。');}
- finally{arenaBusy=false;document.querySelector('#ranking-join').disabled=!rankingConfigured();}
- if(published)await refreshRanking();
 }
 function localRankingProfile(){try{return JSON.parse(localStorage.getItem('edan-ranking-profile-v1')||'{}')||{};}catch{return {};}}
+function competitionMessage(text){document.querySelector('#competition-status').textContent=text;}
+function renderCompetitionProfile(p){
+ document.querySelector('#competition-score').textContent=p.xp+' 競賽 XP · 目前 '+p.chain+' 連擊 · 最高 '+p.bestChain+' 連擊';
+ document.querySelector('#competition-next').disabled=!p.joined;
+ document.querySelector('#ranking-withdraw').hidden=!p.joined;
+}
+async function publishRanking(){
+ const nickname=document.querySelector('#ranking-nickname').value.trim();
+ if([...nickname].length<2||[...nickname].length>20){rankingMessage('請輸入 2～20 字的公開暱稱。');return;}
+ if(!document.querySelector('#ranking-consent').checked){rankingMessage('勾選同意公開暱稱與競賽成績後，才能加入。');return;}
+ if(arenaBusy)return;arenaBusy=true;document.querySelector('#ranking-join').disabled=true;
+ try{
+  const client=await rankingClient();let session=await client.auth.getSession();if(session.error)throw session.error;
+  if(!session.data.session){const login=await client.auth.signInAnonymously();if(login.error)throw login.error;}
+  const role=availableRole(gameLevel(gameState(quizState()).xp||0).level,gameState(quizState()).role).id;
+  const profile=await competitionCall('join',{nickname,role});renderCompetitionProfile(profile);
+  localStorage.setItem('edan-ranking-profile-v1',JSON.stringify({nickname,joined:true}));
+  competitionMessage('已加入。每天最多 10 題，每題答對 +20 競賽 XP；採台灣時間換日。');
+ }catch{rankingMessage('加入失敗：請確認共用服務與匿名登入設定。');}
+ finally{arenaBusy=false;document.querySelector('#ranking-join').disabled=!rankingConfigured();}
+ await refreshRanking();
+}
 async function withdrawRanking(){
- if(arenaBusy)return;arenaBusy=true;rankingMessage('正在退出排名…');
- try{const client=await rankingClient(),session=await client.auth.getSession();if(session.error)throw session.error;const user=session.data.session?.user;if(user){const result=await client.from('cloud_rankings').delete().eq('id',user.id);if(result.error)throw result.error;}
- localStorage.removeItem('edan-ranking-profile-v1');document.querySelector('#ranking-consent').checked=false;document.querySelector('#ranking-withdraw').hidden=true;rankingMessage('已退出排名，本機練習與武器仍保留。');
- }catch{rankingMessage('退出失敗，請稍後重試。');}
- finally{arenaBusy=false;}
- if(!localRankingProfile().joined)await refreshRanking();
+ if(arenaBusy)return;arenaBusy=true;
+ try{const p=await competitionCall('withdraw');renderCompetitionProfile(p);localStorage.removeItem('edan-ranking-profile-v1');document.querySelector('#ranking-consent').checked=false;competitionAttempt=null;document.querySelector('#competition-question').hidden=true;competitionMessage('已退出公開排名；後端成績保留，重新加入不會重置每日題數。');}
+ catch{rankingMessage('退出失敗，請稍後重試。');}
+ finally{arenaBusy=false;}await refreshRanking();
+}
+async function nextCompetition(){
+ const button=document.querySelector('#competition-next');if(!document.querySelector('#competition-submit').hidden&&competitionAttempt)return;button.disabled=true;
+ try{
+  const data=await competitionCall('next');
+  if(data.done){competitionMessage(data.message+'，明天再來挑戰！');document.querySelector('#competition-question').hidden=true;return;}
+  competitionAttempt=data;competitionLocked=false;renderCompetitionQuestion(data.question);
+  competitionMessage('本題限時 10 分鐘；逾時視為答錯。重新整理後可接續尚未完成的題目。');
+ }catch{competitionMessage('無法取得競賽題目。請先加入並確認網路，再重試。');}
+ finally{button.disabled=false;}
+}
+function renderCompetitionQuestion(q){
+ const panel=document.querySelector('#competition-question'),options=document.querySelector('#competition-options');panel.hidden=false;
+ document.querySelector('#competition-title').textContent=q.question;
+ document.querySelector('#competition-result').textContent='';
+ const type=q.type||'single';
+ if(type==='single'||type==='multi')options.innerHTML=q.options.map((o,i)=>'<label class="quiz-check"><input type="'+(type==='single'?'radio':'checkbox')+'" name="competition-answer" value="'+i+'"><span>'+String.fromCharCode(65+i)+'. '+escapeQuiz(o)+'</span></label>').join('');
+ else if(type==='combo')options.innerHTML=q.fields.map((f,i)=>'<label class="quiz-field">'+escapeQuiz(f.label)+'<select data-field="'+i+'"><option value="">請選擇</option>'+f.options.map((o,j)=>'<option value="'+j+'">'+escapeQuiz(o)+'</option>').join('')+'</select></label>').join('');
+ else if(type==='match'||type==='order')renderDragQuestion(q,options,()=>competitionLocked);
+ document.querySelector('#competition-submit').hidden=false;document.querySelector('#competition-submit').disabled=false;
+ document.querySelector('#competition-next').hidden=true;
+}
+function competitionAnswer(q){
+ const root=document.querySelector('#competition-options'),type=q.type||'single';
+ if(type==='single'||type==='multi'){const values=[...root.querySelectorAll('input:checked')].map(x=>Number(x.value));return values.length?(type==='single'?values[0]:values):undefined;}
+ const fields=[...root.querySelectorAll(type==='combo'?'select':'[data-drop-slot]')];
+ const values=fields.map(x=>type==='combo'?x.value:x.dataset.answer);
+ return values.some(v=>v==='')?undefined:values.map(Number);
+}
+function competitionCorrectText(q,answer){
+ const type=q.type||'single';if(type==='single')return q.options[answer];
+ if(type==='multi')return answer.map(i=>q.options[i]).join('；');
+ if(type==='combo')return q.fields.map((f,i)=>f.label+' → '+f.options[answer[i]]).join('\n');
+ if(type==='match')return q.labels.map((label,i)=>label+' → '+q.items[answer[i]]).join('\n');
+ return answer.map((v,i)=>(i+1)+'. '+q.items[v]).join('\n');
+}
+async function submitCompetition(){
+ if(!competitionAttempt||competitionLocked)return;
+ const q=competitionAttempt.question,answer=competitionAnswer(q);
+ if(answer===undefined){competitionMessage('請先完成所有選擇或配對。');return;}
+ competitionLocked=true;const submit=document.querySelector('#competition-submit');submit.disabled=true;
+ try{
+  const data=await competitionCall('submit',{token:competitionAttempt.token,answer});
+  document.querySelector('#competition-result').textContent=(data.correct?'答對 +20 競賽 XP':'答錯或逾時 · +0 競賽 XP')+'\n正確答案：'+competitionCorrectText(q,data.answer)+'\n'+data.explanation;
+  document.querySelectorAll('#competition-options input,#competition-options select,#competition-options button').forEach(x=>x.disabled=true);
+  submit.hidden=true;document.querySelector('#competition-next').hidden=false;
+  renderCompetitionProfile({joined:true,...data});competitionMessage('後端已確認成績，重送同一答案不會重複加分。');
+  await refreshRanking();
+ }catch{competitionLocked=false;submit.disabled=false;competitionMessage('提交未確認。請重試，重送不會重複加分。');}
+}
+async function resumeCompetitionProfile(){
+ try{const p=await competitionCall('profile');renderCompetitionProfile(p);document.querySelector('#ranking-nickname').value=p.nickname;document.querySelector('#ranking-consent').checked=p.joined;}
+ catch{/* No registered profile yet; joining is explicit. */}
 }
 function initArena(){
  const hero=document.querySelector('.character-emblem');hero.insertAdjacentHTML('beforeend','<span id="hero-weapon" class="hero-weapon"></span>');
  document.querySelector('#open-role-collection').insertAdjacentHTML('afterend','<small id="arena-equipped" class="arena-equipped"></small>');
  const root=document.createElement('section');root.id='arena';root.className='arena-grid';root.innerHTML=`
  <article class="dash-panel armory-panel"><div class="panel-head"><h3>連擊武器庫</h3><small id="arena-owned">0 / 4</small></div><p class="panel-sub">讓每一次正確判斷，鍛造成你的冒險裝備。</p><div class="chain-summary"><strong id="arena-chain">0 連擊</strong><span id="arena-best">最高 0 連擊</span></div><div class="chain-meter"><i id="arena-chain-meter"></i></div><p id="arena-next" class="arena-next"></p><div id="weapon-cards" class="weapon-cards"></div><p class="arena-rule">客觀題答錯重置連擊；所有遊戲題型自動判分。同題同日只累加一次，連擊可跨日延續。已獲得的武器永久保留在此瀏覽器，換職業會改變武器外觀。</p></article>
- <article class="dash-panel ranking-panel"><div class="panel-head"><h3>雲端冒險者排名</h3><span class="ranking-badge" id="ranking-badge">尚未連線</span></div><p class="panel-sub">以累積 XP 排序，同分比較最高連擊。顯示前 50 名。</p><div class="ranking-local"><span>你的冒險成績</span><b id="ranking-local-score"></b></div><p id="ranking-status" role="status">共用排行榜資料庫尚未設定，目前不會上傳成績。</p><div class="ranking-form"><label>公開暱稱<input id="ranking-nickname" minlength="2" maxlength="20" placeholder="例如：蒼穹法師" autocomplete="nickname"></label><label class="ranking-consent"><input type="checkbox" id="ranking-consent"><span>同意公開暱稱、職業、XP 與最高連擊</span></label><div class="ranking-buttons"><button class="primary-action" id="ranking-join">加入／更新排名</button><button class="quiet-action" id="ranking-refresh">更新榜單</button><button class="quiet-action" id="ranking-withdraw" hidden>退出排名</button></div></div><div class="ranking-scroll"><table id="ranking-table" hidden><thead><tr><th>名次</th><th>冒險者</th><th>職業</th><th>XP</th><th>最高連擊</th></tr></thead><tbody id="ranking-rows"></tbody></table></div><p id="ranking-empty" class="ranking-empty">尚無可顯示的線上排名</p><p id="ranking-mine" class="arena-rule"></p><p class="arena-rule">成績由本機上傳，屬於學習交流排名，尚無伺服器防作弊驗證。匿名身分保存在此瀏覽器，換裝置或清除資料會視為新玩家。</p></article>`;
+ <article class="dash-panel ranking-panel"><div class="panel-head"><h3>雲端冒險者排名</h3><span class="ranking-badge" id="ranking-badge">尚未連線</span></div><p class="panel-sub">以後端認定的競賽 XP 排序，同分比較最高連擊。顯示前 50 名。</p><div class="ranking-local"><span>本機練習成績（不計入排名）</span><b id="ranking-local-score"></b></div><p id="ranking-status" role="status">競賽後端尚未連接，目前只提供本機練習。</p><div class="ranking-form"><label>公開暱稱<input id="ranking-nickname" minlength="2" maxlength="20" placeholder="例如：蒼穹法師" autocomplete="nickname"></label><label class="ranking-consent"><input type="checkbox" id="ranking-consent"><span>同意公開暱稱、職業、競賽 XP 與最高連擊</span></label><div class="ranking-buttons"><button class="primary-action" id="ranking-join">加入／更新暱稱</button><button class="quiet-action" id="ranking-refresh">更新榜單</button><button class="quiet-action" id="ranking-withdraw" hidden>退出排名</button></div></div><div class="competition-play"><h4>每日公平挑戰</h4><p id="competition-score">尚未加入線上競賽</p><p id="competition-status" role="status" aria-live="polite">每人每天最多 10 題，答案由後端判分。</p><button id="competition-next" class="primary-action" disabled>開始／接續競賽</button><div id="competition-question" hidden><h4 id="competition-title"></h4><div id="competition-options"></div><button id="competition-submit" class="primary-action">提交競賽答案</button><p id="competition-result" style="white-space:pre-wrap" role="status"></p></div></div><div class="ranking-scroll"><table id="ranking-table" hidden><thead><tr><th>名次</th><th>冒險者</th><th>職業</th><th>XP</th><th>最高連擊</th></tr></thead><tbody id="ranking-rows"></tbody></table></div><p id="ranking-empty" class="ranking-empty">尚無可顯示的線上排名</p><p id="ranking-mine" class="arena-rule"></p><p class="arena-rule">競賽成績由後端判分與累加，本機 XP 不會上傳。匿名身分保存在此瀏覽器，換裝置或清除資料會視為新玩家；此機制防止直接改分與重送刷分，尚不防止多帳號、查答案或自動答題。</p></article>`;
  document.querySelector('.path-panel').insertAdjacentElement('beforebegin',root);
  const ready=rankingConfigured(),profile=localRankingProfile();document.querySelector('#ranking-nickname').value=profile.nickname||'';document.querySelector('#ranking-consent').checked=Boolean(profile.joined);document.querySelector('#ranking-withdraw').hidden=!profile.joined||!ready;
  ['ranking-nickname','ranking-consent','ranking-join','ranking-refresh'].forEach(id=>document.querySelector('#'+id).disabled=!ready);
  document.querySelector('#ranking-join').onclick=publishRanking;document.querySelector('#ranking-refresh').onclick=refreshRanking;document.querySelector('#ranking-withdraw').onclick=withdrawRanking;
- if(ready){document.querySelector('#ranking-badge').textContent='線上榜單';refreshRanking();}
+ document.querySelector('#competition-next').onclick=nextCompetition;document.querySelector('#competition-submit').onclick=submitCompetition;
+ if(ready){document.querySelector('#ranking-badge').textContent='後端競賽';refreshRanking();resumeCompetitionProfile();setInterval(()=>{if(!document.hidden)refreshRanking();},30000);}
  renderArena();
 }
 initArena();
+
