@@ -226,10 +226,10 @@ const extendedQuizBank = [
   {id:'MIX-C04',type:'combo',category:'Database',difficulty:'進階',question:'區分兩種 RDS Multi-AZ 部署。',fields:[{label:'1 Primary + 1 不可讀 Standby，2 AZ',options:['Multi-AZ DB instance','Multi-AZ DB cluster'],answer:0},{label:'1 Writer + 2 可讀 Readers，3 AZ',options:['Multi-AZ DB instance','Multi-AZ DB cluster'],answer:1},{label:'同時提供 HA 與額外讀取容量',options:['Multi-AZ DB instance','Multi-AZ DB cluster'],answer:1}],explanation:'傳統 DB instance 使用同步複寫且備援不可讀；DB cluster 使用半同步複寫且兩個 Readers 可承接讀取。不要將兩者混寫。'},
   {id:'MIX-O01',type:'order',category:'Database',difficulty:'中階',question:'按照需求到驗證的順序，排列 RPO 設計流程。',items:['設定告警與處理流程','用 DR 演練核對復原資料','定義 Business RPO ≤ 5 min','確認跨 Region 非同步的損失風險','選定並監控接手區域的 RPO Lag'],answer:[2,3,4,0,1],explanation:'先有業務需求，再分析架構風險，建立監控與處理機制，最後以演練驗證。'},
   {id:'MIX-O02',type:'order',category:'Database',difficulty:'中階',question:'DBA 誤刪資料後，依復原作業的先後排列（事故時間及還原點已知）。',items:['驗證復原資料與 Application 功能','依切換計畫將流量導向復原 DB','暫停受影響的寫入並保存事故證據','用 PITR 建立事故前時間點的新 DB'],answer:[2,3,0,1],explanation:'先控制影響，再建立復原 DB，驗證後才切換。PITR 建立新 DB，並非直接倒轉原 DB。'},
-  {id:'MIX-S01',type:'short',category:'Database',difficulty:'進階',question:'放款系統要求 RPO ≤ 5 min、RTO ≤ 30 min，並須應付整個 Region 故障。請用「方案、原因、驗證、限制」四段回答。',rubric:['方案：Aurora Global Database 與另一 Region 的接手環境','原因：跨 Region 非同步複寫，處理 Region-level DR','驗證：RPO Lag、提早告警、以交易核對和 DR 演練驗證 RPO / RTO','限制：非同步仍可能掉資料；Application、DNS、網路、權限和設定也必須能在 30 分鐘內恢復'],explanation:'參考答案：選用 Aurora Global Database 並準備 Secondary Region 的應用環境。監控 RPO Lag、建立低於 5 分鐘的預警門檻和處理流程，再以故障演練核對已提交交易及恢復時間。代價是跨 Region 成本、運維複雜度和非同步資料損失風險。'},
-  {id:'MIX-S02',type:'short',category:'Database',difficulty:'中階',question:'Aurora Writer 故障後，你會手動把程式改成新 DB instance hostname 嗎？請解釋 Endpoint、接手和應用重連的關係。',rubric:['一般不手動綁定新的 instance hostname','Application 使用 Writer / Cluster Endpoint','Replica 接手 Writer 後 Endpoint 指向新 Writer','Application 仍需處理斷線、重新連線、DNS / connection pool 和安全重試'],explanation:'角色入口保持穩定，背後的 Writer 可以換人；既有連線不會因此永遠不中斷。重試交易也需考慮冪等性，避免重複放款。'},
-  {id:'MIX-S03',type:'short',category:'Database',difficulty:'進階',question:'同事說：「CloudWatch 一直顯示 Lag 很低，所以 RPO 一定符合；只要 Switchover 不掉資料，就不用測 Failover。」你如何回應？',rubric:['監控是當前風險訊號，不是所有故障情境的保證','需考慮尖峰、複寫異常、指標缺失與告警延遲','Switchover 健康時先同步；非預期 Failover 可能損失未複寫交易','用獨立成功交易紀錄核對災難演練結果'],explanation:'監控、告警和演練互補。計畫切換的零資料損失結果，不能代替非預期災難下的驗證。'},
-  {id:'MIX-S04',type:'short',category:'Security / IAM',difficulty:'中階',question:'EC2 的 IAM Role 已允許讀取 S3，但仍連不上。請說明你會檢查的兩個不同面向，及為何 IAM Allow 不保證可連線。',rubric:['授權：Role、bucket policy、明確 Deny，以及必要時的 KMS 權限','網路：DNS、路由、Endpoint 或 NAT、SG / NACL 等可達性','區分 AccessDenied 與 DNS / timeout 類型的錯誤','IAM 授權與網路可達性是不同條件'],explanation:'先用錯誤型態判斷方向，再分別核對權限和網路。IAM Allow 不會替 Private Subnet 建立 S3 路由。'}
+  {"id":"MIX-S01","type":"multi","category":"Database","difficulty":"進階","question":"放款系統要求 RPO ≤ 5 min、RTO ≤ 30 min，並須應付整個 Region 故障。哪些設計與驗證工作正確？選出所有正確答案。","options":["Aurora Global Database 搭配 Secondary Region 的應用接手環境","只部署同 Region Multi-AZ 就能處理整個 Region 故障","監控接手區域的 RPO Lag，設定早於 5 分鐘的預警門檻","用成功交易紀錄與 DR 演練驗證 RPO／RTO","只要 DB 恢復即可，不必準備 Application、DNS、網路與 IAM"],"answer":[0,2,3],"explanation":"跨 Region DR 不只恢復資料庫。Global Database 為非同步複寫，仍可能損失未複寫資料；應用、DNS、網路與權限也要在 RTO 內恢復。監控與演練都需要。"},
+  {"id":"MIX-S02","type":"match","category":"Database","difficulty":"中階","question":"Aurora Writer 故障後，將詞彙配到對應的處理責任。每個詞彙使用一次。","items":["Writer / Cluster Endpoint","Aurora Replica","重新連線與 DNS / Connection Pool 處理","冪等性與安全重試"],"labels":["Application 的穩定寫入入口","Writer 故障時可升任 Writer 的角色","故障切換後既有連線中斷的處理","避免重試交易造成重複放款"],"answer":[0,1,2,3],"explanation":"Application 通常使用 Writer / Cluster Endpoint，不手動綁定新的 DB instance hostname。Replica 可接手 Writer；應用仍要處理斷線與重試，並避免重複執行交易。"},
+  {"id":"MIX-S03","type":"multi","category":"Database","difficulty":"進階","question":"CloudWatch 顯示 Lag 很低，且 Switchover 測試沒有掉資料。下列判斷哪些正確？選出所有正確答案。","options":["當前低 Lag 不能保證所有災難情境都符合 RPO","必須考慮尖峰、複寫異常、指標缺失與告警延遲","Switchover 成功就代表不必測非預期 Failover","非預期 Failover 可能損失尚未複寫的交易","DR 演練應以獨立的成功交易紀錄核對復原資料"],"answer":[0,1,3,4],"explanation":"監控是當前風險訊號。計畫 Switchover 與非預期 Failover 的條件不同；前者的零資料損失結果不能取代後者的災難驗證。"},
+  {"id":"MIX-S04","type":"match","category":"Security / IAM","difficulty":"中階","question":"Private EC2 讀取 S3 失敗。將錯誤情境配到優先檢查的項目，每個詞彙使用一次。","items":["IAM / Bucket Policy 與 Explicit Deny","DNS 解析","路由、S3 Endpoint / NAT 與 SG / NACL","KMS 解密權限"],"labels":["S3 回應 AccessDenied（一般授權問題）","S3 hostname 無法解析","hostname 能解析，但連線 timeout","物件使用 SSE-KMS，錯誤指出 kms:Decrypt 被拒絕"],"answer":[0,1,2,3],"explanation":"依錯誤型態判斷檢查方向。IAM Allow 不會建立網路路徑，也不會自動取得 KMS 解密權限；仍需檢查實際路由、解析、Policy 與明確 Deny。"}
 ];
 const quizBank = [...d.quizBank, ...extendedQuizBank];
 const quizStateKey='edan-cloud-sa-quiz-progress-v1';
@@ -242,7 +242,7 @@ function loadQuizState(){
   try{const s=JSON.parse(localStorage.getItem(quizStateKey));if(s&&typeof s==='object'&&!Array.isArray(s))return {...s,attempts:Number(s.attempts)||0,correct:Number(s.correct)||0,missed:s.missed||{},reviews:s.reviews||{},drafts:s.drafts||{}};}catch(e){}
   return {attempts:0,correct:0,missed:{},reviews:{},drafts:{},selfAttempts:0};
 }
-function saveQuizState(s){try{localStorage.setItem(quizStateKey,JSON.stringify(s));}catch(e){document.querySelector('.quiz-device-note').textContent='目前瀏覽器無法儲存紀錄；請先複製短答，避免關閉頁面後遺失。';}}
+function saveQuizState(s){try{localStorage.setItem(quizStateKey,JSON.stringify(s));}catch(e){document.querySelector('.quiz-device-note').textContent='目前瀏覽器無法儲存紀錄；本次練習在關閉頁面後可能遺失。';}}
 const quizState=loadQuizState;
 function dueQuestion(q,s){return s.reviews[q.id]?s.reviews[q.id].due<=localDay():Boolean(s.missed[q.id]);}
 function renderQuizStats(){
@@ -254,14 +254,14 @@ function renderQuizStats(){
   document.querySelector('#quiz-missed').textContent=Object.keys(s.missed).length;
   document.querySelector('#quiz-difficulty').textContent=currentQuestion?currentQuestion.difficulty:'-';
   document.querySelector('#quiz-due').textContent='今日複習（'+quizBank.filter(q=>dueQuestion(q,s)).length+'）';
-  document.querySelector('#quiz-review-note').textContent='客觀題累計 '+s.attempts+' 次；短答自評 '+(s.selfAttempts||0)+' 次（不計入正確率）。答錯隔天重練；按 1、3、7、14 天安排複習，重複刷同一天不推進間隔。';
+  document.querySelector('#quiz-review-note').textContent='客觀題累計 '+s.attempts+' 次。答錯隔天重練；按 1、3、7、14 天安排複習，重複刷同一天不推進間隔。';
 }
 function setupQuizCategories(){
   const controls=document.querySelector('.quiz-controls');
-  controls.insertAdjacentHTML('beforeend','<select id="quiz-type" aria-label="題型"><option value="all">全部題型</option><option value="multi">多選題</option><option value="combo">配對組合題</option><option value="order">流程排序題</option><option value="short">短答自評題</option><option value="single">原有單選題</option></select><button id="quiz-due" class="quiz-action">今日複習</button>');
+  controls.insertAdjacentHTML('beforeend','<select id="quiz-type" aria-label="題型"><option value="all">全部題型</option><option value="multi">多選題</option><option value="combo">選擇配對題</option><option value="order">拖曳排序題</option><option value="match">拖曳詞彙題</option><option value="single">單選題</option></select><button id="quiz-due" class="quiz-action">今日複習</button>');
   document.querySelector('#quiz-card').insertAdjacentHTML('beforebegin','<p id="quiz-review-note" class="quiz-device-note"></p>');
   document.querySelector('#quiz-options').insertAdjacentHTML('afterend','<button id="quiz-submit" class="quiz-next" type="button" hidden>提交答案</button>');
-  document.querySelector('#daily .daily-title').insertAdjacentHTML('afterend','<p class="quiz-device-note">建議每天 15 分鐘：3 分鐘到期複習 → 7 分鐘混合情境題 → 5 分鐘短答，說明方案、原因、限制和驗證。</p><button id="daily-practice" class="quiz-action" type="button">開始今日複習與混合訓練</button>');
+  document.querySelector('#daily .daily-title').insertAdjacentHTML('afterend','<p class="quiz-device-note">建議每天 15 分鐘：3 分鐘到期複習 → 7 分鐘混合情境題 → 5 分鐘詞彙配對與流程排序。</p><button id="daily-practice" class="quiz-action" type="button">開始今日複習與混合訓練</button>');
   document.querySelector('#daily-practice').onclick=()=>{openOnlyModule('quiz',true);document.querySelector('#quiz-category').value='all';document.querySelector('#quiz-type').value='all';setQuizMode(quizBank.some(q=>dueQuestion(q,quizState()))?'due':'all');};
   document.querySelector('#quiz-category').innerHTML='<option value="all">全部主題</option>';
   [...new Set(quizBank.map(q=>q.category))].forEach(c=>{const op=document.createElement('option');op.value=c;op.textContent=c;document.querySelector('#quiz-category').appendChild(op);});
@@ -277,13 +277,13 @@ function nextQuizQuestion(){
   if(!items.length){currentQuestion=null;document.querySelector('#quiz-category-label').textContent='';document.querySelector('#quiz-number').textContent='';document.querySelector('#quiz-question').textContent=quizMode==='due'?'目前篩選條件沒有到期複習。可改成「隨機出題」練新題。':quizMode==='missed'?'目前篩選條件沒有錯題。':'這個分類 / 題型目前沒有題目。';options.innerHTML='';renderQuizStats();return;}
   let pool=items.filter(q=>!currentQuestion||q.id!==currentQuestion.id);if(!pool.length)pool=items;
   currentQuestion=pool[Math.floor(Math.random()*pool.length)];const q=currentQuestion,type=q.type||'single';
-  document.querySelector('#quiz-category-label').textContent=q.category+' · '+({single:'單選',multi:'多選',combo:'配對組合',order:'流程排序',short:'短答自評'}[type]);
+  document.querySelector('#quiz-category-label').textContent=q.category+' · '+({single:'單選',multi:'多選',combo:'配對組合',order:'拖曳排序',match:'拖曳詞彙'}[type]);
   document.querySelector('#quiz-number').textContent='題號 '+q.id;document.querySelector('#quiz-question').textContent=q.question;
-  submit.textContent=type==='short'?'查看檢核點與參考答案':'提交答案';submit.hidden=type==='single';
+  submit.textContent='提交答案';submit.hidden=type==='single';
   if(type==='single'){options.innerHTML=q.options.map((o,i)=>'<button class="quiz-option" data-index="'+i+'"><span class="letter">'+String.fromCharCode(65+i)+'.</span> '+escapeQuiz(o)+'</button>').join('');options.querySelectorAll('button').forEach(b=>b.onclick=()=>answerQuiz(Number(b.dataset.index)));}
   if(type==='multi')options.innerHTML=q.options.map((o,i)=>'<label class="quiz-check"><input type="checkbox" value="'+i+'"><span>'+String.fromCharCode(65+i)+'. '+escapeQuiz(o)+'</span></label>').join('');
-  if(type==='combo'||type==='order'){const fields=type==='combo'?q.fields:q.answer.map((_,i)=>({label:'第 '+(i+1)+' 步',options:q.items}));options.innerHTML=fields.map((f,i)=>'<label class="quiz-field">'+escapeQuiz(f.label)+'<select data-field="'+i+'"><option value="">請選擇</option>'+f.options.map((o,j)=>'<option value="'+j+'">'+escapeQuiz(o)+'</option>').join('')+'</select></label>').join('');}
-  if(type==='short'){options.innerHTML='<label class="quiz-field">先用自己的話回答，再看解析。<textarea id="quiz-short" class="quiz-short" placeholder="方案：\n原因：\n限制：\n驗證："></textarea></label><p class="quiz-device-note">短答採檢核點自評，不是 AI 自動評分；草稿保存在本機，可複製貼到對話請我逐項批改。</p>';const area=document.querySelector('#quiz-short');area.value=quizState().drafts[q.id]||'';area.oninput=()=>{const s=quizState();s.drafts[q.id]=area.value;saveQuizState(s);};}
+  if(type==='combo'){const fields=q.fields;options.innerHTML=fields.map((f,i)=>'<label class="quiz-field">'+escapeQuiz(f.label)+'<select data-field="'+i+'"><option value="">請選擇</option>'+f.options.map((o,j)=>'<option value="'+j+'">'+escapeQuiz(o)+'</option>').join('')+'</select></label>').join('');}
+  if(type==='match'||type==='order')renderDragQuestion(q,options);
   renderQuizStats();
 }
 function gradeObjective(q,value){if(!q.type)return value===q.answer;const expected=q.type==='combo'?q.fields.map(f=>f.answer):q.answer;const actual=q.type==='multi'?[...value].sort((a,b)=>a-b):value;return actual.length===expected.length&&actual.every((x,i)=>x===expected[i]);}
@@ -296,18 +296,20 @@ function recordQuizResult(q,ok,self=false){
 }
 function submitQuiz(){
   if(answered||!currentQuestion)return;const q=currentQuestion,type=q.type;
-  if(type==='short'){const text=document.querySelector('#quiz-short').value.trim();if(!text){document.querySelector('#quiz-short').focus();return;}answered=true;document.querySelector('#quiz-short').readOnly=true;document.querySelector('#quiz-submit').hidden=true;const result=document.querySelector('#quiz-result');result.className='quiz-result show';result.innerHTML='<div class="quiz-result-title">短答檢核（自評）</div><p class="quiz-answer-text"><b>你的回答：</b><br>'+escapeQuiz(text)+'</p><div class="quiz-rubric">'+q.rubric.map((x,i)=>'<label class="quiz-check"><input type="checkbox" data-rubric="'+i+'"><span>我的回答已涵蓋：'+escapeQuiz(x)+'</span></label>').join('')+'</div><p class="quiz-explain"><b>參考：</b>'+escapeQuiz(q.explanation)+'</p><button id="quiz-self-complete" class="quiz-next">儲存自評</button><p class="quiz-device-note">先對照你原本寫的內容勾選；未全部涵蓋就排入錯題複習。</p>';document.querySelector('#quiz-self-complete').onclick=()=>{const ok=[...result.querySelectorAll('[data-rubric]')].every(x=>x.checked);const r=recordQuizResult(q,ok,true);result.querySelectorAll('input,button').forEach(x=>x.disabled=true);result.insertAdjacentHTML('beforeend','<p>自評已存：'+(ok?'檢核點完整':'仍有缺漏，已加入錯題')+'。下次複習：'+r.due+'</p>');document.querySelector('#quiz-next').disabled=false;renderQuizStats();};return;}
   let value;if(type==='multi'){value=[...document.querySelectorAll('#quiz-options input:checked')].map(x=>Number(x.value));if(!value.length)return;}
+  else if(type==='match'||type==='order'){const fields=[...document.querySelectorAll('#quiz-options [data-drop-slot]')];if(fields.some(x=>x.dataset.answer==='')){document.querySelector('#drag-status').textContent='請先填滿每個位置，再提交答案。';fields.find(x=>x.dataset.answer==='').focus();return;}value=fields.map(x=>Number(x.dataset.answer));}
   else{const fields=[...document.querySelectorAll('#quiz-options select')];if(fields.some(x=>x.value==='')){fields.find(x=>x.value==='').focus();return;}value=fields.map(x=>Number(x.value));if(type==='order'&&new Set(value).size!==value.length){const result=document.querySelector('#quiz-result');result.className='quiz-result show';result.textContent='每個步驟只能使用一次，請檢查重複選項。';return;}}
   answerQuiz(value);
 }
 function answerQuiz(value){
   if(answered||!currentQuestion)return;answered=true;const q=currentQuestion,ok=gradeObjective(q,value),r=recordQuizResult(q,ok);
-  document.querySelectorAll('#quiz-options input,#quiz-options select,#quiz-options button').forEach(x=>x.disabled=true);document.querySelector('#quiz-submit').hidden=true;
+  document.querySelectorAll('#quiz-options input,#quiz-options select,#quiz-options button').forEach(x=>{x.disabled=true;x.draggable=false;});document.querySelector('#quiz-submit').hidden=true;
+  if(q.type==='match'||q.type==='order')document.querySelectorAll('#quiz-options [data-drop-slot]').forEach((b,i)=>b.classList.add(value[i]===q.answer[i]?'slot-correct':'slot-wrong'));
   let correctText,extra='';
   if(!q.type){correctText=q.options[q.answer];document.querySelectorAll('#quiz-options button').forEach((b,i)=>{if(i===q.answer)b.classList.add('correct');else if(i===value)b.classList.add('wrong');});}
   if(q.type==='multi'){correctText=q.answer.map(i=>String.fromCharCode(65+i)+'. '+q.options[i]).join('；');const omitted=q.answer.filter(i=>!value.includes(i)),wrong=value.filter(i=>!q.answer.includes(i));extra='<p>漏選：'+(omitted.map(i=>String.fromCharCode(65+i)).join('、')||'無')+'；誤選：'+(wrong.map(i=>String.fromCharCode(65+i)).join('、')||'無')+'</p>';}
   if(q.type==='combo'){correctText=q.fields.map(f=>f.label+' → '+f.options[f.answer]).join('\n');extra='<p>答對 '+q.fields.filter((f,i)=>f.answer===value[i]).length+' / '+q.fields.length+' 項；全部正確才計為答對。</p>';}
+  if(q.type==='match'){correctText=q.labels.map((label,i)=>label+' → '+q.items[q.answer[i]]).join('\n');extra='<p>答對 '+q.answer.filter((v,i)=>v===value[i]).length+' / '+q.answer.length+' 項；全部正確才計為答對。</p>';}
   if(q.type==='order')correctText=q.answer.map((v,i)=>(i+1)+'. '+q.items[v]).join('\n');
   const result=document.querySelector('#quiz-result');result.className='quiz-result show '+(ok?'correct':'wrong');result.innerHTML='<div class="quiz-result-title">'+(ok?'答對了':'需要複習')+'</div>'+extra+'<p class="quiz-answer-text"><b>正確答案：</b><br>'+escapeQuiz(correctText)+'</p><p class="quiz-explain"><b>解析：</b>'+escapeQuiz(q.explanation)+'</p>'+(q.memory?'<p><b>記憶點：</b>'+escapeQuiz(q.memory)+'</p>':'')+'<p class="quiz-device-note">下次複習：'+r.due+'。錯題需在不同日期答對兩次才移出錯題清單。</p>';document.querySelector('#quiz-next').disabled=false;renderQuizStats();
 }
@@ -316,7 +318,7 @@ setupQuizCategories();
 document.querySelector('#quiz-next').onclick=nextQuizQuestion;
 document.querySelector('#quiz-random').onclick=()=>setQuizMode('all');
 document.querySelector('#quiz-missed-only').onclick=()=>setQuizMode('missed');
-document.querySelector('#quiz-reset').onclick=()=>{if(confirm('清除這台裝置的答題、草稿、複習、XP 與成就紀錄？每日訓練內容仍保留。')){try{localStorage.removeItem(quizStateKey);}catch(e){}setQuizMode('all');if(typeof renderGameDashboard==='function')renderGameDashboard();}};
+document.querySelector('#quiz-reset').onclick=()=>{if(confirm('清除這台裝置的答題、複習、XP、武器與成就紀錄？每日訓練內容仍保留。')){try{localStorage.removeItem(quizStateKey);}catch(e){}setQuizMode('all');if(typeof renderGameDashboard==='function')renderGameDashboard();}};
 nextQuizQuestion();
 
 

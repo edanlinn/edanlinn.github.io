@@ -10,7 +10,7 @@ The weapon system works immediately with the existing local quiz state. Global r
 4. Set the project's HTTPS URL and **publishable** key in `ranking-config.js`. This implementation accepts `https://<project-ref>.supabase.co` and `sb_publishable_...`. Do not put a secret key, service-role key, database password, or access token into GitHub or the browser.
 5. Publish the config change, then verify with two independent browsers: opt into publishing two distinct nicknames; reload each list; each should see both scores. Updating or withdrawing player A must not change player B's entry. Verify logged-out and different-user writes are rejected through RLS.
 
-The browser lazily loads Supabase JS 2.57.4 from jsDelivr only when the config is present. Rank order is XP descending, highest correct chain descending, UUID ascending for stable ties. Only the first 50 are shown, so players outside that list receive no guessed rank. Uploads are opt-in and manually initiated through “加入／更新排名”. A browser's anonymous identity does not provide cross-device account recovery. Local XP, weapons and practice history remain local; the shared table is a public score summary.
+The browser lazily loads Supabase JS 2.57.4 from jsDelivr only when the config is present. Rank order is XP descending, highest correct chain descending, UUID ascending for stable ties. Only the first 50 are shown, so players outside that list receive no guessed rank. Uploads are opt-in and manually initiated through “加入／更新排名”. A browser's anonymous identity does not provide cross-device account recovery. Daily puzzle missions count combo, vocabulary matching and ordering questions. Local XP, weapons and practice history remain local; the shared table is a public score summary.
 
 ## Verification limitations
 
@@ -20,7 +20,7 @@ No project URL / publishable key was available during implementation, so live pe
 
 - New objective correct answers add one to the chain; the same question may count only once per local calendar day.
 - Any wrong objective answer resets the chain; retries of a question already counted that day do not add it again.
-- Short-answer self-assessments neither increase nor reset the objective chain.
+- Every current game question is automatically graded. Legacy short-answer self-assessments are kept in historical storage but are no longer offered in the game.
 - Chains survive navigation, refresh and a change of day. Rewards start tracking at this release; prior correct totals are not interpreted as a historical chain.
 - At 3 / 5 / 10 / 20, unlock mist / frost / sky / star weapons permanently in that browser. Players can equip any earned tier. Each tier appears as a staff, sword or bow according to their current profession.
 - Resetting local practice history also resets local equipment; it does not withdraw an already published ranking. Use “退出排名” separately.

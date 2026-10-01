@@ -2,13 +2,14 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#07111f">
+<meta name="theme-color" content="#edf6ff">
 <title>Edan Cloud SA Learning Hub</title>
 <meta name="description" content="Edan 的 Cloud Solutions Architect 學習、錯題、必背觀念、能力地圖與進度 Dashboard。">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="game.css?v=20261001-1">
 <link rel="stylesheet" href="blue.css?v=20261001-1">
 <link rel="stylesheet" href="arena.css?v=20261001-1">
+<link rel="stylesheet" href="drag-quiz.css?v=20261001-1">
 </head>
 <body>
 <aside class="sidebar" aria-label="學習導航">
@@ -45,8 +46,8 @@
   <article class="dash-panel"><div class="panel-head"><h3>今日任務</h3><span class="mission-summary" id="mission-complete">0 / 3</span></div><p class="panel-sub">約 15 分鐘。先複習，再挑戰，最後用自己的話說明。</p><div class="mission-list">
     <div class="mission" id="mission-objective"><span class="mission-num">01</span><div><b>完成 5 題客觀題</b><small>同一題每天計一次 · <span id="mission-objective-count">0 / 5</span></small><div class="mission-progress"><i></i></div></div><button class="mission-action" data-practice="all">挑戰 →</button></div>
     <div class="mission" id="mission-review"><span class="mission-num">02</span><div><b>複習到期題目</b><small>最多 3 題 · <span id="mission-review-count">0 / 3</span></small><div class="mission-progress"><i></i></div></div><button class="mission-action" data-practice="all" data-mode="due">複習 →</button></div>
-    <div class="mission" id="mission-short"><span class="mission-num">03</span><div><b>完成一題架構短答</b><small>說出方案、原因與限制 · <span id="mission-short-count">0 / 1</span></small><div class="mission-progress"><i></i></div></div><button class="mission-action" data-practice="short">作答 →</button></div>
-  </div><p class="mission-footer">客觀題答對 +20 XP；完成短答自評最高 +15 XP。同題同日不重複領取。</p></article>
+    <div class="mission" id="mission-puzzle"><span class="mission-num">03</span><div><b>完成一題架構解謎</b><small>配對詞彙或排列流程 · <span id="mission-puzzle-count">0 / 1</span></small><div class="mission-progress"><i></i></div></div><button class="mission-action" data-practice="match">解謎 →</button></div>
+  </div><p class="mission-footer">客觀題答對 +20 XP；連續答對可解鎖武器。同題同日不重複領取。</p></article>
   <article class="dash-panel"><div class="panel-head"><h3>題庫覆蓋與優先補強</h3><small>依本機作答紀錄</small></div><div class="coverage-row"><span>已練過的不同題目</span><b id="game-coverage">0 / 50</b></div><div class="coverage-track"><i id="game-coverage-fill"></i></div><p class="coverage-note">覆蓋率代表練習範圍，掌握程度仍需持續驗證。</p><div id="game-weakness"></div></article>
   <article class="dash-panel"><div class="panel-head"><h3>成就收藏</h3><small>每一步都值得記錄</small></div><div id="game-badges" class="achievements"></div></article>
 </div>
@@ -187,6 +188,6 @@
 </main>
 <footer class="footer shell">Edan Cloud SA Learning Hub · 內容依每日訓練持續更新</footer>
 <div id="game-feedback" class="game-feedback"></div>
-<script src="data.js"></script><script src="app.js?v=20261001-game"></script><script src="game-ui.js?v=20261001-arena"></script><script src="blue-ui.js?v=20261001-arena"></script>
+<script src="data.js"></script><script src="drag-quiz.js?v=20261001-1"></script><script src="app.js?v=20261001-choices"></script><script src="game-ui.js?v=20261001-choices"></script><script src="blue-ui.js?v=20261001-arena"></script>
 <script src="ranking-config.js?v=20261001-1"></script><script src="arena.js?v=20261001-1"></script>
 </body></html>

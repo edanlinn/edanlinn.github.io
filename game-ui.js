@@ -17,7 +17,7 @@ function gameLevel(xp){return {level:Math.floor(xp/200)+1,progress:xp%200,remain
 function gameStreak(g){let streak=0,t=new Date();if(!g.days[localDay(t)])t.setDate(t.getDate()-1);for(let i=0;i<3660;i++){const item=g.days[localDay(t)];if(!item||!(item.objective.length+item.short.length))break;streak++;t.setDate(t.getDate()-1);}return streak;}
 function rewardPractice(q,ok,self,wasDue){
  const s=quizState(),g=gameState(s),today=localDay(),oldLevel=gameLevel(g.xp||0).level;g.days=g.days||{};g.rewarded=g.rewarded||{};
- const day=g.days[today]||{objective:[],short:[],review:[]};const list=self?day.short:day.objective;if(!list.includes(q.id))list.push(q.id);if(wasDue&&!day.review.includes(q.id))day.review.push(q.id);
+ const day=g.days[today]||{objective:[],short:[],review:[]};const list=self?day.short:day.objective;if(!list.includes(q.id))list.push(q.id);if(wasDue&&!day.review.includes(q.id))day.review.push(q.id);day.puzzle=day.puzzle||[];if(!self&&['combo','match','order'].includes(q.type)&&!day.puzzle.includes(q.id))day.puzzle.push(q.id);
  const key=today+':'+q.id,points=self?(ok?15:5):(ok?20:5),prior=g.rewarded[key]||0,earned=Math.max(0,points-prior);
  const newWeapons=typeof trackCorrectChain==='function'?trackCorrectChain(g,q,ok,self,today):[];
  g.xp=(g.xp||0)+earned;g.rewarded[key]=Math.max(prior,points);g.days[today]=day;s.game=g;saveQuizState(s);
@@ -41,13 +41,13 @@ function renderGameDashboard(){
  put('game-missed',Object.keys(s.missed).length+' 題');put('game-today',day.objective.length+day.short.length);put('game-date',new Date().toLocaleDateString('zh-TW',{month:'long',day:'numeric',weekday:'long'}));
  const unique=Object.keys(s.reviews).filter(id=>quizBank.some(q=>q.id===id)).length;put('game-coverage',unique+' / '+quizBank.length);const coverage=document.querySelector('#game-coverage-fill');if(coverage)coverage.style.width=unique/quizBank.length*100+'%';
  const dueIds=quizBank.filter(q=>dueQuestion(q,s)).map(q=>q.id),reviewTotal=new Set([...dueIds,...day.review]).size,target=Math.min(3,reviewTotal);
- const tasks=[{id:'objective',n:day.objective.length,total:5},{id:'review',n:day.review.length,total:target},{id:'short',n:day.short.length,total:1}];
+ const tasks=[{id:'objective',n:day.objective.length,total:5},{id:'review',n:day.review.length,total:target},{id:'puzzle',n:(day.puzzle||[]).length,total:1}];
  let complete=0;tasks.forEach(t=>{const done=t.total===0||t.n>=t.total;if(done)complete++;put('mission-'+t.id+'-count',t.total?Math.min(t.n,t.total)+' / '+t.total:'無到期題');const el=document.querySelector('#mission-'+t.id);if(el){el.classList.toggle('mission-done',done);el.querySelector('.mission-progress i').style.width=(t.total?Math.min(100,t.n/t.total*100):100)+'%';}});
  put('mission-complete',complete+' / 3');
  const weaknesses={};quizBank.forEach(q=>{if(s.missed[q.id])weaknesses[q.category]=(weaknesses[q.category]||0)+1;});const entries=Object.entries(weaknesses).sort((a,b)=>b[1]-a[1]).slice(0,3),weak=document.querySelector('#game-weakness');
  if(weak)weak.innerHTML=entries.length?entries.map(([name,count])=>'<div class="weak-row"><div><span>'+escapeQuiz(name)+'</span><b>'+count+' 題待修正</b></div><div class="weak-track"><i style="width:'+count/Math.max(...entries.map(x=>x[1]))*100+'%"></i></div></div>').join(''):'<div class="dashboard-empty">'+gameIcon('shield')+'<p>目前沒有待修正錯題</p><small>完成挑戰後，這裡會顯示優先複習的主題。</small></div>';
- const allDays=Object.values(g.days),totalPractice=allDays.reduce((n,t)=>n+t.objective.length+t.short.length,0),shortCount=allDays.reduce((n,t)=>n+t.short.length,0);
- const badges=[{title:'啟程',desc:'完成第一題',ok:totalPractice>=1},{title:'架構表達',desc:'完成一題短答自評',ok:shortCount>=1},{title:'持續精進',desc:'連續練習 3 天',ok:gameStreak(g)>=3}];
+ const allDays=Object.values(g.days),totalPractice=allDays.reduce((n,t)=>n+t.objective.length+t.short.length,0),puzzleCount=allDays.reduce((n,t)=>n+(t.puzzle||[]).length,0);
+ const badges=[{title:'啟程',desc:'完成第一題',ok:totalPractice>=1},{title:'架構解謎',desc:'完成一題配對或排序',ok:puzzleCount>=1},{title:'持續精進',desc:'連續練習 3 天',ok:gameStreak(g)>=3}];
  const badgeRoot=document.querySelector('#game-badges');if(badgeRoot)badgeRoot.innerHTML=badges.map(b=>'<div class="achievement '+(b.ok?'unlocked':'')+'"><span>'+gameIcon('trophy')+'</span><div><b>'+b.title+'</b><small>'+b.desc+'</small></div><em>'+(b.ok?'已解鎖':'待解鎖')+'</em></div>').join('');
  if(typeof renderFantasyGame==='function')renderFantasyGame();
  const session=document.querySelector('#game-session');if(session){const n=day.objective.length+day.short.length;session.innerHTML='<div><span class="live-dot"></span>今日訓練 <b>'+n+' 題</b></div><div class="session-steps">'+Array.from({length:5},(_,i)=>'<i class="'+(i<n?'filled':'')+'"></i>').join('')+'</div><span>'+Math.max(0,5-n)+' 題達成今日 5 題目標</span>';}
