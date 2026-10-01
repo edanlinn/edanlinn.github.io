@@ -1,7 +1,7 @@
 window.CLOUD_SA_DATA = {
   "updatedAt": "2026-10-01",
-  "completedDays": 12,
-  "currentTrack": "Database / Aurora & Global Database",
+  "completedDays": 13,
+  "currentTrack": "Database DR / Backup Strategy",
   "scores": [
     {
       "day": 1,
@@ -50,6 +50,10 @@ window.CLOUD_SA_DATA = {
     {
       "day": 12,
       "score": 88
+    },
+    {
+      "day": 13,
+      "score": 82
     }
   ],
   "roadmap": [
@@ -76,11 +80,11 @@ window.CLOUD_SA_DATA = {
     "summary": [
       {
         "label": "完成訓練",
-        "value": "Day 1–12"
+        "value": "Day 1–13"
       },
       {
         "label": "目前主題",
-        "value": "Aurora / Global Database"
+        "value": "Database DR / Backup Strategy"
       },
       {
         "label": "已建立基礎",
@@ -88,7 +92,7 @@ window.CLOUD_SA_DATA = {
       },
       {
         "label": "下一階段",
-        "value": "Database DR / Backup Strategy"
+        "value": "DR Pattern / Migration"
       }
     ],
     "domains": [
@@ -176,21 +180,20 @@ window.CLOUD_SA_DATA = {
         ]
       },
       {
-        "name": "Database / Aurora",
+        "name": "Database / DR",
         "status": "current",
         "statusLabel": "目前學習中",
         "items": [
-          "RDS Multi-AZ / Read Replica / PITR",
-          "Aurora Writer / Reader",
-          "Writer Endpoint / Reader Endpoint",
-          "Shared Cluster Storage",
-          "Aurora Replica = Read Scaling + Failover Target",
-          "6 copies across 3 AZs",
-          "Single-Region HA vs Multi-Region DR",
+          "RDS Multi-AZ / Aurora Replica",
+          "PITR / Automated Backup",
+          "Manual Snapshot",
+          "Cross-Region Automated Backup",
           "Aurora Global Database",
-          "Cross-Region Asynchronous Replication",
-          "Switchover vs Failover",
-          "RPO / RTO + Replication Lag"
+          "HA ≠ Backup",
+          "Backup ≠ DR",
+          "RPO Verification",
+          "RTO End-to-End Validation",
+          "DR Runbook / Failover Test"
         ]
       },
       {
@@ -198,9 +201,10 @@ window.CLOUD_SA_DATA = {
         "status": "next",
         "statusLabel": "接下來",
         "items": [
-          "Database DR 深化",
-          "Backup Strategy",
-          "Migration / Modernization",
+          "DR Strategy Pattern",
+          "Pilot Light / Warm Standby",
+          "Migration",
+          "Modernization",
           "Terraform"
         ]
       }
@@ -224,7 +228,10 @@ window.CLOUD_SA_DATA = {
       "Aurora Writer vs Reader Endpoint",
       "Aurora Shared Cluster Storage",
       "Aurora Replica = Read Scaling + Failover Target",
-      "Aurora Global Database = Multi-Region DR"
+      "Aurora Global Database = Multi-Region DR",
+      "PITR = Logical / Human Error Recovery",
+      "Manual Snapshot = Pre-change Recovery Point",
+      "Aurora Global Database = Lower-RTO Region DR"
     ],
     "confused": [
       "Trust Policy vs Permission Policy",
@@ -240,11 +247,14 @@ window.CLOUD_SA_DATA = {
       "Reporting Read Path 不應畫成 Primary → Replica Request Hop",
       "Multi-AZ HA vs Region-level DR",
       "Primary Region vs Writer DB Instance",
-      "Business RPO vs Cross-Region Replication Lag"
+      "Business RPO vs Cross-Region Replication Lag",
+      "RTO = Restore Service in DR Region, not Failback to Original Region",
+      "Cross-Region Backup vs Aurora Global Database",
+      "RPO Requirement vs Replication Lag Evidence"
     ],
     "upcoming": [
-      "Database DR 深化",
-      "Backup Strategy",
+      "DR Strategy Pattern",
+      "Pilot Light / Warm Standby",
       "Migration",
       "Modernization",
       "Terraform",
@@ -559,6 +569,45 @@ window.CLOUD_SA_DATA = {
         }
       ],
       "memory": "Writer Endpoint 管寫入；Reader Endpoint 管讀取連線；Multi-AZ ≠ Multi-Region。"
+    },
+    {
+      "tag": "Database / DR",
+      "title": "案例 9｜Loan DR：HA、PITR、Global Database 怎麼分工",
+      "subtitle": "同一套核心放款系統，同時處理 AZ Failure、Human Error、Migration 與 Region Disaster",
+      "description": "情境：Loan System 要求 RTO 30 分鐘、RPO 5 分鐘；同時要求 AZ 故障自動復原、DBA 誤刪可回復、Migration 前保留明確 Recovery Point，以及 Region 級災難可恢復。",
+      "steps": [
+        {
+          "aws": "Multi-AZ / Aurora Replica",
+          "real": "處理 DB Instance / AZ Failure；屬於 High Availability，不處理 Logical Error"
+        },
+        {
+          "aws": "Automated Backup + PITR",
+          "real": "DBA 誤刪或 Application 寫壞資料時，還原到事故前的新 DB"
+        },
+        {
+          "aws": "Manual Snapshot",
+          "real": "Migration / Schema Change 前建立明確且可長期保留的 Recovery Point"
+        },
+        {
+          "aws": "Aurora Global Database",
+          "real": "對 RTO 較嚴格的 Region-level DR；Secondary Region 預先存在"
+        },
+        {
+          "aws": "Cross-Region Backup",
+          "real": "成本較低，但災難時需 Restore DB，通常 RTO 較長"
+        }
+      ],
+      "compare": [
+        {
+          "title": "RPO 驗證",
+          "text": "不能只寫『最多掉 5 分鐘』；要監控 cross-Region replication / RPO lag，並用故障演練驗證。"
+        },
+        {
+          "title": "RTO 驗證",
+          "text": "量測從災難開始到 DR Region 的 DB、Application、Network、DNS、Secrets 與寫入驗證全部恢復所需時間。"
+        }
+      ],
+      "memory": "HA ≠ Backup；Backup ≠ DR；RPO 要看資料落後；RTO 要看整個服務恢復。"
     }
   ],
   "glossary": [
@@ -1553,6 +1602,76 @@ window.CLOUD_SA_DATA = {
         "Switchover",
         "Multi-Region"
       ]
+    },
+    {
+      "term": "Manual Snapshot",
+      "fullName": "RDS / Aurora Manual Snapshot",
+      "category": "Database / Backup",
+      "aliases": [
+        "DB Snapshot",
+        "手動快照"
+      ],
+      "definition": "由使用者主動建立的特定時間點資料庫快照，會持續保留直到明確刪除，適合變更前或 Migration 前建立明確 Recovery Point。",
+      "example": "核心轉換前 23:30 建立 Manual Snapshot，若 Schema Upgrade 失敗可從該 Snapshot Restore 新 DB。",
+      "confusion": "Manual Snapshot 是明確 Checkpoint；Automated Backup + PITR 是持續性時間點還原能力。",
+      "related": [
+        "PITR",
+        "Automated Backup",
+        "Migration"
+      ]
+    },
+    {
+      "term": "Cross-Region Automated Backup",
+      "fullName": "Amazon RDS Cross-Region Automated Backups",
+      "category": "Database / DR",
+      "aliases": [
+        "Cross-Region Backup",
+        "Replicated Backup"
+      ],
+      "definition": "將 RDS automated backups 的 snapshots 與 transaction logs 複寫到另一個 AWS Region，讓目的 Region 可從 replicated backup 進行 PITR / restore。",
+      "example": "Primary Region 發生災難時，從 Secondary Region 的 replicated backup 建立新的 RDS DB instance。",
+      "confusion": "它不是持續運行的 Hot Standby；災難後仍需 Restore，因此通常 RTO 比 Aurora Global Database 長。",
+      "related": [
+        "PITR",
+        "RTO",
+        "RPO",
+        "Aurora Global Database"
+      ]
+    },
+    {
+      "term": "Failback",
+      "fullName": "Disaster Recovery Failback",
+      "category": "Architecture / DR",
+      "aliases": [
+        "切回原區域",
+        "Return to Primary"
+      ],
+      "definition": "災難期間先 Failover 到 DR Region 恢復服務；原 Primary Region 恢復後，再經規劃將服務切回原架構的流程。",
+      "example": "Region A 故障後先在 Region B 於 30 分鐘內恢復；Region A 修復後另排時間執行 Failback。",
+      "confusion": "RTO 通常衡量『恢復服務』，不是要求在 RTO 內切回原 Region。",
+      "related": [
+        "Failover",
+        "RTO",
+        "DR Runbook"
+      ]
+    },
+    {
+      "term": "DR Runbook",
+      "fullName": "Disaster Recovery Runbook",
+      "category": "Architecture / DR",
+      "aliases": [
+        "Recovery Runbook",
+        "災難復原手冊"
+      ],
+      "definition": "把 DR 事件中要執行的技術與營運步驟明確化，包括誰判斷、如何 Failover、流量切換、驗證、Rollback / Failback 與通報。",
+      "example": "Loan System Runbook 定義 Aurora Global Database failover、DNS、Secrets、Application health check 與測試交易。",
+      "confusion": "有 Backup 或 Secondary Region 不代表有完整 DR；沒有 Runbook 與演練，RTO 很難被證明。",
+      "related": [
+        "RTO",
+        "RPO",
+        "Failover",
+        "Failback"
+      ]
     }
   ],
   "quizBank": [
@@ -2095,6 +2214,66 @@ window.CLOUD_SA_DATA = {
       "answer": 1,
       "explanation": "RPO 是 Business Requirement。Global Database 跨 Region replication 是非同步，應監控 lag 並透過 DR 測試驗證目標。",
       "memory": "Business RPO 要驗證，不能由 Service 名稱保證。"
+    },
+    {
+      "id": "DR04",
+      "category": "Database",
+      "difficulty": "基礎",
+      "question": "DBA 誤刪大量交易資料，Multi-AZ Failover 能直接回到誤刪前嗎？",
+      "options": [
+        "可以",
+        "不行；應使用 Backup / PITR",
+        "只要 Reader Endpoint 正常就可以",
+        "只要切到另一個 AZ"
+      ],
+      "answer": 1,
+      "explanation": "Multi-AZ 解 Infrastructure Failure，Logical DELETE 通常也會被複寫；誤刪需要 Backup / PITR。",
+      "memory": "HA ≠ Backup。"
+    },
+    {
+      "id": "DR05",
+      "category": "Database",
+      "difficulty": "中等",
+      "question": "Migration 前想保留一個明確、可長期保存的變更前 Recovery Point，最直接的是？",
+      "options": [
+        "Manual Snapshot",
+        "Multi-AZ",
+        "Read Replica",
+        "NAT Gateway"
+      ],
+      "answer": 0,
+      "explanation": "Manual Snapshot 是使用者主動建立的特定時間點完整快照，適合 Pre-change / Pre-migration checkpoint。",
+      "memory": "Manual Snapshot = 明確 Checkpoint。"
+    },
+    {
+      "id": "DR06",
+      "category": "Architecture",
+      "difficulty": "中等",
+      "question": "核心系統 RTO 15 分鐘，而歷史報表 RTO 8 小時，哪種配對較合理？",
+      "options": [
+        "兩者都只用 Cross-Region Backup",
+        "核心系統優先考慮 Aurora Global Database；報表可評估 Cross-Region Backup",
+        "兩者都只做 Multi-AZ",
+        "兩者都不需要 DR"
+      ],
+      "answer": 1,
+      "explanation": "較嚴格的 RTO 通常需要更多預先準備的 DR 資源；寬鬆 RTO 可以用災難後 Restore 的較低成本模式。",
+      "memory": "RTO 越短，通常預先準備越多。"
+    },
+    {
+      "id": "DR07",
+      "category": "Architecture",
+      "difficulty": "進階",
+      "question": "RTO=30 分鐘的 DR Test，最正確的驗證終點是？",
+      "options": [
+        "30 分鐘內切回原本故障 Region",
+        "30 分鐘內在可用 DR Region 恢復完整服務並完成健康與交易驗證",
+        "30 分鐘內建立一個 Snapshot",
+        "30 分鐘內確認 Backup 存在"
+      ],
+      "answer": 1,
+      "explanation": "RTO 衡量從事故到 Service 恢復的時間。Failback 回原 Region 是後續流程，不是 RTO 的必要終點。",
+      "memory": "RTO = Restore Service；Failback 是之後的事。"
     }
   ],
   "days": [
@@ -2491,6 +2670,48 @@ window.CLOUD_SA_DATA = {
         "Aurora Replica = Read Scaling + Failover Target。",
         "Single-Region HA ≠ Multi-Region DR。",
         "Business RPO 要用 replication lag + DR test 驗證。"
+      ]
+    },
+    {
+      "day": 13,
+      "date": "2026-10-01",
+      "topic": "Database DR / Backup Strategy",
+      "score": 82,
+      "status": "completed",
+      "mastered": [
+        "DBA 誤刪應使用 Automated Backup + PITR，而不是 Multi-AZ Failover",
+        "Manual Snapshot 適合作為 Migration / Schema Change 前的明確 Recovery Point",
+        "Aurora Global Database 偏低 RTO；Cross-Region Backup 成本較低但 Restore 時間較長",
+        "RPO 要以實際資料落後量驗證，而不是只背定義"
+      ],
+      "corrections": [
+        [
+          "System A / B 沒明確寫出方案名稱",
+          "System A（RTO 15 min / RPO 1 min）應明確答 Aurora Global Database；System B（RTO 8 hr / RPO 24 hr）可評估 Cross-Region Backup + Disaster-time Restore。"
+        ],
+        [
+          "Region DR 欄位留白",
+          "若採本題較嚴格的 RTO 30 min，較合理的是 Aurora Global Database；若成本優先且能接受更長 Restore，才偏 Cross-Region Backup。"
+        ],
+        [
+          "RTO 30 分鐘寫成『30 分鐘後切回原本 Region』",
+          "RTO 的目標是 30 分鐘內在可用的 DR Region 恢復完整服務；切回原 Primary Region 屬於後續 Failback。"
+        ],
+        [
+          "RPO 5 分鐘只驗交易時間",
+          "交易資料比對是好方法，但還要持續監控 Aurora Global Database 的 replication / RPO lag，並透過 DR 演練證明。"
+        ],
+        [
+          "RTO 驗證只想到 Application 正常與一筆寫入",
+          "還要把 DB Promotion、Application、Network、DNS / Endpoint、Secrets / IAM、Health Check、Traffic Switch 與 end-to-end transaction 全部納入計時。"
+        ]
+      ],
+      "memory": [
+        "HA ≠ Backup。",
+        "Backup ≠ DR。",
+        "RPO = 資料最多可落後多少；Lag 是證據。",
+        "RTO = 災難後多久恢復服務，不是多久切回原 Region。",
+        "RTO 越短，通常需要越多預先部署的 DR 資源。"
       ]
     }
   ]
