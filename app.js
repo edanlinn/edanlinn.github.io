@@ -322,16 +322,32 @@ document.querySelector('#quiz-reset').onclick=()=>{if(confirm('清除這台裝�
 nextQuizQuestion();
 
 
+const dailyControls=document.createElement('div');
+dailyControls.className='daily-controls';
+dailyControls.innerHTML='<label>排序方式<select id="daily-sort"><option value="desc">學習日：新到舊</option><option value="asc">學習日：舊到新</option></select></label><label>指定學習日<select id="daily-day"><option value="all">全部學習日</option></select></label><button type="button" id="daily-show-all" class="quiz-action">顯示全部</button><span id="daily-count" role="status" aria-live="polite"></span>';
+document.querySelector('#daily .toolbar').before(dailyControls);
+const dailyDay=document.querySelector('#daily-day');
+[...d.days].sort((a,b)=>Number(b.day)-Number(a.day)).forEach(day=>{
+  const option=document.createElement('option');
+  option.value=String(day.day);option.textContent='Day '+day.day+' · '+day.date+' · '+day.topic;
+  dailyDay.appendChild(option);
+});
+const dailyStyle=document.createElement('style');
+dailyStyle.textContent='.daily-controls{display:flex;flex-wrap:wrap;align-items:end;gap:14px;margin:22px 0 16px;padding:18px;background:#eef7ff;border:1px solid #c9e3f6;border-radius:16px}.daily-controls label{display:grid;gap:7px;font-size:13px;font-weight:600;color:#34566e;min-width:0}.daily-controls label:nth-child(2){flex:1;min-width:220px}.daily-controls select{width:100%;max-width:100%;font:inherit;color:#24465e;background:#fff;border:1px solid #b9d7ed;border-radius:10px;padding:11px 32px 11px 12px;min-height:44px}.daily-controls select:focus-visible{outline:3px solid #8dc5ec;outline-offset:2px}#daily-count{font-size:12px;color:#536f82;padding-bottom:12px}@media(max-width:600px){.daily-controls{padding:14px;gap:12px}.daily-controls label,.daily-controls label:nth-child(2){flex:1 1 100%;min-width:0}.daily-controls button{min-height:44px}}';
+document.head.appendChild(dailyStyle);
 const root=document.querySelector('#days');
 function render(filter='all',q=''){
   const query=q.trim().toLowerCase();
+  const selectedDay=dailyDay.value;
+  const sortDirection=document.querySelector('#daily-sort').value;
   const items=d.days.filter(day=>{
     const txt=JSON.stringify(day).toLowerCase();
     const filterOk=filter==='all' || (filter==='mistakes'&&day.corrections.length) || (filter==='mastered'&&day.mastered.length);
-    return filterOk && (!query || txt.includes(query));
-  });
+    return filterOk && (selectedDay==='all'||String(day.day)===selectedDay) && (!query || txt.includes(query));
+  }).sort((a,b)=>sortDirection==='asc'?Number(a.day)-Number(b.day):Number(b.day)-Number(a.day));
+  document.querySelector('#daily-count').textContent='顯示 '+items.length+' / '+d.days.length+' 天';
   root.innerHTML=items.map(day=>`
-    <article class="day" data-day="${day.day}">
+    <article class="day ${selectedDay!=='all'?'open':''}" data-day="${day.day}">
       <div class="day-head" tabindex="0">
         <div class="day-num">DAY<b>${day.day}</b></div>
         <div><h2>${day.topic}</h2><div class="muted">${day.date} · ${day.status==='completed'?'已完成':'進行中'}</div></div>
@@ -359,3 +375,12 @@ document.querySelector('#search').addEventListener('input',e=>render(document.qu
 document.querySelectorAll('.filter button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('.filter button').forEach(x=>x.classList.remove('active'));b.classList.add('active');render(b.dataset.filter,document.querySelector('#search').value);
 }));
+
+function refreshDaily(){render(document.querySelector('.filter .active').dataset.filter,document.querySelector('#search').value);}
+document.querySelector('#daily-sort').addEventListener('change',refreshDaily);
+dailyDay.addEventListener('change',refreshDaily);
+document.querySelector('#daily-show-all').addEventListener('click',()=>{
+  dailyDay.value='all';document.querySelector('#search').value='';
+  document.querySelectorAll('.filter button').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));
+  refreshDaily();
+});
