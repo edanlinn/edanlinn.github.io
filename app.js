@@ -56,6 +56,7 @@ function setModule(id,open,scroll=false){
   if(btn) btn.innerHTML=(open?'收合':'展開')+' <span class="chev">⌄</span>';
   document.querySelectorAll('.module-card').forEach(card=>card.classList.toggle('active',open&&card.dataset.targetModule===id));
   if(open){
+    document.querySelectorAll('.side-link').forEach(b=>b.classList.toggle('active',b.dataset.section===id));
     saveModuleState(id);
     if(scroll){
       section.scrollIntoView({behavior:'smooth',block:'start'});
@@ -287,11 +288,11 @@ function nextQuizQuestion(){
 }
 function gradeObjective(q,value){if(!q.type)return value===q.answer;const expected=q.type==='combo'?q.fields.map(f=>f.answer):q.answer;const actual=q.type==='multi'?[...value].sort((a,b)=>a-b):value;return actual.length===expected.length&&actual.every((x,i)=>x===expected[i]);}
 function recordQuizResult(q,ok,self=false){
-  const s=quizState(),today=localDay(),r=s.reviews[q.id]||{stage:0,streak:0};
+  const s=quizState(),today=localDay(),wasDue=dueQuestion(q,s),r=s.reviews[q.id]||{stage:0,streak:0};
   if(self)s.selfAttempts=(s.selfAttempts||0)+1;else{s.attempts++;if(ok)s.correct++;}
   if(!ok){s.missed[q.id]=(s.missed[q.id]||0)+1;r.stage=0;r.streak=0;r.due=nextReviewDay(1);r.lastSuccess=null;}
   else if(r.lastSuccess!==today){r.streak++;if(r.streak>=2)delete s.missed[q.id];if(!r.due||r.due<=today){r.due=nextReviewDay(reviewIntervals[Math.min(r.stage,3)]);r.stage=Math.min(r.stage+1,3);}r.lastSuccess=today;}
-  s.reviews[q.id]=r;saveQuizState(s);return r;
+  s.reviews[q.id]=r;saveQuizState(s);if(typeof rewardPractice==='function')rewardPractice(q,ok,self,wasDue);return r;
 }
 function submitQuiz(){
   if(answered||!currentQuestion)return;const q=currentQuestion,type=q.type;
@@ -315,7 +316,7 @@ setupQuizCategories();
 document.querySelector('#quiz-next').onclick=nextQuizQuestion;
 document.querySelector('#quiz-random').onclick=()=>setQuizMode('all');
 document.querySelector('#quiz-missed-only').onclick=()=>setQuizMode('missed');
-document.querySelector('#quiz-reset').onclick=()=>{if(confirm('清除這台裝置的答題、自評、草稿與複習紀錄？每日訓練內容仍保留。')){try{localStorage.removeItem(quizStateKey);}catch(e){}setQuizMode('all');}};
+document.querySelector('#quiz-reset').onclick=()=>{if(confirm('清除這台裝置的答題、草稿、複習、XP 與成就紀錄？每日訓練內容仍保留。')){try{localStorage.removeItem(quizStateKey);}catch(e){}setQuizMode('all');if(typeof renderGameDashboard==='function')renderGameDashboard();}};
 nextQuizQuestion();
 
 

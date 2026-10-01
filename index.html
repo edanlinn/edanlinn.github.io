@@ -6,24 +6,56 @@
 <title>Edan Cloud SA Learning Hub</title>
 <meta name="description" content="Edan 的 Cloud Solutions Architect 學習、錯題、必背觀念、能力地圖與進度 Dashboard。">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="game.css?v=20261001-1">
 </head>
 <body>
-<header class="top"><div class="shell"><div class="brand">Edan Cloud SA Learning Hub<small>AWS 主線 · Solutions Architect 微訓練</small></div><div class="nav"><a href="#modules">模組首頁</a><a href="#daily" data-open-module="daily">每日紀錄</a><button id="expand">展開模組</button><button id="collapse">收合模組</button></div></div></header>
+<aside class="sidebar" aria-label="學習導航">
+  <div class="side-brand"><div class="brand-mark" data-icon="quiz"></div><div><b>ARCHITECT</b><small>EDAN'S TRAINING HUB</small></div></div>
+  <div class="side-label">WORKSPACE</div>
+  <nav class="side-nav">
+    <button class="side-link active" data-section="dashboard"><span data-icon="dashboard"></span><span>總覽</span></button>
+    <button class="side-link" data-section="quiz"><span data-icon="quiz"></span><span>挑戰</span></button>
+    <button class="side-link" data-section="skill-map"><span data-icon="skill-map"></span><span>能力地圖</span></button>
+    <button class="side-link" data-section="examples"><span data-icon="examples"></span><span>案例</span></button>
+    <button class="side-link" data-section="glossary"><span data-icon="glossary"></span><span>知識庫</span></button>
+    <button class="side-link" data-section="daily"><span data-icon="daily"></span><span>紀錄</span></button>
+  </nav>
+  <div class="side-bottom"><span><i class="live-dot"></i> YOUR NEXT CHAPTER</span><b>Solutions Architect</b><p>每天一小步，建立架構判斷力。</p></div>
+</aside>
+<header class="top"><div class="shell"><div class="brand">Learning workspace / 學習總覽<small>AWS 主線 · Cloud Solutions Architect</small></div><div class="nav"><a href="#modules">學習模組</a><button id="expand">展開模組</button><button id="collapse">收合模組</button><div class="top-profile"><span class="avatar">EY</span><div class="profile-name">Edan Yeh<small>Architect in progress</small></div></div></div></div></header>
 <main class="shell">
-<section class="hero">
-  <div class="muted">持續更新的個人 Cloud SA 學習站</div>
-  <h1>把每天的錯題，累積成真正的架構能力。</h1>
-  <p class="muted">每次你在 ChatGPT 完成作答後，網站同步記錄：分數、已掌握、需要修正、必背觀念，以及下一階段學習進度。</p>
-  <div class="stats"><div class="stat"><span class="muted">完成日數</span><b id="completed">-</b></div><div class="stat"><span class="muted">平均分數</span><b><span id="avg">-</span></b></div><div class="stat"><span class="muted">目前主題</span><b id="track">-</b></div><div class="stat"><span class="muted">最後更新</span><b id="updated" style="font-size:18px">-</b></div></div>
-  <div id="roadmap" class="track"></div>
+<section class="hero" id="dashboard">
+  <div class="hero-main">
+    <div><div class="hero-eyebrow">CLOUD ARCHITECT TRAINING <span class="season-tag">SEASON 01</span></div><h1>把概念練成直覺。<br><span>你的下一關，現在開始。</span></h1><p class="hero-copy">Edan，歡迎回到訓練中心。從銀行情境出發，練習每一次架構選擇、故障判斷與取捨。</p><div class="hero-buttons"><button class="primary-action" data-practice="all"><span data-icon="quiz"></span>開始今日挑戰<span data-icon="arrow"></span></button><button class="quiet-action" data-practice="all" data-mode="due">複習到期題目</button></div></div>
+    <div class="rank-card"><div class="rank-top"><span>ARCHITECT JOURNEY</span><span class="rank-level" id="game-level">LV. 01</span></div><div class="rank-emblem" data-icon="skill-map"></div><div class="rank-title">Architecture Explorer</div><div class="rank-subtitle">用每一次練習，解鎖下一個等級</div><div class="xp-labels"><span id="game-xp-label">0 / 200 XP</span><span id="game-xp-next">再 200 XP 升級</span></div><div class="xp-meter" id="game-xp-meter" role="progressbar" aria-label="距離下一等級的經驗值" aria-valuemin="0" aria-valuemax="200" aria-valuenow="0"><i id="game-xp-fill"></i></div><div class="rank-foot"><span id="game-xp">0 XP</span><span>遊戲等級 · 非能力評分</span></div></div>
+  </div>
+  <div class="stats"><div class="stat"><span class="muted">完成訓練</span><b id="completed">-</b><small>每日訓練紀錄</small></div><div class="stat"><span class="muted">訓練平均分數</span><b id="avg">-</b><small>依已記錄的每日分數</small></div><div class="stat"><span class="muted">目前主題</span><b id="track">-</b><small>主線進度</small></div><div class="stat"><span class="muted">內容更新日期</span><b id="updated">-</b><small>題庫與訓練內容</small></div></div><div id="roadmap" class="track"></div>
 </section>
+<div class="dashboard-heading"><h2>學習儀表板</h2><span id="game-date"></span></div>
+<div class="overview-grid">
+  <article class="overview-card emphasis"><div class="overview-card-top"><span>連續練習</span><span data-icon="quiz"></span></div><b id="game-streak">0 天</b><small>從本次改版開始記錄</small></article>
+  <article class="overview-card"><div class="overview-card-top"><span>本機客觀題正確率</span><span data-icon="shield"></span></div><b id="game-local-accuracy">—</b><small id="game-local-count">0 次客觀題作答</small></article>
+  <article class="overview-card warning"><div class="overview-card-top"><span>今日到期複習</span><span data-icon="daily"></span></div><b id="game-due">0 題</b><small>依間隔複習排程</small></article>
+  <article class="overview-card"><div class="overview-card-top"><span>待修正錯題</span><span data-icon="glossary"></span></div><b id="game-missed">0 題</b><small>跨日答對兩次後移出</small></article>
+</div>
+<div class="dashboard-grid">
+  <article class="dash-panel"><div class="panel-head"><h3>訓練分數趨勢</h3><small id="game-trend-change"></small></div><p class="panel-sub">每次訓練的累積成果，讓成長有跡可循。</p><div id="game-score-chart"></div><div class="score-source"><span>來源：每日訓練紀錄 · 50–100 分刻度</span><span>DAY</span></div><details id="game-score-table" class="score-table"></details></article>
+  <article class="dash-panel"><div class="panel-head"><h3>今日任務</h3><span class="mission-summary" id="mission-complete">0 / 3</span></div><p class="panel-sub">約 15 分鐘。先複習，再挑戰，最後用自己的話說明。</p><div class="mission-list">
+    <div class="mission" id="mission-objective"><span class="mission-num">01</span><div><b>完成 5 題客觀題</b><small>同一題每天計一次 · <span id="mission-objective-count">0 / 5</span></small><div class="mission-progress"><i></i></div></div><button class="mission-action" data-practice="all">挑戰 →</button></div>
+    <div class="mission" id="mission-review"><span class="mission-num">02</span><div><b>複習到期題目</b><small>最多 3 題 · <span id="mission-review-count">0 / 3</span></small><div class="mission-progress"><i></i></div></div><button class="mission-action" data-practice="all" data-mode="due">複習 →</button></div>
+    <div class="mission" id="mission-short"><span class="mission-num">03</span><div><b>完成一題架構短答</b><small>說出方案、原因與限制 · <span id="mission-short-count">0 / 1</span></small><div class="mission-progress"><i></i></div></div><button class="mission-action" data-practice="short">作答 →</button></div>
+  </div><p class="mission-footer">客觀題答對 +20 XP；完成短答自評最高 +15 XP。同題同日不重複領取。</p></article>
+  <article class="dash-panel"><div class="panel-head"><h3>題庫覆蓋與優先補強</h3><small>依本機作答紀錄</small></div><div class="coverage-row"><span>已練過的不同題目</span><b id="game-coverage">0 / 50</b></div><div class="coverage-track"><i id="game-coverage-fill"></i></div><p class="coverage-note">覆蓋率代表練習範圍，掌握程度仍需持續驗證。</p><div id="game-weakness"></div></article>
+  <article class="dash-panel"><div class="panel-head"><h3>成就收藏</h3><small>每一步都值得記錄</small></div><div id="game-badges" class="achievements"></div></article>
+</div>
+<section class="path-panel"><div class="panel-head"><h3>你的架構學習路線</h3><small>階段狀態 · 依每日訓練整理</small></div><p class="panel-sub" id="game-current-topic"></p><div id="game-domain-path" class="domain-path"></div></section>
 
 <section id="modules" class="module-dashboard">
-  <div class="section-kicker">LEARNING MODULES</div>
+  <div class="section-kicker">YOUR TRAINING TOOLS</div>
   <div class="module-dashboard-head">
     <div>
-      <h2>學習模組</h2>
-      <p class="muted">先選你現在要看的內容，不用一次捲過整個網站。</p>
+      <h2>選擇你的訓練裝備</h2>
+      <p class="muted">挑戰、案例與知識庫，都在這裡。</p>
     </div>
     <div class="module-dashboard-actions">
       <button id="open-last-module">開啟上次模組</button>
@@ -106,8 +138,8 @@
   <div class="section-kicker">PRACTICE QUIZ</div>
   <div class="quiz-top">
     <div>
-      <h2>Cloud SA 累積題庫</h2>
-      <p class="muted">隨時練習目前學過的範圍。答錯會保留錯題紀錄，並顯示完整解析。</p>
+      <h2>架構挑戰場</h2>
+      <p class="muted">從概念辨識到架構表達。每次練習，都讓判斷更清楚。</p>
     </div>
     <div class="quiz-bank-count"><span>目前題庫</span><b id="quiz-bank-count">-</b></div>
   </div>
@@ -152,5 +184,6 @@
 </section>
 </main>
 <footer class="footer shell">Edan Cloud SA Learning Hub · 內容依每日訓練持續更新</footer>
-<script src="data.js"></script><script src="app.js"></script>
+<div id="game-feedback" class="game-feedback"></div>
+<script src="data.js"></script><script src="app.js?v=20261001-game"></script><script src="game-ui.js?v=20261001-1"></script>
 </body></html>
