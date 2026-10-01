@@ -13,7 +13,7 @@ The GitHub Pages frontend includes a separate daily competition. Local practice 
 ## Rules and trust boundary
 
 - Every player receives the same daily question ordering, using the server's Asia/Taipei date.
-- At most 10 attempts per player per day, +20 XP per correct answer; no retry for extra credit.
+- At most 100 attempts per player per day, +20 XP per correct answer; no retry for extra credit. Each question appears at most once daily; the current 54-question bank therefore allows 54 attempts until expanded.
 - Questions are issued with an owner-bound attempt token and ten-minute expiry. A pending question is resumed rather than replaced. Expired questions count as wrong and reset the chain.
 - Answers and correct/incorrect outcomes are compared by PostgreSQL against a private answer key. The request contains no user ID, XP, or correctness claim.
 - A row lock serializes each player's changes; an attempt is finalized once. Repeated or concurrent submissions cannot award duplicate XP.

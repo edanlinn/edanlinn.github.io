@@ -7,6 +7,10 @@ const fs=require('fs'),path=require('path'),assert=require('node:assert/strict')
  grant usage on schema auth to anon,authenticated;grant execute on function auth.uid() to anon,authenticated;`);
  await db.exec(fs.readFileSync(path.join(__dirname,'competition.sql'),'utf8'));
  await db.exec(fs.readFileSync(path.join(__dirname,'competition-questions.sql'),'utf8'));
+ // Test-only questions leave unused items beyond the cap; the production seed is unchanged.
+ await db.exec(`insert into competition_private.questions(id,body,answer,explanation)
+ select 'cap-fixture-'||n, jsonb_build_object('id','cap-fixture-'||n,'type','single','question','Daily cap fixture','options',jsonb_build_array('correct','wrong')),
+ '"correct"'::jsonb,'Test fixture' from generate_series(1,101) n;`);
  const alice='00000000-0000-0000-0000-000000000001',bob='00000000-0000-0000-0000-000000000002';
  await db.query('insert into auth.users values ($1),($2)',[alice,bob]);
  async function identity(id){await db.exec('reset role');await db.query("select set_config('request.jwt.claim.sub',$1,false)",[id||'']);await db.exec('set role '+(id?'authenticated':'anon'));}
@@ -26,8 +30,8 @@ const fs=require('fs'),path=require('path'),assert=require('node:assert/strict')
  await identity(alice);a=await call('next');result=await call('submit',{token:a.token,answer:'wrong'});assert.equal(result.xp,20);assert.equal(result.chain,0);
  a=await call('next');await db.exec('reset role');await db.query("update competition_private.attempts set expires_at=now()-interval '1 second' where token=$1",[a.token]);answer=(await db.query('select answer from competition_private.questions where id=$1',[a.question.id])).rows[0].answer;
  await identity(alice);result=await call('submit',{token:a.token,answer});assert.equal(result.correct,false);assert.equal(result.xp,20);
- for(let i=3;i<10;i++){a=await call('next');await call('submit',{token:a.token,answer:'wrong'});}
- assert.equal((await call('next')).done,true);assert.equal((await call('profile')).todayCount,10);
+ for(let i=3;i<100;i++){a=await call('next');assert.ok(a.token,'Attempt '+(i+1)+' must be available');await call('submit',{token:a.token,answer:'wrong'});}
+ assert.equal((await call('next')).done,true);assert.equal((await call('profile')).todayCount,100);
  await call('withdraw');assert.equal((await call('leaderboard')).rows.length,1);await call('join',{nickname:'Alice',role:'mage'});assert.equal((await call('profile')).xp,20);assert.equal((await call('next')).done,true);
  await identity(null);const board=await call('leaderboard');assert.equal(board.rows[0].nickname,'Alice');assert.equal(board.rows[0].xp,20);
  await db.exec('reset role');

@@ -84,7 +84,7 @@ begin
   end if;
   if a.token is null then
    select count(*) into used from competition_private.attempts where player_id=uid and day=today;
-   if used>=10 then return jsonb_build_object('done',true,'message','今日 10 題競賽已完成'); end if;
+   if used>=100 then return jsonb_build_object('done',true,'message','今日 100 題競賽已完成'); end if;
    -- Every player gets the same daily question order, decided by the server clock.
    select qu.* into q from competition_private.questions qu where not exists
     (select 1 from competition_private.attempts atp where atp.player_id=uid and atp.day=today and atp.question_id=qu.id)
