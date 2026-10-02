@@ -31,7 +31,7 @@ function weaponArt(role,tier){
  return '<svg viewBox="0 0 80 168" role="img" aria-label="'+escapeQuiz(tier.names[role])+'">'+defs+'<ellipse cx="40" cy="80" rx="27" ry="66" fill="'+color+'" opacity=".055"/>'+body+decoration+'</svg>';
 }
 function renderArena(){
- const s=quizState(),g=gameState(s),role=availableRole(gameLevel(g.xp||0).level,g.role).id,weapon=currentWeapon(g),owned=g.weapons||[];
+ const s=quizState(),g=gameState(s),role=avatarAppearance().profession.base,weapon=currentWeapon(g),owned=g.weapons||[];
  const put=(id,v)=>{const e=document.querySelector('#'+id);if(e)e.textContent=v;};
  put('arena-chain',(g.chain||0)+' 連擊');put('arena-best','最高 '+(g.bestChain||0)+' 連擊');put('arena-owned',owned.filter(id=>weaponTiers.some(w=>w.id===id)).length+' / 4');
  const next=weaponTiers.find(w=>!owned.includes(w.id));put('arena-next',next?'再 '+Math.max(0,next.need-(g.chain||0))+' 題，解鎖「'+next.names[role]+'」':'全套武器已收藏');

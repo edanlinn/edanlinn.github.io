@@ -36,7 +36,10 @@ html[data-world=dusk]{--tone-18385280:#4a372080;--tone-294760:#594730;--tone-294
 :root{--scene-position:0%}html[data-world=forest]{--scene-position:50%}html[data-world=dusk]{--scene-position:100%}
 .rank-card::before,.avatar-showcase::before{background-size:300% 100%;background-position:var(--scene-position) center}
 .avatar-world-thumb{background-size:300% 100%}.avatar-world-thumb[data-world=dawn]{background-position:0%}.avatar-world-thumb[data-world=forest]{background-position:50%}.avatar-world-thumb[data-world=dusk]{background-position:100%}.avatar-world-thumb[data-world=auto]{background-size:cover}
-.role-sprite.realistic-avatar .avatar-render svg,.avatar-preview .avatar-render svg,.avatar-race-art .avatar-render svg{width:418px;height:418px}
+.role-sprite.realistic-avatar .avatar-atlas-cell,.avatar-preview .avatar-atlas-cell,.avatar-race-art .avatar-atlas-cell{width:240px;height:320px}
 
 .rank-card::before{top:38px;bottom:auto;height:370px}.rank-card .rank-title{background:var(--panel2);border-radius:6px;padding:5px}.rank-card .rank-subtitle{background:var(--panel2);border-radius:6px;padding:3px}
 @media(max-width:650px){.rank-card::before{height:350px}}
+
+/* Expanded creator keeps choices readable across screen sizes. */
+.avatar-controls .avatar-choice-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.avatar-races{grid-template-columns:repeat(4,minmax(0,1fr))}.avatar-showcase h3{line-height:1.7}.avatar-preview>.avatar-render{width:100%;height:100%}.avatar-choice{min-height:65px}.avatar-controls{min-width:0}.avatar-dialog .avatar-workshop{align-items:start}.avatar-dialog .avatar-showcase{top:0}.avatar-race-art{width:75px;height:105px}@media(max-width:650px){.avatar-races{grid-template-columns:repeat(3,minmax(0,1fr))}.avatar-controls .avatar-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.avatar-race-art{width:80px;height:112px}}
