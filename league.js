@@ -10,7 +10,7 @@ function leagueSave(patch){const next={...leagueConfig(),...patch};try{localStor
 function leagueLevel(){return gameLevel(gameState(quizState()).xp||0).level;}
 function leagueSkins(champion){
  const all=leagueMeta[champion.id]?.skins;if(!all?.length)return [{num:0,name:champion.skinNames[0],need:1}];
- return [{num:0,name:champion.skinNames[0],need:1},...all.filter(s=>s.num!==0).slice(-3).map((s,i)=>({num:s.num,name:s.name,need:[3,5,10][i]}))];
+ return [{num:0,name:champion.skinNames[0],need:1},...all.filter(s=>s.num!==0&&!s.parentSkin).slice(-3).map((s,i)=>({num:s.num,name:s.name,need:[3,5,10][i]}))];
 }
 function leagueSelected(){
  const config=leagueConfig(),champion=leagueChampions.find(c=>c.id===config.champion),skins=leagueSkins(champion),level=leagueLevel();
@@ -35,7 +35,7 @@ function renderLeague(){
  document.querySelector('#hero-weapon').hidden=true;
  document.querySelector('#game-character-title').textContent=champion.name+' · '+champion.title;
  document.querySelector('#game-character-role').textContent=skin.name+' · '+(config.auto?'等級自動變身':'手動造型');
- const next=skins.slice(0,4).find(s=>s.need>level);document.querySelector('#game-next-title').textContent=next?'LV. '+next.need+' 解鎖造型「'+next.name+'」':'進階造型與終極技能已解鎖';
+ const next=skins.slice(0,4).find(s=>s.need>level);document.querySelector('#game-next-title').textContent=next?'LV. '+next.need+' 解鎖造型「'+next.name+'」':(level>=10?'進階造型與終極技能已解鎖':'造型資料載入中 · 技能於 LV. 3 / 5 / 10 解鎖');
  document.querySelector('#open-avatar-customizer').textContent='LOL 英雄與造型 →';
  document.querySelectorAll('.hero-world-label').forEach(el=>el.textContent='LEAGUE LEARNING · '+champion.name);
  document.querySelector('#open-role-collection').textContent='英雄與技能收藏 →';document.querySelector('.rank-card').setAttribute('aria-label','英雄與升級進度');document.querySelector('#arena-equipped').textContent='技能於 LV. 1 / 3 / 5 / 10 解鎖';
