@@ -43,3 +43,10 @@ html[data-world=dusk]{--tone-18385280:#4a372080;--tone-294760:#594730;--tone-294
 
 /* Expanded creator keeps choices readable across screen sizes. */
 .avatar-controls .avatar-choice-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.avatar-races{grid-template-columns:repeat(4,minmax(0,1fr))}.avatar-showcase h3{line-height:1.7}.avatar-preview>.avatar-render{width:100%;height:100%}.avatar-choice{min-height:65px}.avatar-controls{min-width:0}.avatar-dialog .avatar-workshop{align-items:start}.avatar-dialog .avatar-showcase{top:0}.avatar-race-art{width:75px;height:105px}@media(max-width:650px){.avatar-races{grid-template-columns:repeat(3,minmax(0,1fr))}.avatar-controls .avatar-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.avatar-race-art{width:80px;height:112px}}
+
+/* Native atlas aspect ratios and a consistent ground line preserve anatomy. */
+.role-sprite.realistic-avatar .avatar-atlas-cell,.avatar-preview .avatar-atlas-cell,.avatar-race-art .avatar-atlas-cell{width:240px;height:320px}
+.avatar-height-control input{width:100%;accent-color:var(--accent);cursor:pointer;min-height:32px}.avatar-height-control output{float:right;color:var(--accent);font-variant-numeric:tabular-nums}
+.avatar-preview-weapon{top:auto;bottom:18px;right:10px;transform-origin:bottom center}
+.rank-emblem.character-emblem{width:248px;height:340px}.avatar-preview{width:290px;height:400px}
+@media(max-width:850px){.avatar-preview{width:235px;height:340px}}@media(max-width:650px){.rank-emblem.character-emblem{width:230px;height:320px}.avatar-preview{width:270px;height:375px}.avatar-preview-weapon{top:auto;bottom:20px}}
