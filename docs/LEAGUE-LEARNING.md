@@ -1,9 +1,11 @@
-# League learning mode
+# League 2D showcase
 
-Three heroes (Lux, Garen, Ashe) use Riot Data Dragon portraits and metadata, pinned to 16.19.1. Metadata requests try zh_TW then en_US, with a six-second timeout per request. A built-in four-skin fallback remains usable offline; failed portraits retry the classic portrait.
+Roster snapshot: all 173 champions in Riot Data Dragon 16.19.1 zh_TW champion.json. All can be selected and searched in Chinese or English; opponent selector includes the same roster.
 
-Learning levels 1, 3, 5, 10 unlock Q/W/E/R and the first four skins. Additional metadata skins unlock at level 10. Auto transformation selects only the first four metadata skins. Manual selection cannot select locked skins. Cosmetics use the existing local learning XP; they are not competitive rewards or a server-authoritative ownership system.
+Champion details load lazily at /data/{locale}/champion/{id}.json, with zh_TW/en_US fallback and six-second timeouts. Skin IDs are taken from metadata, never guessed. Classic plus the last three nonclassic metadata skins are shown with levels 1/3/5/10; ordering is metadata order, not verified release dates. Skills use actual spell names when metadata is available.
 
-Skills play CSS effects, then open glossary, due practice, the map node with most missed questions, or missed practice. An eight-second visual cooldown prevents repeated casts. No skill changes answers, competition RPCs, XP, individual ladder, faction or guild scores. Original customizable cosmic characters remain available.
+The stage is a stylized SVG paper puppet, using champion portraits and role-based weapons, not extracted official combat sprites or a reproduction of champion animations. New skins change portrait selection and stage accent hue. Q/W/E/R demonstrate projectile, shield, area and ultimate effects, hit response and counterattack. Automatic presentation pauses when the tab is hidden. No HP, combat winner, competitive rewards, answer changes or score mutations. Practice buttons are separate from animation controls.
 
-Validation: JavaScript syntax and 13 pure logic checks for level thresholds, skin IDs, malformed settings, locked selection and invalid/locked skill casts. Browser visual QA was unavailable in the execution environment; live CDN delivery needs browser verification. Non-official fan learning project; artwork belongs to Riot Games.
+Original cosmic customization UI, renderers and character atlas assets are removed. The avatar adapter only preserves the existing three backend role enum values, without migrating competition data.
+
+Validation: Node syntax and 20 stubbed DOM/logic checks covering full unique roster, real recent skin IDs, thresholds, locked casts, score immutability, cancellation and removal of the cosmic toggle. Live browser QA follows deployment.
