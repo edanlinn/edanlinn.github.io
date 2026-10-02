@@ -14,6 +14,7 @@ function renderFantasyGame(){
  const next=role.titles.find(t=>t.level>level),sub=document.querySelector('#game-next-title');if(sub)sub.textContent=next?'LV. '+next.level+' 解鎖「'+next.name+'」':'已解鎖本職業全部稱號';
  const collection=document.querySelector('#role-collection');if(collection){collection.innerHTML=fantasyRoles.map(r=>{const unlocked=level>=r.unlock;return '<button class="role-card '+(r.id===role.id?'equipped':'')+'" data-select-role="'+r.id+'" '+(!unlocked?'disabled':'')+'><span class="role-sprite" data-role="'+r.id+'" aria-hidden="true"></span><b>'+r.name+'</b><small>'+r.description+'</small><em>'+(unlocked?(r.id===role.id?'目前職業':'選擇職業'):'LV. '+r.unlock+' 解鎖')+'</em></button>';}).join('');collection.querySelectorAll('[data-select-role]').forEach(b=>b.onclick=()=>{const s=quizState(),g=gameState(s);g.role=b.dataset.selectRole;s.game=g;saveQuizState(s);renderFantasyGame();});}
  if(typeof renderArena==='function')renderArena();
+ if(typeof renderAvatarCustomizer==='function')renderAvatarCustomizer();
  const titles=document.querySelector('#title-collection');if(titles)titles.innerHTML=fantasyRoles.flatMap(r=>r.titles.map(t=>'<div class="title-row '+(level>=t.level?'earned':'')+'"><span>'+gameIcon('trophy')+'</span><div><b>'+t.name+'</b><small>'+r.name+' · LV. '+t.level+'</small></div><em>'+(level>=t.level?'已解鎖':'待解鎖')+'</em></div>')).join('');
 }
 const worldNodes=[
@@ -69,6 +70,7 @@ function initFantasyGame(){
  document.body.insertAdjacentHTML('beforeend','<dialog id="fantasy-dialog" class="fantasy-dialog" aria-labelledby="fantasy-dialog-title"><button id="close-fantasy-dialog" class="map-close" aria-label="關閉職業與稱號">×</button><span class="section-kicker">CHARACTER GALLERY</span><h2 id="fantasy-dialog-title">選擇你的冒險職業</h2><p>每 200 XP 升一級。法師 LV. 1、聖騎士 LV. 3、遊俠 LV. 5 解鎖。</p><div id="role-collection" class="role-collection"></div><h3>稱號收藏</h3><div id="title-collection" class="title-collection"></div><small class="title-disclaimer">職業與稱號是練習獎勵，不代表專業資格或能力認證。</small></dialog>');
  const dialog=document.querySelector('#fantasy-dialog');document.querySelector('#open-role-collection').onclick=()=>{renderFantasyGame();dialog.showModal();};document.querySelector('#close-fantasy-dialog').onclick=()=>dialog.close();
  dialog.addEventListener('click',e=>{if(e.target===dialog){const box=dialog.getBoundingClientRect();if(e.clientX<box.left||e.clientX>box.right||e.clientY<box.top||e.clientY>box.bottom)dialog.close();}});
+ if(typeof initAvatarCustomizer==='function')initAvatarCustomizer();
  initWorldMap();renderFantasyGame();
 }
 initFantasyGame();

@@ -18,10 +18,17 @@ function trackCorrectChain(g,q,ok,self,today){
  return earned;
 }
 function currentWeapon(g){return weaponTiers.find(w=>w.id===g.equippedWeapon&&Array.isArray(g.weapons)&&g.weapons.includes(w.id))||null;}
+let weaponArtSequence=0;
 function weaponArt(role,tier){
- const body=role==='paladin'?'<path d="M35 55 33 20 40 7 47 20 45 55Z" fill="url(#metal)"/><path d="M25 56h30l-5 6H30Z"/><path d="M37 63h6v19h-6z"/><circle cx="40" cy="86" r="5"/>':role==='ranger'?'<path d="M36 8C69 22 69 65 36 85L44 67 49 47 44 26Z" fill="url(#metal)"/><path d="M36 8v77M21 48h44m-6-5 6 5-6 5" fill="none" stroke-width="2"/>':'<path d="M37 34h6v53h-6z" fill="url(#metal)"/><path d="m40 5 15 17-15 17-15-17Z" fill="url(#metal)"/><path d="m40 12 8 10-8 10-8-10Z" fill="currentColor"/><path d="M27 34h26l-5 6H32Z"/>';
- const gradient='weapon-metal-'+role+'-'+tier.id;
- return ('<svg viewBox="0 0 80 96" role="img" aria-label="'+escapeQuiz(tier.names[role])+'" style="color:'+tier.color+'"><defs><linearGradient id="metal"><stop stop-color="#f6fcff"/><stop offset=".5" stop-color="#cee4f5"/><stop offset="1" stop-color="#9fbcd5"/></linearGradient></defs><circle cx="40" cy="46" r="31" fill="currentColor" opacity=".08"/><g stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" fill="currentColor">'+body+'</g><path d="m17 15 2 5 5 2-5 2-2 5-2-5-5-2 5-2Z" fill="currentColor" opacity=".6"/></svg>').replaceAll('id="metal"','id="'+gradient+'"').replaceAll('url(#metal)','url(#'+gradient+')');
+ const uid='weapon-detail-'+(++weaponArtSequence),color=tier.color,ornate=tier.need>=10;
+ const defs='<defs><linearGradient id="'+uid+'-metal"><stop stop-color="#526674"/><stop offset=".25" stop-color="#d9e9f0"/><stop offset=".48" stop-color="#fff"/><stop offset=".55" stop-color="#afc5d4"/><stop offset="1" stop-color="#486171"/></linearGradient><linearGradient id="'+uid+'-gem" x2=".8" y2="1"><stop stop-color="#e4faff"/><stop offset=".32" stop-color="'+color+'"/><stop offset="1" stop-color="#263e67"/></linearGradient><linearGradient id="'+uid+'-leather"><stop stop-color="#2f3541"/><stop offset=".5" stop-color="#667183"/><stop offset="1" stop-color="#222936"/></linearGradient></defs>';
+ const metal='url(#'+uid+'-metal)',gem='url(#'+uid+'-gem)',leather='url(#'+uid+'-leather)';
+ let body;
+ if(role==='paladin')body='<path d="M40 5 49 24 46 112H34L31 24Z" fill="'+metal+'" stroke="#526b80" stroke-width=".8"/><path d="M40 8v103" stroke="#f5fbff" stroke-width="1.2"/><path d="m35 30 5-6 5 6-5 14Z" fill="'+gem+'"/><path d="M13 109q12-9 22-4h10q10-5 22 4l-3 8q-15-8-24-4-9-4-24 4Z" fill="'+metal+'" stroke="#516878"/><path d="M36 115h8v32h-8Z" fill="'+leather+'"/><path d="M36 121h8m-8 6h8m-8 6h8m-8 6h8" stroke="#b6c5d7" stroke-width="1.3"/><path d="m40 144 8 8-8 9-8-9Z" fill="'+metal+'"/><path d="m40 147 4 5-4 5-4-5Z" fill="'+gem+'"/>';
+ else if(role==='ranger')body='<path d="M35 7Q73 39 54 73L48 83l6 10q19 34-19 62l5-16q26-27 9-48l-8-8 8-8q17-21-9-48Z" fill="'+metal+'" stroke="#526b80"/><path d="M35 7 40 83 35 155" fill="none" stroke="#b6cddd" stroke-width=".9"/><path d="M44 72h8v23h-8Z" fill="'+leather+'"/><path d="m49 43 6-9 4 8-6 9Z" fill="'+gem+'"/><path d="m49 121 6 9 4-8-6-9Z" fill="'+gem+'"/><path d="M11 83h54m-8-5 10 5-10 5M14 78l9 5-9 5" fill="none" stroke="#a1b4c2" stroke-width="1.4"/>';
+ else body='<path d="M37 49h6v105h-6Z" fill="'+leather+'"/><path d="M39 49h2v100h-2Z" fill="'+metal+'"/><path d="M27 43q-7-17 1-29l6 11-5 15 11 8 11-8-5-15 6-11q8 12 1 29l-13 12Z" fill="'+metal+'" stroke="#546d83"/><path d="m40 3 12 20-12 22-12-22Z" fill="'+gem+'" stroke="#b7d0e8"/><path d="m40 6 2 16-2 18-7-17Z" fill="#e5f8ff" opacity=".52"/><path d="M34 64h12v5H34Zm1 66h10v5H35Z" fill="'+metal+'"/><path d="m40 149 6 7-6 8-6-8Z" fill="'+gem+'"/>';
+ const decoration=ornate?'<path d="M23 36 14 26l4 21 11 9m28-20 9-10-4 21-11 9" fill="none" stroke="'+color+'" stroke-width="2"/><path d="m15 7 1 5 5 1-5 1-1 5-1-5-5-1 5-1Z" fill="'+color+'" opacity=".6"/>':'';
+ return '<svg viewBox="0 0 80 168" role="img" aria-label="'+escapeQuiz(tier.names[role])+'">'+defs+'<ellipse cx="40" cy="80" rx="27" ry="66" fill="'+color+'" opacity=".055"/>'+body+decoration+'</svg>';
 }
 function renderArena(){
  const s=quizState(),g=gameState(s),role=availableRole(gameLevel(g.xp||0).level,g.role).id,weapon=currentWeapon(g),owned=g.weapons||[];
@@ -32,7 +39,7 @@ function renderArena(){
  const equip=document.querySelector('#hero-weapon');if(equip){equip.innerHTML=weapon?weaponArt(role,weapon):gameIcon('shield');equip.setAttribute('aria-label',weapon?'已裝備 '+weapon.names[role]:'尚未裝備武器');equip.classList.toggle('armed',Boolean(weapon));}
  put('ranking-local-score',(g.xp||0)+' XP · 最高 '+(g.bestChain||0)+' 連擊');
  put('arena-equipped',weapon?weapon.names[role]:'尚未裝備 · 3 連擊獲得首件武器');
- const cards=document.querySelector('#weapon-cards');if(cards){cards.innerHTML=weaponTiers.map(w=>{const unlocked=owned.includes(w.id);return '<article class="weapon-card '+(unlocked?'unlocked':'locked')+'" style="--rarity:'+w.color+'"><span class="weapon-rarity">'+w.rarity+'</span>'+weaponArt(role,w)+'<h4>'+w.names[role]+'</h4><p>連續答對 '+w.need+' 題解鎖</p><button data-equip="'+w.id+'" '+(!unlocked?'disabled':'')+'>'+(weapon?.id===w.id?'已裝備':unlocked?'裝備':'尚未解鎖')+'</button></article>';}).join('');cards.querySelectorAll('[data-equip]').forEach(b=>b.onclick=()=>{const s=quizState(),g=gameState(s);if(!(g.weapons||[]).includes(b.dataset.equip))return;g.equippedWeapon=b.dataset.equip;s.game=g;saveQuizState(s);renderArena();});}
+ const cards=document.querySelector('#weapon-cards');if(cards){cards.innerHTML=weaponTiers.map(w=>{const unlocked=owned.includes(w.id);return '<article class="weapon-card '+(unlocked?'unlocked':'locked')+'" style="--rarity:'+w.color+'"><span class="weapon-rarity">'+w.rarity+'</span>'+weaponArt(role,w)+'<h4>'+w.names[role]+'</h4><p>連續答對 '+w.need+' 題解鎖</p><button data-equip="'+w.id+'" '+(!unlocked?'disabled':'')+'>'+(weapon?.id===w.id?'已裝備':unlocked?'裝備':'尚未解鎖')+'</button></article>';}).join('');cards.querySelectorAll('[data-equip]').forEach(b=>b.onclick=()=>{const s=quizState(),g=gameState(s);if(!(g.weapons||[]).includes(b.dataset.equip))return;g.equippedWeapon=b.dataset.equip;s.game=g;saveQuizState(s);renderArena();if(typeof renderAvatarCustomizer==='function')renderAvatarCustomizer();});}
 }
 let arenaClient=null,arenaBusy=false,competitionAttempt=null,competitionLocked=false;
 function rankingConfigured(){const c=window.CLOUD_RANKING_CONFIG;return Boolean(c&&/^https:\/\/[a-z0-9-]+\.supabase\.co$/.test(c.url)&&/^sb_publishable_[A-Za-z0-9_-]+$/.test(c.publishableKey));}
@@ -154,4 +161,3 @@ function initArena(){
  renderArena();
 }
 initArena();
-
