@@ -6,28 +6,28 @@ const avatarRaces=[
 {id:'dwarf',name:'矮人',column:4,world:'dawn'},{id:'dragonborn',name:'龍裔',column:5,world:'dusk'},
 {id:'tiefling',name:'魔裔',column:6,world:'dusk'}];
 const avatarGenders=[{id:'male',name:'男性'},{id:'female',name:'女性'}];
-const avatarAges=[{id:'young',name:'青年',row:0,note:'約 20 歲的外貌'},{id:'adult',name:'壯年',row:1,note:'約 45 歲的外貌'},{id:'elder',name:'長者',row:2,note:'約 70 歲的外貌'}];
+const avatarAges=[{id:'young',name:'青年',row:0,note:'約 25 歲的外貌'},{id:'adult',name:'壯年',row:1,note:'約 45 歲的外貌'},{id:'elder',name:'長者',row:2,note:'約 70 歲的外貌'}];
 const avatarProfessions=[
-{id:'warrior',name:'戰士',base:'paladin',symbol:'⚔',title:'鋼鐵戰將'},
-{id:'paladin',name:'聖騎士',base:'paladin',symbol:'✦',title:'蒼穹聖騎士'},
-{id:'mage',name:'法師',base:'mage',symbol:'✧',title:'星辰大法師'},
-{id:'ranger',name:'遊俠',base:'ranger',symbol:'➶',title:'天空巡守'},
-{id:'assassin',name:'刺客',base:'ranger',symbol:'◈',title:'暗影行者'},
-{id:'priest',name:'牧師',base:'mage',symbol:'✚',title:'聖光賢者'},
-{id:'druid',name:'德魯伊',base:'mage',symbol:'❧',title:'森林守望者'},
-{id:'summoner',name:'召喚師',base:'mage',symbol:'◎',title:'萬靈契約者'}];
+{id:'warrior',name:'星際突擊兵',base:'paladin',symbol:'⚔',title:'星際指揮官'},
+{id:'paladin',name:'軌道守衛',base:'paladin',symbol:'✦',title:'軌道守護者'},
+{id:'mage',name:'量子工程師',base:'mage',symbol:'✧',title:'量子架構師'},
+{id:'ranger',name:'深空偵察兵',base:'ranger',symbol:'➶',title:'深空領航員'},
+{id:'assassin',name:'幽影特工',base:'ranger',symbol:'◈',title:'幽影指揮官'},
+{id:'priest',name:'生命醫官',base:'mage',symbol:'✚',title:'生命科學先驅'},
+{id:'druid',name:'生態研究員',base:'mage',symbol:'❧',title:'星球生態守望者'},
+{id:'summoner',name:'機械召喚師',base:'mage',symbol:'◎',title:'機械軍團統御者'}];
 const avatarHeights=Array.from({length:91},(_,i)=>({id:String(120+i),name:(120+i)+' cm',cm:120+i}));
 const avatarBuilds=[{id:'standard',name:'標準',scale:1},{id:'slim',name:'纖細',scale:.97},{id:'broad',name:'厚實',scale:1.03}];
 const avatarSkins=[{id:'natural',name:'種族原色',color:'#bba28e'},{id:'fair',name:'瓷白',color:'#ecd1bd'},{id:'tan',name:'暖棕',color:'#ba8764'},{id:'deep',name:'深褐',color:'#765044'},{id:'jade',name:'翡翠',color:'#8caa7d'},{id:'violet',name:'紫灰',color:'#a09bbf'}];
-const avatarHeadgear=[{id:'none',name:'不加頭飾'},{id:'circlet',name:'銀冠'},{id:'gem',name:'寶石額飾'}];
-const avatarStyles=[{id:'adventurer',name:'冒險裝',note:'原生刺繡服飾'},{id:'armor',name:'金屬護甲',note:'胸甲與肩甲'},{id:'ritual',name:'儀式披肩',note:'織紋與職業徽記'}];
-const avatarCapes=[{id:'natural',name:'原生披風',color:'#737681'},{id:'blue',name:'靛藍披風',color:'#657caa'},{id:'red',name:'緋紅披風',color:'#a86570'},{id:'green',name:'墨綠披風',color:'#638773'}];
-const avatarWorlds=[{id:'auto',name:'跟隨種族',note:'自動搭配城堡、森林或荒原'},{id:'dawn',name:'晨光城堡'},{id:'forest',name:'月夜森林'},{id:'dusk',name:'暮色荒原'}];
+const avatarHeadgear=[{id:'none',name:'不加頭飾'},{id:'circlet',name:'通訊頭環'},{id:'gem',name:'光學額飾'}];
+const avatarStyles=[{id:'adventurer',name:'星航制服',note:'精緻機能剪裁'},{id:'armor',name:'外骨骼裝甲',note:'鈦合金防護模組'},{id:'ritual',name:'量子戰術背心',note:'發光線路與專業徽記'}];
+const avatarCapes=[{id:'natural',name:'無能源背飾',color:'#737681'},{id:'blue',name:'冰藍能源',color:'#657caa'},{id:'red',name:'緋紅能源',color:'#a86570'},{id:'green',name:'翡翠能源',color:'#638773'}];
+const avatarWorlds=[{id:'auto',name:'跟隨種族',note:'自動搭配星港、生態艙或前哨'},{id:'dawn',name:'軌道星港'},{id:'forest',name:'星雲生態艙'},{id:'dusk',name:'外星前哨'}];
 const avatarHair=[{id:'silver',name:'原生髮色',color:'#dedee5'},{id:'black',name:'曜石黑',color:'#252834'},{id:'brown',name:'栗棕',color:'#76543f'},{id:'gold',name:'暖金',color:'#d3ad65'},{id:'blue',name:'霧藍',color:'#739bbf'},{id:'rose',name:'玫瑰粉',color:'#c184a2'}];
-const avatarOutfits=[{id:'pearl',name:'原生灰銀',color:'#e4e8ed'},{id:'azure',name:'蒼穹藍',color:'#749abf'},{id:'forest',name:'森林綠',color:'#668978'},{id:'wine',name:'酒紅',color:'#9a566a'},{id:'night',name:'午夜黑',color:'#444858'}];
-const avatarAuras=[{id:'mist',name:'晨霧',color:'#a8d7ff'},{id:'violet',name:'星紫',color:'#b8a8ed'},{id:'gold',name:'暖金',color:'#e3c180'},{id:'none',name:'無光環',color:'transparent'}];
+const avatarOutfits=[{id:'pearl',name:'星艦白',color:'#e4e8ed'},{id:'azure',name:'磁場藍',color:'#749abf'},{id:'forest',name:'生態綠',color:'#668978'},{id:'wine',name:'酒紅',color:'#9a566a'},{id:'night',name:'午夜黑',color:'#444858'}];
+const avatarAuras=[{id:'mist',name:'星塵',color:'#a8d7ff'},{id:'violet',name:'星紫',color:'#b8a8ed'},{id:'gold',name:'暖金',color:'#e3c180'},{id:'none',name:'無光環',color:'transparent'}];
 const avatarGroups={gender:avatarGenders,race:avatarRaces,age:avatarAges,profession:avatarProfessions,height:avatarHeights,build:avatarBuilds,skin:avatarSkins,hair:avatarHair,style:avatarStyles,outfit:avatarOutfits,cape:avatarCapes,headgear:avatarHeadgear,world:avatarWorlds,aura:avatarAuras};
-const avatarLabels={gender:'性別',race:'種族',age:'年齡外貌',profession:'基礎職業',height:'身高',build:'體型',skin:'膚色',hair:'髮色',style:'服裝款式',outfit:'服飾配色',cape:'披風配色',headgear:'頭飾',world:'場景與介面主題',aura:'角色光環'};
+const avatarLabels={gender:'性別',race:'種族',age:'年齡外貌',profession:'基礎職業',height:'身高',build:'體型',skin:'膚色',hair:'髮色',style:'服裝款式',outfit:'服飾配色',cape:'能源背飾',headgear:'頭飾',world:'場景與介面主題',aura:'角色光環'};
 function avatarAppearance(){
  let raw={};try{raw=JSON.parse(localStorage.getItem('edan-avatar-appearance-v1')||'{}')||{};}catch{}
  if(!raw.height)raw.height=raw.race==='dwarf'?'140':'180';
@@ -42,22 +42,24 @@ function saveAvatarChoice(key,id){
  try{localStorage.setItem('edan-avatar-appearance-v1',JSON.stringify(value));}catch{const status=document.querySelector('#avatar-save-status');if(status)status.textContent='此瀏覽器無法儲存外觀，請檢查儲存空間。';return;}
  renderFantasyGame();const status=document.querySelector('#avatar-save-status');if(status)status.textContent='外觀已儲存，重新整理後仍會保留。';
 }
-const avatarAtlas={male:'assets/characters-male-v5.png',female:'assets/characters-female-v5.png'};
+const avatarAtlas={male:'assets/characters-male-cosmic-v6.png',female:'assets/characters-female-cosmic-v6.png'};
 let avatarArtSequence=0;
 function avatarTint(color){const values=color.slice(1).match(/../g).map(x=>parseInt(x,16)/255);return values.map(v=>[.2126*v,.7152*v,.0722*v,0,0].join(' ')).join(' ')+' 0 0 0 1 0';}
 function avatarMarkup(role,appearance=avatarAppearance()){
  const a=appearance,uid='avatar-'+(++avatarArtSequence),col=a.race.column,row=a.age.row,dwarf=a.race.id==='dwarf';
 
  // Crop actual artwork boundaries and preserve the source aspect ratio.
- const bounds=a.gender.id==='female'?[0,280,515,742,962,1178,1400,1659]:[0,260,494,723,961,1179,1417,1659];
- const rows=[0,340,650,948],cellW=bounds[col+1]-bounds[col],cellH=rows[row+1]-rows[row];
- const nativeX=(a.gender.id==='female'?[166,400,628,853,1060,1288,1517]:[141,379,609,843,1075,1299,1538])[col];
- const artScale=Math.min(240/cellW,320/cellH),offsetX=(240-cellW*artScale)/2,offsetY=320-cellH*artScale;
- const shift=120-(offsetX+(nativeX-bounds[col])*artScale);
- const source='<g transform="translate('+shift+' 0)"><svg class="avatar-atlas-cell" x="0" y="0" width="240" height="320" viewBox="'+bounds[col]+' '+rows[row]+' '+cellW+' '+cellH+'" preserveAspectRatio="xMidYMax meet"><image href="'+avatarAtlas[a.gender.id]+'" width="1659" height="948"/></svg></g>';
- const fx=120,fy=offsetY+(dwarf?106:35)*artScale,shoulder=fy+(dwarf?45:47)*artScale,belt=fy+(dwarf?103:112)*artScale;
+
+ const atlasW=1536,atlasH=1024;
+ const centers=a.gender.id==='female'?[143,355,566,771,977,1182,1406]:[176,392,596,806,1001,1203,1424];
+ const rows=a.gender.id==='female'?[0,340,680,1024]:[0,356,707,1024];
+ const cellW=190,cellH=rows[row+1]-rows[row],nativeX=centers[col],left=nativeX-cellW/2;
+ const artScale=Math.min(240/cellW,320/cellH),offsetY=320-cellH*artScale;
+ const source='<g clip-path="url(#'+uid+'-cell)"><svg class="avatar-atlas-cell" overflow="hidden" x="0" y="0" width="240" height="320" viewBox="'+left+' '+rows[row]+' '+cellW+' '+cellH+'" preserveAspectRatio="xMidYMax meet"><image href="'+avatarAtlas[a.gender.id]+'" width="'+atlasW+'" height="'+atlasH+'"/></svg></g>';
+ const faceHeights=a.gender.id==='female'?(dwarf?[110,95,102]:[33,35,40]):(dwarf?[137,133,120]:[38,31,39]);
+ const fx=120,fy=offsetY+faceHeights[row]*artScale,shoulder=fy+47*artScale,belt=fy+(dwarf?97:a.gender.id==='male'?127:112)*artScale;
  const heightScale=a.height.cm/(dwarf?140:180);
- const masks='<mask id="'+uid+'-hair"><rect x="75" y="'+(fy-35)+'" width="90" height="'+(dwarf?92:110)+'" rx="25" fill="white"/><ellipse cx="'+fx+'" cy="'+fy+'" rx="16" ry="25" fill="black"/><path d="M100 '+(fy+22)+'h40v70h-40Z" fill="black"/></mask>'+
+ const masks='<clipPath id="'+uid+'-cell"><rect width="240" height="320"/></clipPath><mask id="'+uid+'-hair"><rect x="75" y="'+(fy-35)+'" width="90" height="'+(dwarf?92:110)+'" rx="25" fill="white"/><ellipse cx="'+fx+'" cy="'+fy+'" rx="16" ry="25" fill="black"/><path d="M100 '+(fy+22)+'h40v70h-40Z" fill="black"/></mask>'+
  '<mask id="'+uid+'-skin"><ellipse cx="'+fx+'" cy="'+fy+'" rx="15" ry="22" fill="white"/><ellipse cx="67" cy="'+(shoulder+40)+'" rx="10" ry="25" fill="white"/><ellipse cx="173" cy="'+(shoulder+40)+'" rx="10" ry="25" fill="white"/></mask>'+
  '<mask id="'+uid+'-cloth"><path d="M87 '+(shoulder-17)+'Q120 '+shoulder+' 153 '+(shoulder-17)+'L165 '+(belt+35)+' 120 '+(belt+62)+' 75 '+(belt+35)+'Z" fill="white"/></mask>'+
  '<mask id="'+uid+'-cape"><path d="M65 '+shoulder+'L44 245 77 264 92 '+shoulder+'ZM175 '+shoulder+'L196 245 163 264 148 '+shoulder+'Z" fill="white"/></mask>';
@@ -69,8 +71,10 @@ function avatarMarkup(role,appearance=avatarAppearance()){
  if(a.style.id==='armor')gear='<path d="M92 '+shoulder+'Q120 '+(shoulder+14)+' 148 '+shoulder+'L145 '+(belt-7)+'Q120 '+(belt+3)+' 95 '+(belt-7)+'Z" fill="'+metal+'" stroke="#526574"/><path d="M83 '+(shoulder-9)+'l-20 10 6 20 23-9ZM157 '+(shoulder-9)+'l20 10-6 20-23-9Z" fill="'+metal+'" stroke="#637487"/><path d="M120 '+(shoulder+18)+'v'+(belt-shoulder-30)+'" stroke="#e0ebee" opacity=".6"/>';
  if(a.style.id==='ritual')gear='<path d="M87 '+(shoulder-13)+'L101 '+(belt+21)+' 112 '+(belt+25)+' 104 '+shoulder+'Q120 '+(shoulder+8)+' 136 '+shoulder+'L128 '+(belt+25)+' 139 '+(belt+21)+' 153 '+(shoulder-13)+'Q120 '+shoulder+' 87 '+(shoulder-13)+'Z" fill="'+a.outfit.color+'" stroke="#c1a878" stroke-width="2"/>';
  if(a.headgear.id!=='none')gear+='<path d="M103 '+(fy-12)+'Q120 '+(fy-5)+' 137 '+(fy-12)+'" fill="none" stroke="'+metal+'" stroke-width="3"/><path d="m120 '+(fy-12)+' 4 4-4 5-4-5Z" fill="'+(a.headgear.id==='gem'?'#8bbedb':'#d6d9e1')+'" stroke="#657689"/>';
+ if(a.style.id!=='adventurer')gear+='<path d="M100 '+(shoulder+12)+'v30l10 8m30-38v30l-10 8" fill="none" stroke="#88def8" stroke-width="1.8"/>';
+ const energy=a.cape.id==='natural'?'':'<g fill="none" stroke="'+a.cape.color+'" stroke-linecap="round"><path d="M75 '+shoulder+'Q50 170 58 239M165 '+shoulder+'Q190 170 182 239" stroke-width="8" opacity=".2"/><path d="M75 '+shoulder+'Q50 170 58 239M165 '+shoulder+'Q190 170 182 239" stroke-width="2.5" opacity=".9"/></g>';
  const emblem='<text x="120" y="'+(shoulder+27)+'" text-anchor="middle" font-size="14" fill="#ddd0a9" stroke="#2d3444" stroke-width=".25">'+p.symbol+'</text>';
- return '<svg class="avatar-render" viewBox="0 0 300 400" aria-hidden="true" focusable="false"><defs>'+masks+filter('hair-color',a.hair.color)+filter('cloth-color',a.outfit.color)+filter('skin-color',a.skin.color)+filter('cape-color',a.cape.color)+'<linearGradient id="'+uid+'-metal"><stop stop-color="#424e61"/><stop offset=".3" stop-color="#aebcca"/><stop offset=".48" stop-color="#e6edf1"/><stop offset=".7" stop-color="#7c8ca0"/><stop offset="1" stop-color="#39455a"/></linearGradient></defs><g transform="translate(150 388) scale('+heightScale+') translate(-120 -320)"><g transform="translate(120 0) scale('+a.build.scale+' 1) translate(-120 0)">'+source+(a.outfit.id==='pearl'?'':tint('cloth',a.outfit.color,.8))+(a.hair.id==='silver'?'':tint('hair',a.hair.color,.9))+(a.skin.id==='natural'?'':tint('skin',a.skin.color,.65))+(a.cape.id==='natural'?'':tint('cape',a.cape.color,.8))+gear+emblem+'</g></g></svg>';
+ return '<svg class="avatar-render" viewBox="0 0 300 400" aria-hidden="true" focusable="false"><defs>'+masks+filter('hair-color',a.hair.color)+filter('cloth-color',a.outfit.color)+filter('skin-color',a.skin.color)+filter('cape-color',a.cape.color)+'<linearGradient id="'+uid+'-metal"><stop stop-color="#424e61"/><stop offset=".3" stop-color="#aebcca"/><stop offset=".48" stop-color="#e6edf1"/><stop offset=".7" stop-color="#7c8ca0"/><stop offset="1" stop-color="#39455a"/></linearGradient></defs><g transform="translate(150 388) scale('+heightScale+') translate(-120 -320)"><g transform="translate(120 0) scale('+a.build.scale+' 1) translate(-120 0)">'+energy+source+(a.outfit.id==='pearl'?'':tint('cloth',a.outfit.color,.8))+(a.hair.id==='silver'?'':tint('hair',a.hair.color,.9))+(a.skin.id==='natural'?'':tint('skin',a.skin.color,.65))+gear+emblem+'</g></g></svg>';
 }
 function applyAvatarWorld(a){
  const world=a.world.id==='auto'?a.race.world:a.world.id;
@@ -105,9 +109,9 @@ function renderAvatarCustomizer(){
 }
 function initAvatarCustomizer(){
  const choices=(group,items)=>items.map(x=>'<button type="button" class="avatar-choice '+(group==='race'?'avatar-race-choice':'')+'" data-avatar-group="'+group+'" data-avatar-value="'+x.id+'" aria-pressed="false" aria-label="'+avatarLabels[group]+'：'+x.name+'">'+(group==='race'?'<span class="avatar-race-art" aria-hidden="true"></span>':x.color?'<span class="avatar-swatch" style="--swatch:'+x.color+'" aria-hidden="true"></span>':x.symbol?'<span class="avatar-gender-symbol" aria-hidden="true">'+x.symbol+'</span>':'')+'<b>'+x.name+'</b>'+(x.note?'<small>'+x.note+'</small>':'')+'</button>').join('');
- document.querySelector('#open-role-collection').insertAdjacentHTML('afterend','<button type="button" id="open-avatar-customizer" class="avatar-open">打造角色 · 種族、職業與年齡 →</button>');
+ document.querySelector('#open-role-collection').insertAdjacentHTML('afterend','<button type="button" id="open-avatar-customizer" class="avatar-open">星際角色 · 種族、職業與年齡 →</button>');
  const controls=Object.entries(avatarGroups).map(([key,items])=>key==='height'?'<section class="avatar-height-control"><h3>身高 <output id="avatar-height-value" for="avatar-height-range"></output></h3><input id="avatar-height-range" type="range" min="120" max="210" step="1" value="180" aria-label="角色身高，公分"><p class="avatar-theme-note">120～210 cm，維持自然頭身比例。矮人預設 140 cm。</p></section>':'<section><h3>'+avatarLabels[key]+'</h3><div '+(key==='race'?'id="avatar-race-options" ':'')+'class="'+(key==='race'?'avatar-races':key==='gender'?'avatar-genders':'avatar-choice-grid')+'">'+choices(key,items)+'</div></section>').join('');
- document.body.insertAdjacentHTML('beforeend','<dialog id="avatar-dialog" class="avatar-dialog" aria-labelledby="avatar-dialog-title"><button type="button" id="close-avatar-dialog" class="map-close" aria-label="關閉角色外觀">×</button><span class="section-kicker">CHARACTER ATELIER</span><h2 id="avatar-dialog-title">打造你的冒險者</h2><p class="avatar-intro">7 個種族、8 種基礎職業、3 個年齡階段自由搭配。青年、壯年與長者各有不同的臉部與身形素材；稱號與稀有武器隨學習進度解鎖。</p><div class="avatar-workshop"><section class="avatar-showcase" aria-label="目前角色預覽"><span class="avatar-world-name avatar-world-label"></span><div id="avatar-preview" class="avatar-preview"></div><h3 id="avatar-preview-title"></h3><p id="avatar-preview-description"></p><small id="avatar-preview-equipment"></small></section><div class="avatar-controls">'+controls+'</div></div><p id="avatar-save-status" class="avatar-save-status" role="status" aria-live="polite">外觀會自動儲存在此瀏覽器。</p><p class="avatar-note">年齡代表角色外貌。職業徽記、服裝與配色可獨立搭配；髮型與原生鬍鬚依種族、性別和年齡素材呈現。武器分為長劍、弓與法杖三個系列。外觀不影響競賽積分。</p><button type="button" id="avatar-done" class="primary-action">完成外觀設定</button></dialog>');
+ document.body.insertAdjacentHTML('beforeend','<dialog id="avatar-dialog" class="avatar-dialog" aria-labelledby="avatar-dialog-title"><button type="button" id="close-avatar-dialog" class="map-close" aria-label="關閉角色外觀">×</button><span class="section-kicker">ORBITAL CHARACTER LAB</span><h2 id="avatar-dialog-title">打造你的星際探索者</h2><p class="avatar-intro">7 個種族、8 種基礎職業、3 個年齡階段自由搭配。青年、壯年與長者各有不同的臉部與身形素材；稱號與稀有武器隨學習進度解鎖。</p><div class="avatar-workshop"><section class="avatar-showcase" aria-label="目前角色預覽"><span class="avatar-world-name avatar-world-label"></span><div id="avatar-preview" class="avatar-preview"></div><h3 id="avatar-preview-title"></h3><p id="avatar-preview-description"></p><small id="avatar-preview-equipment"></small></section><div class="avatar-controls">'+controls+'</div></div><p id="avatar-save-status" class="avatar-save-status" role="status" aria-live="polite">外觀會自動儲存在此瀏覽器。</p><p class="avatar-note">年齡代表角色外貌。職業徽記、服裝與配色可獨立搭配；髮型與原生鬍鬚依種族、性別和年齡素材呈現。裝備分為光刃、脈衝弓與量子工具三個系列。外觀不影響競賽積分。</p><button type="button" id="avatar-done" class="primary-action">完成外觀設定</button></dialog>');
  document.querySelector('.rank-top').insertAdjacentHTML('afterend','<span class="avatar-world-name hero-world-label"></span>');
  const dialog=document.querySelector('#avatar-dialog');document.querySelector('#open-avatar-customizer').onclick=()=>{renderAvatarCustomizer();dialog.showModal();};
  const close=()=>dialog.close();document.querySelector('#close-avatar-dialog').onclick=close;document.querySelector('#avatar-done').onclick=close;

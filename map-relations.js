@@ -42,7 +42,7 @@ function renderCloudRoutes(){
   button.querySelector('.cloud-missed-badge').textContent=items.length?'! '+items.length+' 題':'';
   button.querySelector('.cloud-missed-badge').hidden=!items.length;
  });
- const summary=document.querySelector('#cloud-route-summary');summary.textContent=count?'地圖上有 '+count+' 題待複習錯題，選擇紅色標記的關卡可開始複習。':'目前沒有待複習錯題；完成挑戰後，錯題會自動定位到對應關卡。';
+ const summary=document.querySelector('#cloud-route-summary');summary.textContent=count?'地圖上有 '+count+' 題待複習錯題，選擇紅色標記的航站可開始複習。':'目前沒有待複習錯題；完成挑戰後，錯題會自動定位到對應航站。';
  document.querySelector('#cloud-route-missed-toggle').setAttribute('aria-pressed',String(cloudRouteOnlyMissed));
  if(selected!==null)renderCloudRouteDetail(selected);
 }
@@ -55,7 +55,7 @@ function renderCloudRouteDetail(index){
  const config=cloudRouteConfig[index],questions=routeMissesFor(index),root=document.querySelector('#cloud-route-detail');
  if(!root)return;
  const buttons=(items)=>items.length?items.map(i=>'<button type="button" class="cloud-route-link" data-route-jump="'+i+'">'+escapeQuiz(routeLabel(i))+'</button>').join(''):'<span class="cloud-route-empty">從這裡開始建立基礎</span>';
- root.innerHTML='<p class="cloud-route-focus">'+escapeQuiz(config.focus)+'</p><div class="cloud-relation-columns"><section><h4>先備知識 · 虛線箭頭</h4>'+buttons(config.prerequisites)+'</section><section><h4>相關依賴 · 虛線</h4>'+buttons(config.related)+'</section><section><h4>下一個主線關卡</h4>'+(config.next===null?'<span class="cloud-route-empty">後續主題持續擴充</span>':buttons([config.next]))+'</section></div><section class="cloud-route-errors"><h4>待複習錯題 · '+questions.length+' 題</h4>'+(questions.length?'<ul>'+questions.map(q=>'<li>'+escapeQuiz(q.question)+'</li>').join('')+'</ul><button type="button" id="cloud-route-review" class="primary-action">複習這個關卡的錯題 →</button>':'<p class="cloud-route-empty">此領域目前沒有待複習錯題。這不代表已掌握全部觀念。</p>')+'</section>';
+ root.innerHTML='<p class="cloud-route-focus">'+escapeQuiz(config.focus)+'</p><div class="cloud-relation-columns"><section><h4>先備知識 · 虛線箭頭</h4>'+buttons(config.prerequisites)+'</section><section><h4>相關依賴 · 虛線</h4>'+buttons(config.related)+'</section><section><h4>下一個主線航站</h4>'+(config.next===null?'<span class="cloud-route-empty">後續主題持續擴充</span>':buttons([config.next]))+'</section></div><section class="cloud-route-errors"><h4>待複習錯題 · '+questions.length+' 題</h4>'+(questions.length?'<ul>'+questions.map(q=>'<li>'+escapeQuiz(q.question)+'</li>').join('')+'</ul><button type="button" id="cloud-route-review" class="primary-action">複習這個航站的錯題 →</button>':'<p class="cloud-route-empty">此領域目前沒有待複習錯題。這不代表已掌握全部觀念。</p>')+'</section>';
  root.querySelectorAll('[data-route-jump]').forEach(b=>b.onclick=()=>openWorldNode(Number(b.dataset.routeJump)));
  const review=root.querySelector('#cloud-route-review');if(review)review.onclick=()=>routePractice(index,true);
 }
@@ -72,8 +72,8 @@ function initCloudRelations(){
   button.insertAdjacentHTML('beforeend','<span class="cloud-route-step" aria-hidden="true">'+(i+1)+'</span><span class="cloud-missed-badge" hidden></span>');
  });
  map.querySelector('.world-map-head h3').textContent='你的雲端學習主線';
- map.querySelector('.world-map-head p').textContent='沿實線箭頭前進；點選關卡，查看先備知識、跨領域依賴與錯題。';
- map.querySelector('.world-map-head').insertAdjacentHTML('afterend','<div class="cloud-route-toolbar"><span><i class="cloud-line-sample"></i>學習主線 →</span><span><i class="cloud-line-sample dependency"></i>點選後顯示依賴</span><button type="button" id="cloud-route-missed-toggle" class="quiet-action" aria-pressed="false">突出錯題關卡</button><button type="button" id="cloud-route-clear" class="quiet-action">返回完整主線</button><p id="cloud-route-summary" role="status" aria-live="polite"></p></div>');
+ map.querySelector('.world-map-head p').textContent='沿實線箭頭前進；點選航站，查看先備知識、跨領域依賴與錯題。';
+ map.querySelector('.world-map-head').insertAdjacentHTML('afterend','<div class="cloud-route-toolbar"><span><i class="cloud-line-sample"></i>學習主線 →</span><span><i class="cloud-line-sample dependency"></i>點選後顯示依賴</span><button type="button" id="cloud-route-missed-toggle" class="quiet-action" aria-pressed="false">突出錯題航站</button><button type="button" id="cloud-route-clear" class="quiet-action">返回完整主線</button><p id="cloud-route-summary" role="status" aria-live="polite"></p></div>');
  document.querySelector('#world-detail-items').insertAdjacentHTML('beforebegin','<div id="cloud-route-detail"></div>');
  map.querySelector('.map-footnote').textContent='箭頭表示建議學習順序，不是封包或資料流。虛線表示先備與關聯，不代表服務必須搭配使用。錯題來自此瀏覽器的客觀題紀錄，與每日訓練狀態分開顯示。手機可左右滑動。';
  document.querySelector('#cloud-route-missed-toggle').onclick=()=>{cloudRouteOnlyMissed=!cloudRouteOnlyMissed;renderCloudRoutes();};
