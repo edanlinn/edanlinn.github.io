@@ -1,7 +1,7 @@
 window.CLOUD_SA_DATA = {
-  "updatedAt": "2026-10-01",
-  "completedDays": 13,
-  "currentTrack": "Database DR / Backup Strategy",
+  "updatedAt": "2026-10-02",
+  "completedDays": 14,
+  "currentTrack": "DR Strategy / Pilot Light / Warm Standby",
   "scores": [
     {
       "day": 1,
@@ -54,6 +54,10 @@ window.CLOUD_SA_DATA = {
     {
       "day": 13,
       "score": 82
+    },
+    {
+      "day": 14,
+      "score": 78
     }
   ],
   "roadmap": [
@@ -80,11 +84,11 @@ window.CLOUD_SA_DATA = {
     "summary": [
       {
         "label": "完成訓練",
-        "value": "Day 1–13"
+        "value": "Day 1–14"
       },
       {
         "label": "目前主題",
-        "value": "Database DR / Backup Strategy"
+        "value": "DR Strategy Patterns"
       },
       {
         "label": "已建立基礎",
@@ -92,7 +96,7 @@ window.CLOUD_SA_DATA = {
       },
       {
         "label": "下一階段",
-        "value": "DR Pattern / Migration"
+        "value": "Migration / Modernization"
       }
     ],
     "domains": [
@@ -180,20 +184,20 @@ window.CLOUD_SA_DATA = {
         ]
       },
       {
-        "name": "Database / DR",
+        "name": "Architecture / DR",
         "status": "current",
         "statusLabel": "目前學習中",
         "items": [
-          "RDS Multi-AZ / Aurora Replica",
-          "PITR / Automated Backup",
-          "Manual Snapshot",
-          "Cross-Region Automated Backup",
+          "Backup & Restore",
+          "Pilot Light",
+          "Warm Standby",
+          "Multi-Region Active/Active",
+          "RTO / RPO / Cost Trade-off",
+          "Recovery Dependency Chain",
+          "Route 53 / Cross-Region Traffic Failover",
           "Aurora Global Database",
-          "HA ≠ Backup",
-          "Backup ≠ DR",
-          "RPO Verification",
-          "RTO End-to-End Validation",
-          "DR Runbook / Failover Test"
+          "Split-brain / Write Fencing",
+          "DR Test / Runbook"
         ]
       },
       {
@@ -201,11 +205,10 @@ window.CLOUD_SA_DATA = {
         "status": "next",
         "statusLabel": "接下來",
         "items": [
-          "DR Strategy Pattern",
-          "Pilot Light / Warm Standby",
-          "Migration",
+          "Migration Strategies",
           "Modernization",
-          "Terraform"
+          "Terraform",
+          "Containers"
         ]
       }
     ],
@@ -231,7 +234,11 @@ window.CLOUD_SA_DATA = {
       "Aurora Global Database = Multi-Region DR",
       "PITR = Logical / Human Error Recovery",
       "Manual Snapshot = Pre-change Recovery Point",
-      "Aurora Global Database = Lower-RTO Region DR"
+      "Aurora Global Database = Lower-RTO Region DR",
+      "Backup & Restore = Lowest cost / Longer RTO",
+      "Warm Standby = Fully functional but scaled down",
+      "Warm Standby lower cost than Active/Active",
+      "DR Dependency Chain beyond Database"
     ],
     "confused": [
       "Trust Policy vs Permission Policy",
@@ -250,13 +257,15 @@ window.CLOUD_SA_DATA = {
       "Business RPO vs Cross-Region Replication Lag",
       "RTO = Restore Service in DR Region, not Failback to Original Region",
       "Cross-Region Backup vs Aurora Global Database",
-      "RPO Requirement vs Replication Lag Evidence"
+      "RPO Requirement vs Replication Lag Evidence",
+      "Pilot Light vs Warm Standby",
+      "Active/Active Data Consistency / Conflict Resolution",
+      "ALB vs Cross-Region Traffic Routing",
+      "RTO Restore Service vs Failback"
     ],
     "upcoming": [
-      "DR Strategy Pattern",
-      "Pilot Light / Warm Standby",
-      "Migration",
-      "Modernization",
+      "Migration Strategies",
+      "Migration / Modernization",
       "Terraform",
       "Docker / Kubernetes",
       "CI/CD",
@@ -608,6 +617,45 @@ window.CLOUD_SA_DATA = {
         }
       ],
       "memory": "HA ≠ Backup；Backup ≠ DR；RPO 要看資料落後；RTO 要看整個服務恢復。"
+    },
+    {
+      "tag": "Architecture / DR",
+      "title": "案例 10｜Warm Standby Loan DR：東京 → 大阪",
+      "subtitle": "RTO 30 min / RPO 5 min，成本低於 Active/Active",
+      "description": "情境：Primary 在東京、DR 在大阪。DR Region 平常已有縮小版 Application、Network、Secrets 與 Aurora Secondary，可在 Region Failure 時快速擴容並切換流量。",
+      "steps": [
+        {
+          "aws": "Primary Region - Tokyo",
+          "real": "正常承接 Production Traffic，Application 與 Writer Database 在東京運行。"
+        },
+        {
+          "aws": "DR Region - Osaka",
+          "real": "保留縮小但完整可用的 Application Stack，符合 Warm Standby 定義。"
+        },
+        {
+          "aws": "Aurora Global Database",
+          "real": "Primary 非同步複寫至 Secondary Region；Failover 時 Secondary 可成為新的 Primary。"
+        },
+        {
+          "aws": "Route 53 / ARC",
+          "real": "跨 Region 流量切換需由 Global DNS / Routing 機制完成；ALB 本身是 Regional Load Balancer。"
+        },
+        {
+          "aws": "Scale Out + Validation",
+          "real": "Failover 時先確認資料狀態、擴充 DR Compute、切流量、驗證登入與交易。"
+        }
+      ],
+      "compare": [
+        {
+          "title": "Pilot Light",
+          "text": "資料與核心元件在 DR Region，但 Application 不一定能立即服務；故障後還需建立或啟動 Compute。"
+        },
+        {
+          "title": "Warm Standby",
+          "text": "完整 Application 已 Running，只是容量較小；故障時主要做 Scale Up + Traffic Failover。"
+        }
+      ],
+      "memory": "Pilot Light 不能立即服務；Warm Standby 可以立即服務但容量較小。"
     }
   ],
   "glossary": [
@@ -1672,6 +1720,73 @@ window.CLOUD_SA_DATA = {
         "Failover",
         "Failback"
       ]
+    },
+    {
+      "term": "Pilot Light",
+      "fullName": "Pilot Light Disaster Recovery",
+      "category": "Architecture / DR",
+      "aliases": [
+        "小火苗 DR"
+      ],
+      "definition": "DR Region 中保留資料與核心基礎元件，但完整 Application Stack 尚未處於可立即服務狀態；故障時還需建立或啟動部分 Compute / Application。",
+      "example": "Aurora Secondary、Secrets、IaC 已存在，但 EC2 Application 尚未 Running。",
+      "confusion": "若 Application 已完整 Running、只是容量較小，那是 Warm Standby，不是 Pilot Light。",
+      "related": [
+        "Warm Standby",
+        "RTO",
+        "RPO"
+      ]
+    },
+    {
+      "term": "Warm Standby",
+      "fullName": "Warm Standby Disaster Recovery",
+      "category": "Architecture / DR",
+      "aliases": [
+        "縮小版備援環境"
+      ],
+      "definition": "在 DR Region 長期維持一套完整且可運行、但容量小於 Primary 的 workload；發生災難時主要 Scale Up 並切換流量。",
+      "example": "東京 EC2 x4，大阪 EC2 x2；大阪平常可運作，故障時再擴到完整容量。",
+      "confusion": "Warm Standby 比 Active/Active 便宜，但 RTO 較長，因為還需要 Scale Up / Failover。",
+      "related": [
+        "Pilot Light",
+        "Active/Active",
+        "Route 53"
+      ]
+    },
+    {
+      "term": "Write Fencing",
+      "fullName": "Write Fencing / Split-brain Prevention",
+      "category": "Architecture / DR",
+      "aliases": [
+        "寫入隔離",
+        "防 Split-brain"
+      ],
+      "definition": "Failover 時阻止舊 Primary 與新 Primary 同時接受寫入，避免兩邊資料分岔或衝突。",
+      "example": "東京 Region 異常但尚未完全離線時，先阻止舊 Writer 再把大阪提升為新的 Write Region。",
+      "confusion": "Region Failure 不一定代表舊 Region 100% 不可寫，因此 Failover Runbook 要考慮 split-brain。",
+      "related": [
+        "Failover",
+        "Active/Active",
+        "Consistency"
+      ]
+    },
+    {
+      "term": "Cross-Region Traffic Failover",
+      "fullName": "Cross-Region Traffic Failover",
+      "category": "Networking / DR",
+      "aliases": [
+        "Route 53 Failover",
+        "Global Traffic Switch"
+      ],
+      "definition": "把使用者流量從故障 Region 導向健康的 Recovery Region，常用 Route 53 Failover Routing 或其他 Global Routing / ARC 機制。",
+      "example": "東京 ALB unhealthy 後，Route 53 將同一網域解析到大阪 ALB。",
+      "confusion": "ALB 是 Regional Service，本身不負責跨 Region 的全域流量切換。",
+      "related": [
+        "Route 53",
+        "ALB",
+        "ARC",
+        "Warm Standby"
+      ]
     }
   ],
   "quizBank": [
@@ -2274,6 +2389,66 @@ window.CLOUD_SA_DATA = {
       "answer": 1,
       "explanation": "RTO 衡量從事故到 Service 恢復的時間。Failback 回原 Region 是後續流程，不是 RTO 的必要終點。",
       "memory": "RTO = Restore Service；Failback 是之後的事。"
+    },
+    {
+      "id": "DR08",
+      "category": "Architecture",
+      "difficulty": "基礎",
+      "question": "DR Region 有 Aurora Secondary、Secrets 與設定，但沒有 Running Application Compute。這最接近哪種 DR Strategy？",
+      "options": [
+        "Backup & Restore",
+        "Pilot Light",
+        "Warm Standby",
+        "Active/Active"
+      ],
+      "answer": 1,
+      "explanation": "Pilot Light 保留資料與核心資源，但完整 Application 尚不能立即服務。",
+      "memory": "Pilot Light = Core/Data on；App 未必 Running。"
+    },
+    {
+      "id": "DR09",
+      "category": "Architecture",
+      "difficulty": "中等",
+      "question": "Pilot Light 和 Warm Standby 最重要的差異是？",
+      "options": [
+        "是否有 Backup",
+        "是否跨 AZ",
+        "DR Region 是否已有完整可運行的縮小版 Application",
+        "是否使用 IAM"
+      ],
+      "answer": 2,
+      "explanation": "Warm Standby 的完整 workload 已 Running；Pilot Light 還需要建立/啟動部分應用資源才能服務。",
+      "memory": "Warm Standby = App 已活著。"
+    },
+    {
+      "id": "DR10",
+      "category": "Networking",
+      "difficulty": "中等",
+      "question": "東京與大阪各有一個 ALB，若要在 Region Failover 時把同一網域流量切到大阪，哪個元件最直接對應？",
+      "options": [
+        "只有 ALB",
+        "Route 53 Failover Routing / Global Routing",
+        "NACL",
+        "NAT Gateway"
+      ],
+      "answer": 1,
+      "explanation": "ALB 是 Regional Load Balancer；跨 Region 的 client traffic routing 需要 Route 53、Global Accelerator 或 ARC 等全域流量機制。",
+      "memory": "ALB 管 Region 內；Global Routing 管 Region 間。"
+    },
+    {
+      "id": "DR11",
+      "category": "Architecture",
+      "difficulty": "進階",
+      "question": "Active/Active 兩個 Region 都允許修改同一 Account Balance 時，最重要的額外設計議題是？",
+      "options": [
+        "只要 EC2 數量夠",
+        "Data consistency、concurrent write conflict、ordering / transaction semantics",
+        "只要 Route 53 TTL 很低",
+        "只要使用 Multi-AZ"
+      ],
+      "answer": 1,
+      "explanation": "Multi-Region multi-writer 會涉及一致性、同筆資料競爭寫入、衝突處理與交易順序等問題。",
+      "memory": "Active/Active 最難的常常不是 Compute，而是 Data。"
     }
   ],
   "days": [
@@ -2712,6 +2887,56 @@ window.CLOUD_SA_DATA = {
         "RPO = 資料最多可落後多少；Lag 是證據。",
         "RTO = 災難後多久恢復服務，不是多久切回原 Region。",
         "RTO 越短，通常需要越多預先部署的 DR 資源。"
+      ]
+    },
+    {
+      "day": 14,
+      "date": "2026-10-02",
+      "topic": "DR Strategy / Pilot Light / Warm Standby / Active-Active",
+      "score": 78,
+      "status": "completed",
+      "mastered": [
+        "Backup & Restore 適合較寬鬆 RTO / RPO 與成本敏感 workload",
+        "Warm Standby 代表 DR Region 有完整但縮小的 Running Application",
+        "RTO 越短通常需要越多預先部署的資源",
+        "Warm Standby 相較 Active/Active 用較低成本換取較多 Failover / Scale-up 步驟"
+      ],
+      "corrections": [
+        [
+          "Q1 選 C Warm Standby，但理由其實描述 Pilot Light",
+          "DR Region 沒有 Running EC2 Application，所以應選 Pilot Light；若把縮小版 Application 先 Running 起來才是 Warm Standby。"
+        ],
+        [
+          "System B 同時回答 Pilot Light / Warm Standby",
+          "RTO 30 min / RPO 10 min 兩者都有可能，但題目要求做決策時要選一個並用實測 RTO 證明；若想降低達標風險，Warm Standby 較保守。"
+        ],
+        [
+          "Active/Active 說成『無延遲、直接切到另一台』",
+          "Active/Active 是多 Region 本來就在服務流量，不是故障後才切到另一台；RTO/RPO 是 near-zero/potentially zero，不應寫絕對零延遲。"
+        ],
+        [
+          "Q3 問 Data 問題，卻列 Compute/Network/Encryption/DNS",
+          "真正的 Data 問題應包含 consistency、同筆資料 concurrent write conflict、transaction ordering、replication lag、conflict resolution。"
+        ],
+        [
+          "DNS / Traffic 只寫 ALB",
+          "ALB 是 Regional Service；跨 Region traffic failover 應補 Route 53 Failover、Global Accelerator 或 ARC 等 Global Routing。"
+        ],
+        [
+          "RTO 又寫成切回原 Region",
+          "RTO 30 min 應驗證 30 分鐘內在大阪恢復完整服務；切回東京是後續 Failback。"
+        ],
+        [
+          "與 Active/Active 比較寫『缺點成本非常昂貴』",
+          "Warm Standby 的成本雖不低，但相對 Active/Active 通常較低；真正缺點是 RTO 較長，仍要 Scale Up、Failover、驗證。"
+        ]
+      ],
+      "memory": [
+        "Pilot Light = Core/Data on；Application 未必 Running。",
+        "Warm Standby = Full App Running but scaled down。",
+        "ALB 是 Regional；跨 Region 切流量要 Global Routing。",
+        "Active/Active 最難的常常是 Data consistency / conflict。",
+        "RTO = 恢復服務，不是 Failback。"
       ]
     }
   ]
