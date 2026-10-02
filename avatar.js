@@ -20,12 +20,13 @@ const avatarAtlas={male:{src:'assets/adventurers-male-v3.webp',width:1222,height
 let avatarArtSequence=0;
 function avatarTint(color){const values=color.slice(1).match(/../g).map(x=>parseInt(x,16)/255);return values.map(v=>[.2126*v,.7152*v,.0722*v,0,0].join(' ')).join(' ')+' 0 0 0 1 0';}
 function avatarMarkup(role,appearance=avatarAppearance()){
- const column={mage:0,paladin:1,ranger:2}[role]??0,row=appearance.race.row,uid='avatar-'+(++avatarArtSequence),cx=209,faceY=43;
+ const column={mage:0,paladin:1,ranger:2}[role]??0,row=appearance.race.row,uid='avatar-'+(++avatarArtSequence),cx=209,faceY=47;
+ const faceX=({male:[[232,228,213],[241,229,211],[239,230,209]],female:[[255,231,207],[258,234,210],[256,232,210]]})[appearance.gender.id][row][column],hairX=faceX-13;
  const art=avatarAtlas[appearance.gender.id];
  const cellW=art.width/3,cellH=art.height/3;
  const source='<svg x="0" y="0" width="418" height="418" viewBox="'+(column*cellW)+' '+(row*cellH)+' '+cellW+' '+cellH+'" preserveAspectRatio="xMidYMid meet"><image href="'+art.src+'" width="'+art.width+'" height="'+art.height+'"/></svg>';
- const hairMask='<mask id="'+uid+'-hair" maskUnits="userSpaceOnUse" x="0" y="0" width="418" height="418"><rect x="'+(cx-48)+'" y="0" width="96" height="105" rx="28" fill="white"/><ellipse cx="'+cx+'" cy="'+(faceY+4)+'" rx="'+(row===2?25:17)+'" ry="22" fill="black"/><ellipse cx="'+cx+'" cy="91" rx="23" ry="19" fill="black"/></mask>';
- const clothMask='<mask id="'+uid+'-cloth" maskUnits="userSpaceOnUse" x="0" y="0" width="418" height="418"><path d="M'+(cx-49)+' 92 Q'+cx+' 110 '+(cx+49)+' 92 L'+(cx+92)+' 177 '+(cx+79)+' 235 '+(cx+62)+' 220 '+(cx+53)+' 275 '+(cx+93)+' 350 Q'+cx+' 395 '+(cx-94)+' 350 L'+(cx-51)+' 275 '+(cx-65)+' 220 '+(cx-78)+' 235 '+(cx-92)+' 177Z" fill="white"/><ellipse cx="'+cx+'" cy="100" rx="25" ry="19" fill="black"/></mask>';
+ const hairMask='<mask id="'+uid+'-hair" maskUnits="userSpaceOnUse" x="0" y="0" width="418" height="418"><rect x="'+(hairX-48)+'" y="0" width="96" height="110" rx="28" fill="white"/><ellipse cx="'+faceX+'" cy="'+faceY+'" rx="'+(row===2?28:24)+'" ry="29" fill="black"/><ellipse cx="'+(faceX-3)+'" cy="91" rx="25" ry="23" fill="black"/></mask>';
+ const clothMask='<mask id="'+uid+'-cloth" maskUnits="userSpaceOnUse" x="0" y="0" width="418" height="418"><path d="M'+(cx-49)+' 92 Q'+cx+' 110 '+(cx+49)+' 92 L'+(cx+92)+' 177 '+(cx+79)+' 235 '+(cx+62)+' 220 '+(cx+53)+' 275 '+(cx+93)+' 350 Q'+cx+' 395 '+(cx-94)+' 350 L'+(cx-51)+' 275 '+(cx-65)+' 220 '+(cx-78)+' 235 '+(cx-92)+' 177Z" fill="white" filter="url(#'+uid+'-feather)"/><ellipse cx="'+cx+'" cy="100" rx="25" ry="19" fill="black"/></mask>';
  const filter=(id,color)=>'<filter id="'+uid+'-'+id+'" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="'+avatarTint(color)+'"/></filter>';
  return '<svg class="avatar-render" viewBox="66 0 286 418" aria-hidden="true" focusable="false"><defs>'+hairMask+clothMask+filter('hair-color',appearance.hair.color)+filter('cloth-color',appearance.outfit.color)+'</defs>'+source+(appearance.outfit.id==='pearl'?'':'<g mask="url(#'+uid+'-cloth)" opacity=".78"><g filter="url(#'+uid+'-cloth-color)">'+source+'</g></g>')+(appearance.hair.id==='silver'?'':'<g mask="url(#'+uid+'-hair)"><g filter="url(#'+uid+'-hair-color)">'+source+'</g></g>')+'</svg>';
 }
