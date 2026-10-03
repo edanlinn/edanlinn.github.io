@@ -10,4 +10,4 @@ This is a LOCAL practice campaign. It never calls competitionCall or RPC, grants
 
 Sources checked 2026-10-04: https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html ; https://aws.amazon.com/blogs/architecture/disaster-recovery-dr-architecture-on-aws-part-iii-pilot-light-and-warm-standby/ . Strategy names do not promise RTO/RPO. Ordering tasks explicitly concern the stated approved planned-cutover Runbook, not all outage procedures.
 
-Validation: node site/verify-campaign.cjs (84 model/content/lifecycle checks); node site/verify-moba.cjs (95 gameplay/render checks). Live browser QA covers start, wrong/remedial flow, matching, ordering, final completion, checkpoint reload, shared error record and restoring normal arena controls.
+Validation: node site/verify-campaign.cjs (85 model/content/lifecycle checks); node site/verify-moba.cjs (95 gameplay/render checks). Live browser QA covers start, wrong/remedial flow, matching, ordering, final completion, checkpoint reload, shared error record and restoring normal arena controls.
