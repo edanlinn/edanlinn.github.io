@@ -1,3 +1,5 @@
+> Updated 2026-10-03: the illustration arena below has now been replaced by the playable sprite MOBA described in [PLAYABLE-MOBA.md](PLAYABLE-MOBA.md). Ladder synchronization remains unchanged. This document records the prior identity repair.
+
 # Hero identity correction
 
 The previous arena mapped all 173 champions to three generated character sheets. This made Zed appear as a fox sorceress and Naafiri as an armored human. The arena now renders the selected champion's exact Data Dragon loading artwork and selected canonical skin number. The opponent renders its own classic artwork. Switching either identity resets the simulated duel. Missing images show a load error instead of substituting another character. Late image responses cannot replace the current selection.
