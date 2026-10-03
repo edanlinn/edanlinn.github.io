@@ -1,7 +1,7 @@
 /* Champion artwork arena. All HP, damage and cooldowns are demonstration state only. */
 const battleAssets={atlas:'assets/champion-combat-atlas-v1.png',arena:'assets/champion-arena-v1.png'};
 const battlePrototypeNames=['光法師','重甲劍士','狐術師'];
-const battleSkillFX=[['光束禁錮','稜光護盾','魔光爆裂','終極光束'],['突進斬擊','鋼鐵護盾','旋轉劍舞','天降巨劍'],['往返靈珠','三重狐火','魅惑光彈','三段靈躍']];
+const battleSkillFX=[['示範彈道','示範護盾','示範範圍爆發','示範光束'],['示範突進','示範護盾','示範旋轉攻擊','示範終極爆發'],['示範往返彈道','示範護盾與追擊','示範控制彈道','示範連續位移']];
 let leagueOpponent='Garen',battleDemo=true,battleRenderer=null;
 function battleKind(c){if(c.id==='Ahri')return 2;if(c.id==='Lux')return 0;if(c.id==='Garen')return 1;const t=c.tags||[];return t.includes('Fighter')||t.includes('Tank')?1:t.includes('Mage')||t.includes('Support')?0:2;}
 function battleActor(kind,x){return {kind,x,target:x,hp:1000,maxHP:1000,shield:0,shieldUntil:0,pose:0,poseUntil:0,busyUntil:0,rootUntil:0,cooldowns:[0,0,0,0],facing:1};}
