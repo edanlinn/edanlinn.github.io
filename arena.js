@@ -54,8 +54,9 @@ async function competitionCall(action,payload={}){
  const client=await rankingClient();const {data,error}=await client.rpc('cloud_competition',{action,payload});
  if(error)throw error;return data;
 }
+function rankingHeroName(id){return typeof leagueChampions!=='undefined'?leagueChampions.find(c=>c.id===id)?.name||'尚未設定英雄':'尚未設定英雄';}
 function renderRankingRows(rows,myId,myRank){
- document.querySelector('#ranking-rows').innerHTML=rows.map(r=>{const role=fantasyRoles.find(x=>x.id===r.role)||fantasyRoles[0];return '<tr class="'+(r.id===myId?'ranking-me':'')+'"><td><span class="rank-place">'+Number(r.rank)+'</span></td><td><b>'+escapeQuiz(r.nickname)+'</b>'+(r.id===myId?'<small>你</small>':'')+'</td><td>'+escapeQuiz(role.name)+'</td><td>'+Number(r.xp).toLocaleString()+'</td><td>'+Number(r.best_chain)+' 連擊</td></tr>';}).join('');
+ document.querySelector('#ranking-rows').innerHTML=rows.map(r=>'<tr class="'+(r.id===myId?'ranking-me':'')+'"><td><span class="rank-place">'+Number(r.rank)+'</span></td><td><b>'+escapeQuiz(r.nickname)+'</b>'+(r.id===myId?'<small>你</small>':'')+'</td><td>'+escapeQuiz(rankingHeroName(r.champion_id))+'</td><td>'+Number(r.xp).toLocaleString()+'</td><td>'+Number(r.best_chain)+' 連擊</td></tr>').join('');
  document.querySelector('#ranking-empty').hidden=rows.length>0;document.querySelector('#ranking-table').hidden=!rows.length;
  document.querySelector('#ranking-mine').textContent=myRank?'你的線上排名：第 '+Number(myRank)+' 名':'加入競賽後顯示你的線上名次';
 }
@@ -66,8 +67,19 @@ async function refreshRanking(){
  finally{arenaBusy=false;}
 }
 function localRankingProfile(){try{return JSON.parse(localStorage.getItem('edan-ranking-profile-v1')||'{}')||{};}catch{return {};}}
+let rankingHeroJoined=false,rankingHeroSaved=null,rankingHeroSyncing=false,rankingHeroTimer=null;
+function syncRankingHero(){clearTimeout(rankingHeroTimer);if(!rankingHeroJoined||typeof leagueConfig!=='function')return;rankingHeroTimer=setTimeout(flushRankingHero,250);}
+async function flushRankingHero(){
+ if(!rankingHeroJoined||rankingHeroSyncing)return;
+ const champion=leagueConfig().champion;if(champion===rankingHeroSaved)return;rankingHeroSyncing=true;
+ try{await competitionCall('appearance',{champion});rankingHeroSaved=champion;rankingMessage('英雄已同步至天梯。');}
+ catch{rankingMessage('英雄同步失敗；請按更新榜單重試。');}
+ finally{rankingHeroSyncing=false;}
+ if(leagueConfig().champion!==champion)syncRankingHero();else if(rankingHeroSaved===champion)await refreshRanking();
+}
 function competitionMessage(text){document.querySelector('#competition-status').textContent=text;}
 function renderCompetitionProfile(p){
+ rankingHeroJoined=Boolean(p.joined);
  document.querySelector('#competition-score').textContent=p.xp+' 競賽 XP · 目前 '+p.chain+' 連擊 · 最高 '+p.bestChain+' 連擊';
  document.querySelector('#competition-next').disabled=!p.joined;
  document.querySelector('#ranking-withdraw').hidden=!p.joined;
@@ -81,7 +93,8 @@ async function publishRanking(){
   const client=await rankingClient();let session=await client.auth.getSession();if(session.error)throw session.error;
   if(!session.data.session){const login=await client.auth.signInAnonymously();if(login.error)throw login.error;}
   const role=avatarAppearance().profession.base;
-  const profile=await competitionCall('join',{nickname,role});renderCompetitionProfile(profile);
+  const champion=leagueConfig().champion;
+  const profile=await competitionCall('join',{nickname,role,champion});rankingHeroSaved=profile.champion_id;renderCompetitionProfile(profile);syncRankingHero();
   localStorage.setItem('edan-ranking-profile-v1',JSON.stringify({nickname,joined:true}));
   competitionMessage('已加入。每天最多 100 題，每題答對 +20 競賽 XP；採台灣時間換日。');
  }catch{rankingMessage('加入失敗：請確認共用服務與匿名登入設定。');}
@@ -144,7 +157,7 @@ async function submitCompetition(){
  }catch{competitionLocked=false;submit.disabled=false;competitionMessage('提交未確認。請重試，重送不會重複加分。');}
 }
 async function resumeCompetitionProfile(){
- try{const p=await competitionCall('profile');renderCompetitionProfile(p);document.querySelector('#ranking-nickname').value=p.nickname;document.querySelector('#ranking-consent').checked=p.joined;}
+ try{const p=await competitionCall('profile');rankingHeroSaved=p.champion_id;renderCompetitionProfile(p);document.querySelector('#ranking-nickname').value=p.nickname;document.querySelector('#ranking-consent').checked=p.joined;syncRankingHero();}
  catch{/* No registered profile yet; joining is explicit. */}
 }
 function initArena(){
@@ -152,11 +165,11 @@ function initArena(){
  document.querySelector('#open-role-collection').insertAdjacentHTML('afterend','<small id="arena-equipped" class="arena-equipped"></small>');
  const root=document.createElement('section');root.id='arena';root.className='arena-grid';root.innerHTML=`
  <article class="dash-panel armory-panel"><div class="panel-head"><h3>連擊武器庫</h3><small id="arena-owned">0 / 4</small></div><p class="panel-sub">讓每一次正確判斷，鍛造成你的冒險裝備。</p><div class="chain-summary"><strong id="arena-chain">0 連擊</strong><span id="arena-best">最高 0 連擊</span></div><div class="chain-meter"><i id="arena-chain-meter"></i></div><p id="arena-next" class="arena-next"></p><div id="weapon-cards" class="weapon-cards"></div><p class="arena-rule">客觀題答錯重置連擊；所有遊戲題型自動判分。同題同日只累加一次，連擊可跨日延續。已獲得的武器永久保留在此瀏覽器，換職業會改變武器外觀。</p></article>
- <article class="dash-panel ranking-panel"><div class="panel-head"><h3>雲端冒險者排名</h3><span class="ranking-badge" id="ranking-badge">尚未連線</span></div><p class="panel-sub">以後端認定的競賽 XP 排序，同分比較最高連擊。顯示前 50 名。</p><div class="ranking-local"><span>本機練習成績（不計入排名）</span><b id="ranking-local-score"></b></div><p id="ranking-status" role="status">競賽後端尚未連接，目前只提供本機練習。</p><div class="ranking-form"><label>公開暱稱<input id="ranking-nickname" minlength="2" maxlength="20" placeholder="例如：星軌法師" autocomplete="nickname"></label><label class="ranking-consent"><input type="checkbox" id="ranking-consent"><span>同意公開暱稱、職業、競賽 XP 與最高連擊</span></label><div class="ranking-buttons"><button class="primary-action" id="ranking-join">加入／更新暱稱</button><button class="quiet-action" id="ranking-refresh">更新榜單</button><button class="quiet-action" id="ranking-withdraw" hidden>退出排名</button></div></div><div class="competition-play"><h4>每日公平挑戰</h4><p id="competition-score">尚未加入線上競賽</p><p id="competition-status" role="status" aria-live="polite">每人每天最多 100 題，答案由後端判分。</p><button id="competition-next" class="primary-action" disabled>開始／接續競賽</button><div id="competition-question" hidden><h4 id="competition-title"></h4><div id="competition-options"></div><button id="competition-submit" class="primary-action">提交競賽答案</button><p id="competition-result" style="white-space:pre-wrap" role="status"></p></div></div><div class="ranking-scroll"><table id="ranking-table" hidden><thead><tr><th>名次</th><th>冒險者</th><th>職業</th><th>XP</th><th>最高連擊</th></tr></thead><tbody id="ranking-rows"></tbody></table></div><p id="ranking-empty" class="ranking-empty">尚無可顯示的線上排名</p><p id="ranking-mine" class="arena-rule"></p><p class="arena-rule">競賽成績由後端判分與累加，本機 XP 不會上傳。匿名身分保存在此瀏覽器，換裝置或清除資料會視為新玩家；此機制防止直接改分與重送刷分，尚不防止多帳號、查答案或自動答題。</p></article>`;
+ <article class="dash-panel ranking-panel"><div class="panel-head"><h3>天梯 · 個人排名</h3><span class="ranking-badge" id="ranking-badge">尚未連線</span></div><p class="panel-sub">以後端認定的競賽 XP 排序，同分比較最高連擊。顯示前 50 名。</p><div class="ranking-local"><span>本機練習成績（不計入排名）</span><b id="ranking-local-score"></b></div><p id="ranking-status" role="status">競賽後端尚未連接，目前只提供本機練習。</p><div class="ranking-form"><label>公開暱稱<input id="ranking-nickname" minlength="2" maxlength="20" placeholder="例如：峽谷學習者" autocomplete="nickname"></label><label class="ranking-consent"><input type="checkbox" id="ranking-consent"><span>同意公開暱稱、英雄、競賽 XP 與最高連擊</span></label><div class="ranking-buttons"><button class="primary-action" id="ranking-join">加入／更新英雄與暱稱</button><button class="quiet-action" id="ranking-refresh">更新榜單</button><button class="quiet-action" id="ranking-withdraw" hidden>退出排名</button></div></div><div class="competition-play"><h4>每日公平挑戰</h4><p id="competition-score">尚未加入線上競賽</p><p id="competition-status" role="status" aria-live="polite">每人每天最多 100 題，答案由後端判分。</p><button id="competition-next" class="primary-action" disabled>開始／接續競賽</button><div id="competition-question" hidden><h4 id="competition-title"></h4><div id="competition-options"></div><button id="competition-submit" class="primary-action">提交競賽答案</button><p id="competition-result" style="white-space:pre-wrap" role="status"></p></div></div><div class="ranking-scroll"><table id="ranking-table" hidden><thead><tr><th>名次</th><th>冒險者</th><th>英雄</th><th>XP</th><th>最高連擊</th></tr></thead><tbody id="ranking-rows"></tbody></table></div><p id="ranking-empty" class="ranking-empty">尚無可顯示的線上排名</p><p id="ranking-mine" class="arena-rule"></p><p class="arena-rule">競賽成績由後端判分與累加，本機 XP 不會上傳。匿名身分保存在此瀏覽器，換裝置或清除資料會視為新玩家；此機制防止直接改分與重送刷分，尚不防止多帳號、查答案或自動答題。</p></article>`;
  document.querySelector('.path-panel').insertAdjacentElement('beforebegin',root);
  const ready=rankingConfigured(),profile=localRankingProfile();document.querySelector('#ranking-nickname').value=profile.nickname||'';document.querySelector('#ranking-consent').checked=Boolean(profile.joined);document.querySelector('#ranking-withdraw').hidden=!profile.joined||!ready;
  ['ranking-nickname','ranking-consent','ranking-join','ranking-refresh'].forEach(id=>document.querySelector('#'+id).disabled=!ready);
- document.querySelector('#ranking-join').onclick=publishRanking;document.querySelector('#ranking-refresh').onclick=refreshRanking;document.querySelector('#ranking-withdraw').onclick=withdrawRanking;
+ document.querySelector('#ranking-join').onclick=publishRanking;document.querySelector('#ranking-refresh').onclick=async()=>{await flushRankingHero();await refreshRanking();};document.querySelector('#ranking-withdraw').onclick=withdrawRanking;
  document.querySelector('#competition-next').onclick=nextCompetition;document.querySelector('#competition-submit').onclick=submitCompetition;
  if(ready){document.querySelector('#ranking-badge').textContent='後端競賽';refreshRanking();resumeCompetitionProfile();setInterval(()=>{if(!document.hidden)refreshRanking();},30000);}
  renderArena();

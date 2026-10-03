@@ -1,3 +1,5 @@
+> Updated 2026-10-03: the shared sprite presentation described below has been replaced by exact selected hero/skin artwork with animated illustration effects. See [HERO-IDENTITY.md](HERO-IDENTITY.md) for current rendering and ladder synchronization.
+
 # Original champion combat showcase
 
 All 173 champion labels and metadata remain available. The arena now uses original generated animation artwork, not official combat sprites: three prototypes (light mage, armored swordsman, fox mage), each with ready, walk, wind-up, release, hit and defeated poses. Other champions map to a prototype and the UI explicitly explains that individual hero models and skin outfits are not reproduced.
