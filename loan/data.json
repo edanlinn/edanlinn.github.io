@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.0",
-  "updated_at": "2026-09-21T11:40:00+08:00",
-  "scope": "B2-043客票融資，並追溯B2-016擔保維持率控管",
+  "schema_version": "1.1",
+  "updated_at": "2026-10-05T14:24:19+08:00",
+  "scope": "既有B2-043／B2-016；B2-031 SSR現況與對話補充；API歷史整理；Requirement／L6品質規範與待確認追蹤",
   "records": [
     {
       "id": "LN-KB-B2043-001",
@@ -10,19 +10,50 @@
       "plain_language": "客票融資的備償帳戶若設定SWEEP轉出，原現況規則要求轉出帳號產品幣別為台幣。B2-043差異決議已將相關產品議題取消，因此保留為歷史業務知識，不作為現行待建L6規則。",
       "goal": "限制客票託收入備償批次轉出的帳號幣別",
       "trigger": "設定或執行60422-(6)客票託收入備償批次轉出",
-      "conditions": ["轉出帳號為備償帳號", "轉出帳號產品幣別為台幣"],
+      "conditions": [
+        "轉出帳號為備償帳號",
+        "轉出帳號產品幣別為台幣"
+      ],
       "result": "符合B2-043原現況檢核；本主題差異決議為產品下架、議題取消",
-      "codes": ["60422", "17099", "17100"],
-      "currency": ["TWD"],
+      "codes": [
+        "60422",
+        "17099",
+        "17100"
+      ],
+      "currency": [
+        "TWD"
+      ],
       "rule_status": "已取消",
       "evidence_status": "已確認",
       "source_type": "SSR明載",
       "sources": [
-        {"document":"20220030-BC-SSR-B2-043(客票融資)-v0.99.doc", "location":"p.6 (3)(B)(a)(I)(iv)；p.16 60422(v)；p.19-20差異及決議1"}
+        {
+          "document": "20220030-BC-SSR-B2-043(客票融資)-v0.99.doc",
+          "location": "p.6 (3)(B)(a)(I)(iv)；p.16 60422(v)；p.19-20差異及決議1"
+        }
       ],
-      "requirement_ids": ["20220030-BC-SSR-B2-043(客票融資)_001"],
+      "requirement_ids": [
+        "20220030-BC-SSR-B2-043(客票融資)_001"
+      ],
       "l6_ids": [],
-      "notes": ["取消範圍不得擴大解讀為整個B2-043所有需求均取消。"]
+      "notes": [
+        "取消範圍不得擴大解讀為整個B2-043所有需求均取消。"
+      ],
+      "category": "業務規則",
+      "updated_at": "2026-09-21T11:40:00+08:00",
+      "change_summary": "沿用既有知識ID及原內容；補充分類、適用範圍與本次核讀狀態。",
+      "verification": "沿用2026-09-21知識；本次未重新核讀所引SSR及Requirement。",
+      "exceptions": [
+        "未載明其他例外"
+      ],
+      "product": "客票融資",
+      "system": "依所引來源；未全面盤點",
+      "period": "依來源版本與決議日期",
+      "related_ids": [],
+      "sync_status": "知識頁已同步；原Requirement／L6未異動",
+      "source_types": [
+        "SSR明載"
+      ]
     },
     {
       "id": "LN-KB-B2043-002",
@@ -31,18 +62,49 @@
       "plain_language": "17100授信戶基本資料建檔的原現況檢核要求擔保品幣別為TWD，且擔保種類限06/00017或06/00018。B2-043產品下架決議涵蓋此客票融資建檔功能。",
       "goal": "限制客票融資可連結的擔保品",
       "trigger": "17100輸入或選擇擔保品編號",
-      "conditions": ["擔保品幣別為TWD", "擔保種類為06/00017應收票據－支票，或06/00018應收票據－匯票／本票"],
+      "conditions": [
+        "擔保品幣別為TWD",
+        "擔保種類為06/00017應收票據－支票，或06/00018應收票據－匯票／本票"
+      ],
       "result": "不符合時觸發ErrorCode 4187；本主題差異決議為產品下架、議題取消",
-      "codes": ["17100", "BR0031", "4187", "06/00017", "06/00018"],
-      "currency": ["TWD"],
+      "codes": [
+        "17100",
+        "BR0031",
+        "4187",
+        "06/00017",
+        "06/00018"
+      ],
+      "currency": [
+        "TWD"
+      ],
       "rule_status": "已取消",
       "evidence_status": "已確認",
       "source_type": "SSR明載",
       "sources": [
-        {"document":"20220030-BC-SSR-B2-043(客票融資)-v0.99.doc", "location":"p.11 17100(BR0031)檢核7；p.19-20差異及決議1"}
+        {
+          "document": "20220030-BC-SSR-B2-043(客票融資)-v0.99.doc",
+          "location": "p.11 17100(BR0031)檢核7；p.19-20差異及決議1"
+        }
       ],
-      "requirement_ids": ["20220030-BC-SSR-B2-043(客票融資)_018"],
-      "l6_ids": []
+      "requirement_ids": [
+        "20220030-BC-SSR-B2-043(客票融資)_018"
+      ],
+      "l6_ids": [],
+      "category": "業務規則",
+      "updated_at": "2026-09-21T11:40:00+08:00",
+      "change_summary": "沿用既有知識ID及原內容；補充分類、適用範圍與本次核讀狀態。",
+      "verification": "沿用2026-09-21知識；本次未重新核讀所引SSR及Requirement。",
+      "exceptions": [
+        "未載明其他例外"
+      ],
+      "product": "客票融資",
+      "system": "依所引來源；未全面盤點",
+      "period": "依來源版本與決議日期",
+      "related_ids": [],
+      "sync_status": "知識頁已同步；原Requirement／L6未異動",
+      "source_types": [
+        "SSR明載"
+      ]
     },
     {
       "id": "LN-KB-B2043-003",
@@ -51,20 +113,59 @@
       "plain_language": "SSR列出兩個相同名稱的備償帳戶入帳日報表。現有需求清單對BRD0981A標示C，但BRD0981B相關兩筆需求皆為NC；先前衍生比對表誤寫成NC與C衝突，已在本次檢查中發現。BRD0981B是否保留及其測試責任仍需正式決議。",
       "goal": "提供區域中心及台幣作業中心查看備償帳戶入帳日資料",
       "trigger": "報表產製或查閱",
-      "conditions": ["報表代碼BRD0981A或BRD0981B"],
+      "conditions": [
+        "報表代碼BRD0981A或BRD0981B"
+      ],
       "result": "BRD0981A目前需求標示取消；BRD0981B為NC，最終方案欄未完整定案",
-      "codes": ["BRD0981A", "BRD0981B"],
-      "currency": ["TWD"],
-      "rule_status": "待定",
+      "codes": [
+        "BRD0981A",
+        "BRD0981B"
+      ],
+      "currency": [
+        "TWD"
+      ],
+      "rule_status": "歷史參考",
       "evidence_status": "衝突",
       "source_type": "SSR明載＋Requirement現況",
       "sources": [
-        {"document":"20220030-BC-SSR-B2-043(客票融資)-v0.99.doc", "location":"p.17相關報表；p.22批次/報表需求2"},
-        {"document":"需求清單20220030BCSSRB2043客票融資2.1_20260921110358.xlsx", "location":"需求清單_客票融資：_006/_008/_009/_010"}
+        {
+          "document": "20220030-BC-SSR-B2-043(客票融資)-v0.99.doc",
+          "location": "p.17相關報表；p.22批次/報表需求2"
+        },
+        {
+          "document": "需求清單20220030BCSSRB2043客票融資2.1_20260921110358.xlsx",
+          "location": "需求清單_客票融資：_006/_008/_009/_010"
+        }
       ],
-      "requirement_ids": ["20220030-BC-SSR-B2-043(客票融資)_006", "20220030-BC-SSR-B2-043(客票融資)_008", "20220030-BC-SSR-B2-043(客票融資)_009", "20220030-BC-SSR-B2-043(客票融資)_010"],
+      "requirement_ids": [
+        "20220030-BC-SSR-B2-043(客票融資)_006",
+        "20220030-BC-SSR-B2-043(客票融資)_008",
+        "20220030-BC-SSR-B2-043(客票融資)_009",
+        "20220030-BC-SSR-B2-043(客票融資)_010"
+      ],
       "l6_ids": [],
-      "notes": ["_008與_010實際皆為NC，不是NC/C衝突。", "需人工確認BRD0981B最終決議與L6責任。"]
+      "notes": [
+        "_008與_010實際皆為NC，不是NC/C衝突。",
+        "需人工確認BRD0981B最終決議與L6責任。",
+        "原資料規則狀態為待定；改以歷史參考保留，確認狀態仍為衝突，未宣告現行有效。"
+      ],
+      "category": "業務規則",
+      "updated_at": "2026-09-21T11:40:00+08:00",
+      "change_summary": "沿用既有知識ID及原內容；補充分類、適用範圍與本次核讀狀態。",
+      "verification": "沿用2026-09-21知識；本次未重新核讀所引SSR及Requirement。",
+      "exceptions": [
+        "未載明其他例外"
+      ],
+      "product": "客票融資",
+      "system": "依所引來源；未全面盤點",
+      "period": "依來源版本與決議日期",
+      "related_ids": [],
+      "sync_status": "知識頁已同步；原Requirement／L6未異動",
+      "legacy_rule_status": "待定",
+      "source_types": [
+        "SSR明載",
+        "其他待註明"
+      ]
     },
     {
       "id": "LN-KB-XREF-001",
@@ -73,22 +174,64 @@
       "plain_language": "B2-043描述客票融資的維持率欄位與公式，需求清單記錄2024/06/26決議由擔保品組件承接；B2-016 SSR又將客票融資列為特定產品，並記載專屬公式建議移至B2-043討論。兩份資料呈現雙向引用，尚需以承接Requirement與L6確認最終落點。",
       "goal": "確認客票融資維持率規則由哪個主題與測案承接",
       "trigger": "分析客票融資維持率、他行外幣存單換算或維持率控管測試",
-      "conditions": ["涉及B2-043客票融資專屬維持率", "涉及B2-016共用擔保維持率控管"],
+      "conditions": [
+        "涉及B2-043客票融資專屬維持率",
+        "涉及B2-016共用擔保維持率控管"
+      ],
       "result": "建立跨主題關聯；承接覆蓋待確認",
-      "codes": ["B2-043", "B2-016"],
-      "currency": ["外幣", "TWD"],
+      "codes": [
+        "B2-043",
+        "B2-016"
+      ],
+      "currency": [
+        "外幣",
+        "TWD"
+      ],
       "rule_status": "移交其他主題",
       "evidence_status": "待確認",
       "source_type": "SSR明載＋Requirement決議紀錄",
       "sources": [
-        {"document":"20220030-BC-SSR-B2-043(客票融資)-v0.99.doc", "location":"p.8-9法金維持率計算；p.21差異及決議4"},
-        {"document":"20220030-BC-SSR-B2-016(擔保維持率控管)-v1.99.doc", "location":"p.2 (10)(B)；p.6差異及決議1"},
-        {"document":"需求清單20220030BCSSRB2043客票融資2.1_20260921110358.xlsx", "location":"需求_004：2024/06/26改由擔保品組件承接"},
-        {"document":"需求清單-20220030-BC-SSR-B2-016(擔保維持率控管)-2.1.xlsx", "location":"需求_001：相依B2-043"}
+        {
+          "document": "20220030-BC-SSR-B2-043(客票融資)-v0.99.doc",
+          "location": "p.8-9法金維持率計算；p.21差異及決議4"
+        },
+        {
+          "document": "20220030-BC-SSR-B2-016(擔保維持率控管)-v1.99.doc",
+          "location": "p.2 (10)(B)；p.6差異及決議1"
+        },
+        {
+          "document": "需求清單20220030BCSSRB2043客票融資2.1_20260921110358.xlsx",
+          "location": "需求_004：2024/06/26改由擔保品組件承接"
+        },
+        {
+          "document": "需求清單-20220030-BC-SSR-B2-016(擔保維持率控管)-2.1.xlsx",
+          "location": "需求_001：相依B2-043"
+        }
       ],
-      "requirement_ids": ["20220030-BC-SSR-B2-043(客票融資)_004", "20220030-BC-SSR-B2-016(擔保維持率控管)_001"],
+      "requirement_ids": [
+        "20220030-BC-SSR-B2-043(客票融資)_004",
+        "20220030-BC-SSR-B2-016(擔保維持率控管)_001"
+      ],
       "l6_ids": [],
-      "notes": ["尚未取得可證明承接完整性的L6 ID。"]
+      "notes": [
+        "尚未取得可證明承接完整性的L6 ID。"
+      ],
+      "category": "業務規則",
+      "updated_at": "2026-09-21T11:40:00+08:00",
+      "change_summary": "沿用既有知識ID及原內容；補充分類、適用範圍與本次核讀狀態。",
+      "verification": "沿用2026-09-21知識；本次未重新核讀所引SSR及Requirement。",
+      "exceptions": [
+        "未載明其他例外"
+      ],
+      "product": "客票融資",
+      "system": "依所引來源；未全面盤點",
+      "period": "依來源版本與決議日期",
+      "related_ids": [],
+      "sync_status": "知識頁已同步；原Requirement／L6未異動",
+      "source_types": [
+        "SSR明載",
+        "其他待註明"
+      ]
     },
     {
       "id": "LN-KB-QA-001",
@@ -97,7 +240,10 @@
       "plain_language": "同一SSR主題可以同時存在Y、NC、R、C等不同狀態。單一需求取消或移交，不代表整個主題的所有規則都不需測試。",
       "goal": "防止將局部決議錯誤擴張為整體結論",
       "trigger": "判斷主題是否需要建立Requirement或L6",
-      "conditions": ["主題內存在多筆Requirement", "各Requirement狀態或決議不同"],
+      "conditions": [
+        "主題內存在多筆Requirement",
+        "各Requirement狀態或決議不同"
+      ],
       "result": "逐筆判斷，並對移交項目驗證承接Requirement及L6",
       "codes": [],
       "currency": [],
@@ -105,11 +251,949 @@
       "evidence_status": "已確認",
       "source_type": "專案執行規範",
       "sources": [
-        {"document":"放款AI_專案指令.md", "location":"Merge-before-New、追溯與品質閘門、知識庫更新規則"}
+        {
+          "document": "放款AI_專案指令.md",
+          "location": "Merge-before-New、追溯與品質閘門、知識庫更新規則"
+        }
       ],
       "requirement_ids": [],
       "l6_ids": [],
-      "notes": ["本項屬分析與品質規則，不是銀行系統業務規則。"]
+      "notes": [
+        "本項屬分析與品質規則，不是銀行系統業務規則。"
+      ],
+      "category": "品質規範",
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "沿用既有知識ID及原內容；補充分類、適用範圍與本次核讀狀態。",
+      "verification": "本次核讀專案指令全文；此項為分析規範，非銀行系统規則",
+      "exceptions": [
+        "未載明其他例外"
+      ],
+      "product": "不適用：分析規範",
+      "system": "依所引來源；未全面盤點",
+      "period": "依來源版本與決議日期",
+      "related_ids": [],
+      "sync_status": "知識頁已同步；原Requirement／L6未異動",
+      "source_types": [
+        "使用者對話確認"
+      ]
+    },
+    {
+      "id": "LN-KB-B2031-001",
+      "topic": "信保基金",
+      "title": "理賠後還款：313+ID轉入一般自行帳戶",
+      "plain_language": "勞工紓困理賠後，客戶以313+ID轉帳繳款，系統將款項轉入901540726901（一般自行帳戶）。",
+      "goal": "辨識理賠後還款收款路徑",
+      "trigger": "客戶轉帳繳款",
+      "conditions": [
+        "勞工紓困專案理賠後還款"
+      ],
+      "result": "313+ID → 901540726901",
+      "codes": [
+        "313+ID",
+        "901540726901"
+      ],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "SSR明載",
+      "source_types": [
+        "SSR明載"
+      ],
+      "sources": [
+        {
+          "document": "20220030-BC-SSR-B2-031(信保基金)-v1.99.doc",
+          "location": "p.2／1.13.1.1 個金(2)(G)"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "業務規則",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "勞工紓困貸款",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "SSR v1.99所載現況；非全面未來方案驗收",
+      "related_ids": [
+        "LN-KB-B2031-002",
+        "LN-KB-B2031-003",
+        "LN-KB-B2031-005"
+      ],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-B2031-002",
+      "topic": "信保基金",
+      "title": "參加協商：RPA依特定比率拆帳",
+      "plain_language": "同一收款事件若客戶參加協商，後續透過RPA依特定比率將款項入各放款帳號。SSR這段沒有給出比率數值。",
+      "goal": "依協商路徑分配款項",
+      "trigger": "理賠後還款已入一般自行帳戶",
+      "conditions": [
+        "客戶有參加協商"
+      ],
+      "result": "後續經RPA拆帳，入各放款帳號",
+      "codes": [
+        "RPA",
+        "313+ID",
+        "901540726901"
+      ],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "SSR明載",
+      "source_types": [
+        "SSR明載"
+      ],
+      "sources": [
+        {
+          "document": "20220030-BC-SSR-B2-031(信保基金)-v1.99.doc",
+          "location": "p.2／1.13.1.1 個金(2)(G)"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "業務規則",
+      "exceptions": [
+        "拆帳比率數值、失敗重跑與防重複機制未在(G)段明載，不列為正式規則"
+      ],
+      "product": "勞工紓困貸款",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "SSR v1.99所載現況；非全面未來方案驗收",
+      "related_ids": [
+        "LN-KB-B2031-001",
+        "LN-KB-B2031-003"
+      ],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-B2031-003",
+      "topic": "信保基金",
+      "title": "未參加協商：已還款金額記錄催收平台",
+      "plain_language": "未參加協商時，SSR描述的是將已還款金額記錄到催收平台。不可把另一條路徑的RPA拆帳加到這條路徑。",
+      "goal": "保留催收平台還款紀錄",
+      "trigger": "理賠後客戶還款",
+      "conditions": [
+        "客戶未參加協商"
+      ],
+      "result": "將已還款金額紀錄到催收平台",
+      "codes": [],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "SSR明載",
+      "source_types": [
+        "SSR明載"
+      ],
+      "sources": [
+        {
+          "document": "20220030-BC-SSR-B2-031(信保基金)-v1.99.doc",
+          "location": "p.2／1.13.1.1 個金(2)(G)"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "業務規則",
+      "exceptions": [
+        "此段未載平台介接代碼、時點或重送規則"
+      ],
+      "product": "勞工紓困貸款",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "SSR v1.99所載現況；非全面未來方案驗收",
+      "related_ids": [
+        "LN-KB-B2031-001",
+        "LN-KB-B2031-002"
+      ],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-B2031-004",
+      "topic": "信保基金",
+      "title": "催收結清：N禁止臨櫃，理債確認後改Y",
+      "plain_language": "這裡的Y是「結清註記」，不是將貸款狀態改成Y。貸款狀態為催收時，結清註記為N；理債單位確認並改為Y-可結清後，臨櫃才可結清。",
+      "goal": "控管催收帳戶臨櫃結清",
+      "trigger": "辦理臨櫃結清交易",
+      "conditions": [
+        "貸款狀態為催收",
+        "理債單位確認",
+        "結清註記更改為Y-可結清"
+      ],
+      "result": "N不得受理臨櫃結清；完成確認且Y-可結清才可辦理",
+      "codes": [
+        "N",
+        "Y-可結清"
+      ],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "SSR明載",
+      "source_types": [
+        "SSR明載"
+      ],
+      "sources": [
+        {
+          "document": "20220030-BC-SSR-B2-031(信保基金)-v1.99.doc",
+          "location": "p.2／1.13.1.1 個金(2)(G)(a)"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "業務規則",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "勞工紓困貸款",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "SSR v1.99所載現況；非全面未來方案驗收",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-B2031-005",
+      "topic": "信保基金",
+      "title": "理賠不足額情境與未來人工處理待定",
+      "plain_language": "Edan轉述PO：本情境是信保已完成理賠但不足扣抵應還款項，客戶另轉帳313+ID；只分參加與未參加協商。當時補充現行人工處理，未來是否延續尚未定案。",
+      "goal": "區分文件現況、情境補充與未來方案",
+      "trigger": "釐清勞工紓困理賠後還款範圍",
+      "conditions": [
+        "信保已理賠，但不足扣抵應還款項"
+      ],
+      "result": "情境補充已確認；未來人工處理方案仍待後續定案",
+      "codes": [],
+      "currency": [],
+      "rule_status": "歷史參考",
+      "evidence_status": "待後續定案",
+      "source_type": "PO口頭確認／使用者對話確認",
+      "source_types": [
+        "PO口頭確認",
+        "使用者對話確認"
+      ],
+      "sources": [
+        {
+          "document": "Edan／PO對話確認",
+          "location": "2026-09-15、2026-09-16、2026-09-21；歷史對話紀錄摘要，非SSR/FSD原文"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "待確認追蹤",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "勞工紓困貸款",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "2026-09-15至09-21對話基準，未來方案待定",
+      "related_ids": [
+        "LN-KB-B2031-001"
+      ],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "歷史對話摘要；非正式文件明證。已確認情境與未定方案分開記錄。",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]",
+        "不得把『目前人工』延伸成未來已定案流程；也不得用此補充取代SSR(G)原文。"
+      ]
+    },
+    {
+      "id": "LN-KB-B2031-006",
+      "topic": "信保基金",
+      "title": "間接保證：撥款前保證號碼須有值",
+      "plain_language": "間接保證在徵信審核前先取得信用保證書號，撥款前檢核保證號碼有值才可貸放。",
+      "goal": "控管間接保證案件貸放條件",
+      "trigger": "執行貸放交易",
+      "conditions": [
+        "間接保證",
+        "保證號碼欄位有值"
+      ],
+      "result": "可執行貸放交易",
+      "codes": [],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "SSR明載",
+      "source_types": [
+        "SSR明載"
+      ],
+      "sources": [
+        {
+          "document": "20220030-BC-SSR-B2-031(信保基金)-v1.99.doc",
+          "location": "p.1／1.13.1.1 個金(2)間接保證"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "業務規則",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "間接保證案件",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "SSR v1.99所載現況；非全面未來方案驗收",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-B2031-007",
+      "topic": "信保基金",
+      "title": "信保通知單號重複檢核：差異4刪除需求",
+      "plain_language": "SSR現況描述同客戶有效放款帳號可重複、跨客戶不得重複；但差異及決議4已刪除該需求，差異2也註記B2-031-4需求取消。保留現況作歷史參考，不列為未來有效客製檢核。",
+      "goal": "檢核信保建檔資料",
+      "trigger": "建檔並輸入信保通知單號",
+      "conditions": [
+        "法金信保放款帳戶建檔",
+        "通知單號有輸入時檢核",
+        "有效放款帳號"
+      ],
+      "result": "重複檢核客製需求刪除；不把原現況規則當未來有效需求",
+      "codes": [],
+      "currency": [],
+      "rule_status": "已取消",
+      "evidence_status": "已確認",
+      "source_type": "SSR明載",
+      "source_types": [
+        "SSR明載"
+      ],
+      "sources": [
+        {
+          "document": "20220030-BC-SSR-B2-031(信保基金)-v1.99.doc",
+          "location": "p.3／1.13.1.1 法金(3)(A)(a)(I)-(IV)；p.5／17034(b)"
+        },
+        {
+          "document": "20220030-BC-SSR-B2-031(信保基金)-v1.99.doc",
+          "location": "p.8／1.13.3差異2(B)；p.9／差異4決議：刪除需求"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "業務規則",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "法金信保案件",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "SSR v1.99所載現況；非全面未來方案驗收",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]",
+        "取消限通知單號重複檢核需求，不能擴張為全部信保建檔規則取消。"
+      ]
+    },
+    {
+      "id": "LN-KB-B2031-008",
+      "topic": "信保基金",
+      "title": "信保理賠註記Y：理賠成數必輸",
+      "plain_language": "17034原現況規則明載：信保理賠註記為Y時，信保理賠成數為必輸值。",
+      "goal": "確保理賠資料完整",
+      "trigger": "17034維護信保理賠欄位",
+      "conditions": [
+        "信保理賠註記為Y"
+      ],
+      "result": "信保理賠成數必輸",
+      "codes": [
+        "17034",
+        "Y"
+      ],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "SSR明載",
+      "source_types": [
+        "SSR明載"
+      ],
+      "sources": [
+        {
+          "document": "20220030-BC-SSR-B2-031(信保基金)-v1.99.doc",
+          "location": "p.5／17034(c)"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "業務規則",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "信保案件",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "SSR v1.99所載現況；非全面未來方案驗收",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-B2031-009",
+      "topic": "信保基金",
+      "title": "理賠款比對回饋：001與002",
+      "plain_language": "主機比對不成功時下傳回饋檔。原文一處寫001『放款餘額不為1元』，後續說明又寫餘額不等於0或1元；保留兩個說法，不能自行消除差異。002為放款帳號重複提供。",
+      "goal": "辨識理賠款回寫失敗原因",
+      "trigger": "理賠款入帳後主機資料回寫催收平台",
+      "conditions": [
+        "主機比對不成功"
+      ],
+      "result": "下傳回饋檔；001餘額條件文字需釐清，002為重複放款帳號",
+      "codes": [
+        "001",
+        "002",
+        "RPAMASTER4LRL_BANCS_CCYYMMDD.txt",
+        "RPAMASTER4LRL.TXT"
+      ],
+      "currency": [],
+      "rule_status": "歷史參考",
+      "evidence_status": "衝突",
+      "source_type": "SSR明載",
+      "source_types": [
+        "SSR明載"
+      ],
+      "sources": [
+        {
+          "document": "20220030-BC-SSR-B2-031(信保基金)-v1.99.doc",
+          "location": "p.2／個金(2)(F)(a)-(d)"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "待確認追蹤",
+      "exceptions": [
+        "001容許餘額條件有文字差異，正式判定待確認"
+      ],
+      "product": "勞工紓困理賠款回寫",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "SSR v1.99所載現況；非全面未來方案驗收",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]",
+        "Layout原文：343 + error code 3 = 第二筆開始總長346。",
+        "須釐清0元與1元的容許條件；不自行填入錯誤觸發邏輯。"
+      ]
+    },
+    {
+      "id": "LN-KB-QA-002",
+      "topic": "品質判斷",
+      "title": "先建Requirement，再衍生L6",
+      "plain_language": "以Business Goal／Trigger／Result判斷合併，新增前反查整份既有需求；不能依SSR編號機械展開。",
+      "goal": "維持可追溯、可稽核、可複核",
+      "trigger": "建立或補齊Requirement／L6",
+      "conditions": [
+        "SSR/FSD全文掃描",
+        "Merge-before-New",
+        "交易／報表代碼反查既有需求"
+      ],
+      "result": "Source Evidence ↔ Requirement ↔ L6雙向追溯",
+      "codes": [],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "專案執行規範",
+      "source_types": [
+        "使用者對話確認"
+      ],
+      "sources": [
+        {
+          "document": "放款AI_專案指令.md",
+          "location": "核心流程、合併優先與新增前反查"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "品質規範",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "不適用：分析與測試規範",
+      "system": "不適用",
+      "period": "現行專案執行約定",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次完整核讀專案指令；屬分析規範，非銀行系統規則",
+      "sync_status": "知識頁已同步；後續產製須依此執行",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-QA-003",
+      "topic": "品質判斷",
+      "title": "無FSD：以整個SSR主題判定",
+      "plain_language": "整個主題確定沒有FSD時，依專案慣例無客製差異；comply仍依SSR差異及決議。若主題有FSD但未涵蓋某段，不可稱為無FSD。",
+      "goal": "維持可追溯、可稽核、可複核",
+      "trigger": "判斷FSD Coverage與comply",
+      "conditions": [
+        "確認整個SSR主題有無FSD",
+        "SSR差異及決議文字可判讀"
+      ],
+      "result": "分開記錄無FSD與有FSD但未涵蓋；模糊原文仍列待確認",
+      "codes": [],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "專案執行規範",
+      "source_types": [
+        "使用者對話確認"
+      ],
+      "sources": [
+        {
+          "document": "放款AI_專案指令.md",
+          "location": "需求功能符合判定、無FSD判定單位"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "品質規範",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "不適用：分析與測試規範",
+      "system": "不適用",
+      "period": "現行專案執行約定",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次完整核讀專案指令；屬分析規範，非銀行系統規則",
+      "sync_status": "知識頁已同步；後續產製須依此執行",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-QA-004",
+      "topic": "品質判斷",
+      "title": "多路徑拆案與D60／D65預設",
+      "plain_language": "同一Trigger有多種Business Path，L6必須按路徑拆分。新增預設D60=Y、D65空白，當次明確指示優先。",
+      "goal": "維持可追溯、可稽核、可複核",
+      "trigger": "新增L6",
+      "conditions": [
+        "Requirement存在",
+        "後續路徑不同"
+      ],
+      "result": "各路徑獨立案例，延續既有編號、公式與格式",
+      "codes": [],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "專案執行規範",
+      "source_types": [
+        "使用者對話確認"
+      ],
+      "sources": [
+        {
+          "document": "放款AI_專案指令.md",
+          "location": "多路徑拆分、新增測試欄位預設、公式保護"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "品質規範",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "不適用：分析與測試規範",
+      "system": "不適用",
+      "period": "現行專案執行約定",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次完整核讀專案指令；屬分析規範，非銀行系統規則",
+      "sync_status": "知識頁已同步；後續產製須依此執行",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-QA-005",
+      "topic": "品質判斷",
+      "title": "來源類型、確認狀態、規則狀態分開",
+      "plain_language": "SSR/FSD明載、PO口頭確認、使用者對話確認與AI推論不可混用。對話已確認不等於文件明載；不確定的錯誤代碼也不代表AI已推論出代碼。",
+      "goal": "維持可追溯、可稽核、可複核",
+      "trigger": "整理知識或案例來源",
+      "conditions": [
+        "逐一檢查具體主張來源"
+      ],
+      "result": "本文直接標示來源；另列來源與待確認清單",
+      "codes": [],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "專案執行規範",
+      "source_types": [
+        "使用者對話確認"
+      ],
+      "sources": [
+        {
+          "document": "放款AI_專案指令.md",
+          "location": "內文來源標籤、來源與待確認清單、知識庫狀態欄位"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "品質規範",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "不適用：分析與測試規範",
+      "system": "不適用",
+      "period": "現行專案執行約定",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次完整核讀專案指令；屬分析規範，非銀行系統規則",
+      "sync_status": "知識頁已同步；後續產製須依此執行",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-QA-006",
+      "topic": "品質判斷",
+      "title": "混合證據：以最弱主張判定一致性",
+      "plain_language": "一筆案例包含原文明證與推論時，整筆一致性結果以最弱證據點判定；『建檔或修改』等動作若非原文明載，須標示推論。",
+      "goal": "維持可追溯、可稽核、可複核",
+      "trigger": "複核L6與SSR/FSD一致性",
+      "conditions": [
+        "一筆案例有多個具體主張",
+        "主張證據強度不同"
+      ],
+      "result": "判斷理由分列證據點；推論標籤同時出現在L6與比對表",
+      "codes": [],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "專案執行規範",
+      "source_types": [
+        "使用者對話確認"
+      ],
+      "sources": [
+        {
+          "document": "放款AI_專案指令.md",
+          "location": "逐主張判定、最弱證據點、L6內文推論標記"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "品質規範",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "不適用：分析與測試規範",
+      "system": "不適用",
+      "period": "現行專案執行約定",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次完整核讀專案指令；屬分析規範，非銀行系統規則",
+      "sync_status": "知識頁已同步；後續產製須依此執行",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-QA-007",
+      "topic": "品質判斷",
+      "title": "四項品質閘門與跨檔同步",
+      "plain_language": "Coverage查漏段落與路徑；Uniqueness查重複需求；Traceability驗證來源／Requirement／L6；Fidelity核實原文、章節、代碼與數值。修正後全域搜尋舊文字。",
+      "goal": "維持可追溯、可稽核、可複核",
+      "trigger": "交付或修正產出",
+      "conditions": [
+        "檢查所有受影響Sheet與相關產出"
+      ],
+      "result": "需求、L6、比對表與知識頁同步；不能只改單格",
+      "codes": [],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "專案執行規範",
+      "source_types": [
+        "使用者對話確認"
+      ],
+      "sources": [
+        {
+          "document": "放款AI_專案指令.md",
+          "location": "追溯與品質閘門、修正後全域掃描、知識庫影響檢查"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "品質規範",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "不適用：分析與測試規範",
+      "system": "不適用",
+      "period": "現行專案執行約定",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "本次完整核讀專案指令；屬分析規範，非銀行系統規則",
+      "sync_status": "知識頁已同步；後續產製須依此執行",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-API-001",
+      "topic": "API欄位",
+      "title": "priority-valid-till與放款到期日須分開核對",
+      "plain_language": "先前AI將priority-valid-till解釋為優先利率有效截止日，並判斷Create／Modify欄位差異。完整Schema與Mapping未在本次核讀，不能定案它等同放款到期日，或某API一定無法修改。",
+      "goal": "整理API理解與待查問題",
+      "trigger": "查詢API欄位與產品對應",
+      "conditions": [
+        "查詢Interest Condition與Maturity Date"
+      ],
+      "result": "回查正式Schema／FSD／TCS Mapping後定案",
+      "codes": [
+        "priority-valid-till",
+        "priority-term-period",
+        "priority-term-freq",
+        "AIMBT02023"
+      ],
+      "currency": [],
+      "rule_status": "歷史參考",
+      "evidence_status": "待確認",
+      "source_type": "AI推論",
+      "source_types": [
+        "AI推論"
+      ],
+      "sources": [
+        {
+          "document": "歷史放款API對話整理",
+          "location": "2025-11-25／2025-12-10／2026-06-02；未核讀正式API/FSD"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "待確認追蹤",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "適用產品待正式Mapping確認",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "歷史參考，不作現行介面規格",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "僅歷史對話摘要；未取得當時完整Schema與最新正式Mapping",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-API-002",
+      "topic": "API欄位",
+      "title": "建檔API與短擔產品Mapping待核實",
+      "plain_language": "先前AI提出POST /loan-account、CLM-6及loan-type=26／product-reference=24500對應；這些未經本次正式文件核實，不當作可直接呼叫的介面或確定產品規則。",
+      "goal": "整理API理解與待查問題",
+      "trigger": "查詢API欄位與產品對應",
+      "conditions": [
+        "查詢帳戶建檔、短擔直接放款產品對應"
+      ],
+      "result": "保留查詢線索，正式API／產品對應待確認",
+      "codes": [
+        "CLM-6",
+        "/loan-account",
+        "loan-type",
+        "product-reference",
+        "26",
+        "24500"
+      ],
+      "currency": [],
+      "rule_status": "歷史參考",
+      "evidence_status": "待確認",
+      "source_type": "AI推論",
+      "source_types": [
+        "AI推論"
+      ],
+      "sources": [
+        {
+          "document": "歷史放款API對話整理",
+          "location": "2025-11-25／2025-12-10／2026-06-02；未核讀正式API/FSD"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "待確認追蹤",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "適用產品待正式Mapping確認",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "歷史參考，不作現行介面規格",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "僅歷史對話摘要；未取得當時完整Schema與最新正式Mapping",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-API-003",
+      "topic": "API欄位",
+      "title": "twct-account-type歷史欄位列舉",
+      "plain_language": "Edan於2025-12-10提供：4 ConsumerLoan、5 TermLoan、7 Loan、10 LineofCredit；twct-requested-status列3 Active。這是當時對話提供的定義，不能宣稱已覆蓋全部值或最新Schema。",
+      "goal": "整理API理解與待查問題",
+      "trigger": "查詢API欄位與產品對應",
+      "conditions": [
+        "查詢當時提供的欄位定義"
+      ],
+      "result": "可作歷史欄位速查；最新完整值域仍回查Schema",
+      "codes": [
+        "twct-account-type",
+        "twct-requested-status"
+      ],
+      "currency": [],
+      "rule_status": "歷史參考",
+      "evidence_status": "已確認",
+      "source_type": "使用者對話確認",
+      "source_types": [
+        "使用者對話確認"
+      ],
+      "sources": [
+        {
+          "document": "歷史放款API對話整理",
+          "location": "2025-11-25／2025-12-10／2026-06-02；未核讀正式API/FSD"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "API參考",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "適用產品待正式Mapping確認",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "歷史參考，不作現行介面規格",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "歷史對話提供定義已確認；最新Schema未核讀",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]"
+      ]
+    },
+    {
+      "id": "LN-KB-B2032-001",
+      "topic": "債清",
+      "title": "No.54錯誤碼與訊息仍待確認",
+      "plain_language": "Edan在2026-10-01確認No.54來源分類為其他待註明／待確認；未知的是實際錯誤代碼與訊息，不能寫成AI已推論某個代碼。",
+      "goal": "保留已確認的品質修正與未定資訊",
+      "trigger": "檢查B2-032 No.54",
+      "conditions": [
+        "錯誤代碼與訊息未取得"
+      ],
+      "result": "來源分類修正已確認；錯誤碼／訊息待確認",
+      "codes": [],
+      "currency": [],
+      "rule_status": "歷史參考",
+      "evidence_status": "待確認",
+      "source_type": "使用者對話確認",
+      "source_types": [
+        "使用者對話確認"
+      ],
+      "sources": [
+        {
+          "document": "Edan對話確認",
+          "location": "2026-10-01 B2-032修正確認；本次比對表無可讀文字，未核實儲存格"
+        }
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "category": "待確認追蹤",
+      "exceptions": [
+        "來源未載明其他例外；不可自行補規則"
+      ],
+      "product": "債清",
+      "system": "BaNCS／周邊，依來源敘述",
+      "period": "2026-10-01對話確認基準；未核實最新正式文件",
+      "related_ids": [],
+      "updated_at": "2026-10-05T14:24:19+08:00",
+      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
+      "verification": "已確認分類修正；未重新核實最新L6與比對表實體內容",
+      "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
+      "notes": [
+        "[Edan撰寫｜2026-10-05 14:24]",
+        "比對表的其他待註明分類與知識記錄的使用者對話確認來源是不同層次。",
+        "No.54不是完整L6 ID，未填入l6_ids；B2-032全主題Coverage未宣告驗收。"
+      ]
+    }
+  ],
+  "coverage_note": "本次核讀專案指令全文、既有知識索引與Git資料、B2-031 SSR v1.99全文。B2-043／B2-016沿用9/21資料，尚未重新核讀原始證據；API只依歷史對話整理。其他SSR/FSD尚未全面盤點，未盤點不代表沒有需求。本次未修改Requirement、L6或比對表。",
+  "change_log": [
+    {
+      "date": "2026-10-05T14:24:19+08:00",
+      "summary": "沿用5筆，新增19筆：B2-031九筆、品質規範六筆、API三筆、債清一筆。原SSR/FSD、Requirement、L6與比對表未異動。",
+      "added_ids": [
+        "LN-KB-B2031-001",
+        "LN-KB-B2031-002",
+        "LN-KB-B2031-003",
+        "LN-KB-B2031-004",
+        "LN-KB-B2031-005",
+        "LN-KB-B2031-006",
+        "LN-KB-B2031-007",
+        "LN-KB-B2031-008",
+        "LN-KB-B2031-009",
+        "LN-KB-QA-002",
+        "LN-KB-QA-003",
+        "LN-KB-QA-004",
+        "LN-KB-QA-005",
+        "LN-KB-QA-006",
+        "LN-KB-QA-007",
+        "LN-KB-API-001",
+        "LN-KB-API-002",
+        "LN-KB-API-003",
+        "LN-KB-B2032-001"
+      ],
+      "updated_ids": [
+        "LN-KB-B2043-001",
+        "LN-KB-B2043-002",
+        "LN-KB-B2043-003",
+        "LN-KB-XREF-001",
+        "LN-KB-QA-001"
+      ]
     }
   ]
 }

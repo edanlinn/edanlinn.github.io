@@ -1,27 +1,13 @@
-# 放款知識庫 · Git 版本
+# 放款知識庫 · Git版本
 
-由 2026-09-21 的私人放款知識庫完整轉換，保留 5 筆知識、來源位置、Requirement、L6 欄位、狀態篩選及搜尋。採寶寶藍配色與側邊導覽。
+更新至2026-10-05，共24筆：既有5筆、信保基金9筆、品質規範6筆、API參考3筆、債清待確認1筆。
 
-## 本機執行
+主資料為data.json，工作查詢／學習閱讀／變更複核均由同一主資料產生。支援主題、來源、規則狀態、確認狀態篩選與全文搜尋；既有知識ID保留。
 
-```sh
-python3 -m http.server 8080
-```
+本次完整核讀放款AI_專案指令與B2-031 SSR v1.99。B2-043／B2-016保留2026-09-21基準，未重新核讀原始證據；API來自歷史對話，未宣稱已驗證最新Schema。已確認對話與尚未定案方案分開記錄。未填Requirement／L6 ID代表未核實，不代表不存在。
 
-開啟 http://localhost:8080 。資料透過 fetch 讀取，請使用 HTTP server。
+未修改SSR/FSD、Requirement、L6或比對表。知識庫是衍生參考，不能取代正式來源。其他主題未全面盤點。
 
-## 檔案
+公開GitHub Pages沿用使用者已確認的發布範圍。只更新loan/，入口https://edanlinn.github.io/loan/，獨立於其他學習網站。由GitHub Pages自動部署。
 
-- index.html：版面
-- styles.css：樣式
-- app.js：搜尋、篩選、詳細資料與可分享的規則 hash
-- data.json：知識資料；原始 5 筆內容未更改
-- .nojekyll：GitHub Pages 靜態檔設定
-
-## GitHub Pages
-
-可置於 edanlinn.github.io 專案的 loan/ 目錄，發布路徑為 /loan/。所有資源使用相對路徑，主站無須更動。亦可作為獨立 repository 的根目錄，於 GitHub Pages 選擇對應分支與根目錄。
-
-此版本經使用者確認後發布於公開 GitHub Pages。data.json 含 CTBC 專案業務規則與文件名稱。純靜態 Pages 不提供原 Sites 的本人登入限制。
-
-資料狀態屬 2026-09-21 基準，未宣稱已更新到今日。其他放款主題尚未完成盤點。
+本機預覽：在repository根目錄執行python3 -m http.server 8080，再開啟/loan/。

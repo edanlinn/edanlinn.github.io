@@ -11,14 +11,14 @@
 </head>
 <body>
   <aside class="sidebar" aria-label="放款知識庫導覽"><div class="brand-icon">L</div><div class="side-brand"><b>LOAN KNOWLEDGE</b><small>EDAN’S WORKSPACE</small></div><div class="side-label">WORKSPACE</div><nav><a class="side-link active" href="#knowledge">知識查詢</a></nav><div class="side-bottom">業務規則 · 來源追溯<br>正式需求請回查原始文件。</div></aside>
-  <header><div class="head"><div><div class="eyebrow">CTBC LOAN KNOWLEDGE</div><h1>放款知識庫</h1></div><div class="updated" id="updated">資料基準 · 2026-09-21</div></div></header>
+  <header><div class="head"><div><div class="eyebrow">CTBC LOAN KNOWLEDGE</div><h1>放款知識庫</h1></div><div class="updated" id="updated">更新 · 2026-10-05</div></div></header>
   <main>
     <section id="knowledge" class="toolbar" aria-label="知識搜尋">
       <div class="search"><input id="q" type="search" placeholder="搜尋主題、條件、交易代碼、Requirement ID…" aria-label="搜尋知識"></div>
-      <div class="filters" id="filters"></div>
+      <div class="filters"><label>主題 <select id="topic" class="chip" aria-label="主題篩選"></select></label><label>來源 <select id="source" class="chip" aria-label="來源篩選"></select></label></div><div class="filters" id="filters"></div><div class="filters" aria-label="閱讀視圖"><button class="chip active" data-view="work">工作查詢</button><button class="chip" data-view="learn">學習閱讀</button><button class="chip" data-view="review">變更複核</button></div>
     </section>
     <section class="summary" id="summary"></section>
-    <div class="notice">目前完成 B2-043 客票融資第一批建模，並建立 B2-016 擔保維持率控管的跨主題關聯；其他主題顯示為尚未盤點。</div>
+    <div class="notice" id="coverage"></div>
     <div class="list-heading"><h2>業務規則</h2><span id="result-count" aria-live="polite"></span></div>
     <section class="layout">
       <div class="list" id="list"></div>
