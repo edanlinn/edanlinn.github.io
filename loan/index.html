@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>放款知識庫</title>
+  <meta name="description" content="放款業務規則查詢、學習與變更複核入口">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3156'/%3E%3Cpath d='M16 18h32v7H16zm0 13h22v7H16zm0 13h28v7H16z' fill='%23f2c66d'/%3E%3C/svg%3E">
+  <meta name="theme-color" content="#edf6ff">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <aside class="sidebar" aria-label="放款知識庫導覽"><div class="brand-icon">L</div><div class="side-brand"><b>LOAN KNOWLEDGE</b><small>EDAN’S WORKSPACE</small></div><div class="side-label">WORKSPACE</div><nav><a class="side-link active" href="#knowledge">知識查詢</a><a class="side-link" href="https://edanlinn.github.io/#ladder" target="_blank" rel="noopener noreferrer">雲端學習中心</a></nav><div class="side-bottom">業務規則 · 來源追溯<br>正式需求請回查原始文件。</div></aside>
+  <header><div class="head"><div><div class="eyebrow">CTBC LOAN KNOWLEDGE</div><h1>放款知識庫</h1></div><div class="updated" id="updated">資料基準 · 2026-09-21</div></div></header>
+  <main>
+    <section id="knowledge" class="toolbar" aria-label="知識搜尋">
+      <div class="search"><input id="q" type="search" placeholder="搜尋主題、條件、交易代碼、Requirement ID…" aria-label="搜尋知識"></div>
+      <div class="filters" id="filters"></div>
+    </section>
+    <section class="summary" id="summary"></section>
+    <div class="notice">目前完成 B2-043 客票融資第一批建模，並建立 B2-016 擔保維持率控管的跨主題關聯；其他主題顯示為尚未盤點。</div>
+    <div class="list-heading"><h2>業務規則</h2><span id="result-count" aria-live="polite"></span></div>
+    <section class="layout">
+      <div class="list" id="list"></div>
+      <article class="detail" id="detail"><div class="empty">請選擇左側知識項目</div></article>
+    </section>
+  </main>
+  <script src="./app.js" defer></script>
+</body>
+</html>

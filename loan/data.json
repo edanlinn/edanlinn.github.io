@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-09-21T11:40:00+08:00",
+  "scope": "B2-043客票融資，並追溯B2-016擔保維持率控管",
+  "records": [
+    {
+      "id": "LN-KB-B2043-001",
+      "topic": "客票融資",
+      "title": "SWEEP轉出帳號的產品幣別須為台幣",
+      "plain_language": "客票融資的備償帳戶若設定SWEEP轉出，原現況規則要求轉出帳號產品幣別為台幣。B2-043差異決議已將相關產品議題取消，因此保留為歷史業務知識，不作為現行待建L6規則。",
+      "goal": "限制客票託收入備償批次轉出的帳號幣別",
+      "trigger": "設定或執行60422-(6)客票託收入備償批次轉出",
+      "conditions": ["轉出帳號為備償帳號", "轉出帳號產品幣別為台幣"],
+      "result": "符合B2-043原現況檢核；本主題差異決議為產品下架、議題取消",
+      "codes": ["60422", "17099", "17100"],
+      "currency": ["TWD"],
+      "rule_status": "已取消",
+      "evidence_status": "已確認",
+      "source_type": "SSR明載",
+      "sources": [
+        {"document":"20220030-BC-SSR-B2-043(客票融資)-v0.99.doc", "location":"p.6 (3)(B)(a)(I)(iv)；p.16 60422(v)；p.19-20差異及決議1"}
+      ],
+      "requirement_ids": ["20220030-BC-SSR-B2-043(客票融資)_001"],
+      "l6_ids": [],
+      "notes": ["取消範圍不得擴大解讀為整個B2-043所有需求均取消。"]
+    },
+    {
+      "id": "LN-KB-B2043-002",
+      "topic": "客票融資",
+      "title": "17100擔保品幣別及種類限制",
+      "plain_language": "17100授信戶基本資料建檔的原現況檢核要求擔保品幣別為TWD，且擔保種類限06/00017或06/00018。B2-043產品下架決議涵蓋此客票融資建檔功能。",
+      "goal": "限制客票融資可連結的擔保品",
+      "trigger": "17100輸入或選擇擔保品編號",
+      "conditions": ["擔保品幣別為TWD", "擔保種類為06/00017應收票據－支票，或06/00018應收票據－匯票／本票"],
+      "result": "不符合時觸發ErrorCode 4187；本主題差異決議為產品下架、議題取消",
+      "codes": ["17100", "BR0031", "4187", "06/00017", "06/00018"],
+      "currency": ["TWD"],
+      "rule_status": "已取消",
+      "evidence_status": "已確認",
+      "source_type": "SSR明載",
+      "sources": [
+        {"document":"20220030-BC-SSR-B2-043(客票融資)-v0.99.doc", "location":"p.11 17100(BR0031)檢核7；p.19-20差異及決議1"}
+      ],
+      "requirement_ids": ["20220030-BC-SSR-B2-043(客票融資)_018"],
+      "l6_ids": []
+    },
+    {
+      "id": "LN-KB-B2043-003",
+      "topic": "客票融資",
+      "title": "備償帳戶入帳日報表BRD0981A／BRD0981B",
+      "plain_language": "SSR列出兩個相同名稱的備償帳戶入帳日報表。現有需求清單對BRD0981A標示C，但BRD0981B相關兩筆需求皆為NC；先前衍生比對表誤寫成NC與C衝突，已在本次檢查中發現。BRD0981B是否保留及其測試責任仍需正式決議。",
+      "goal": "提供區域中心及台幣作業中心查看備償帳戶入帳日資料",
+      "trigger": "報表產製或查閱",
+      "conditions": ["報表代碼BRD0981A或BRD0981B"],
+      "result": "BRD0981A目前需求標示取消；BRD0981B為NC，最終方案欄未完整定案",
+      "codes": ["BRD0981A", "BRD0981B"],
+      "currency": ["TWD"],
+      "rule_status": "待定",
+      "evidence_status": "衝突",
+      "source_type": "SSR明載＋Requirement現況",
+      "sources": [
+        {"document":"20220030-BC-SSR-B2-043(客票融資)-v0.99.doc", "location":"p.17相關報表；p.22批次/報表需求2"},
+        {"document":"需求清單20220030BCSSRB2043客票融資2.1_20260921110358.xlsx", "location":"需求清單_客票融資：_006/_008/_009/_010"}
+      ],
+      "requirement_ids": ["20220030-BC-SSR-B2-043(客票融資)_006", "20220030-BC-SSR-B2-043(客票融資)_008", "20220030-BC-SSR-B2-043(客票融資)_009", "20220030-BC-SSR-B2-043(客票融資)_010"],
+      "l6_ids": [],
+      "notes": ["_008與_010實際皆為NC，不是NC/C衝突。", "需人工確認BRD0981B最終決議與L6責任。"]
+    },
+    {
+      "id": "LN-KB-XREF-001",
+      "topic": "跨主題承接",
+      "title": "B2-043客票維持率與B2-016擔保維持率控管的關係",
+      "plain_language": "B2-043描述客票融資的維持率欄位與公式，需求清單記錄2024/06/26決議由擔保品組件承接；B2-016 SSR又將客票融資列為特定產品，並記載專屬公式建議移至B2-043討論。兩份資料呈現雙向引用，尚需以承接Requirement與L6確認最終落點。",
+      "goal": "確認客票融資維持率規則由哪個主題與測案承接",
+      "trigger": "分析客票融資維持率、他行外幣存單換算或維持率控管測試",
+      "conditions": ["涉及B2-043客票融資專屬維持率", "涉及B2-016共用擔保維持率控管"],
+      "result": "建立跨主題關聯；承接覆蓋待確認",
+      "codes": ["B2-043", "B2-016"],
+      "currency": ["外幣", "TWD"],
+      "rule_status": "移交其他主題",
+      "evidence_status": "待確認",
+      "source_type": "SSR明載＋Requirement決議紀錄",
+      "sources": [
+        {"document":"20220030-BC-SSR-B2-043(客票融資)-v0.99.doc", "location":"p.8-9法金維持率計算；p.21差異及決議4"},
+        {"document":"20220030-BC-SSR-B2-016(擔保維持率控管)-v1.99.doc", "location":"p.2 (10)(B)；p.6差異及決議1"},
+        {"document":"需求清單20220030BCSSRB2043客票融資2.1_20260921110358.xlsx", "location":"需求_004：2024/06/26改由擔保品組件承接"},
+        {"document":"需求清單-20220030-BC-SSR-B2-016(擔保維持率控管)-2.1.xlsx", "location":"需求_001：相依B2-043"}
+      ],
+      "requirement_ids": ["20220030-BC-SSR-B2-043(客票融資)_004", "20220030-BC-SSR-B2-016(擔保維持率控管)_001"],
+      "l6_ids": [],
+      "notes": ["尚未取得可證明承接完整性的L6 ID。"]
+    },
+    {
+      "id": "LN-KB-QA-001",
+      "topic": "品質判斷",
+      "title": "取消與移交需按需求範圍判斷",
+      "plain_language": "同一SSR主題可以同時存在Y、NC、R、C等不同狀態。單一需求取消或移交，不代表整個主題的所有規則都不需測試。",
+      "goal": "防止將局部決議錯誤擴張為整體結論",
+      "trigger": "判斷主題是否需要建立Requirement或L6",
+      "conditions": ["主題內存在多筆Requirement", "各Requirement狀態或決議不同"],
+      "result": "逐筆判斷，並對移交項目驗證承接Requirement及L6",
+      "codes": [],
+      "currency": [],
+      "rule_status": "有效",
+      "evidence_status": "已確認",
+      "source_type": "專案執行規範",
+      "sources": [
+        {"document":"放款AI_專案指令.md", "location":"Merge-before-New、追溯與品質閘門、知識庫更新規則"}
+      ],
+      "requirement_ids": [],
+      "l6_ids": [],
+      "notes": ["本項屬分析與品質規則，不是銀行系統業務規則。"]
+    }
+  ]
+}
