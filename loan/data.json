@@ -40,16 +40,18 @@
         "取消範圍不得擴大解讀為整個B2-043所有需求均取消。"
       ],
       "category": "業務規則",
-      "updated_at": "2026-09-21T11:40:00+08:00",
-      "change_summary": "沿用既有知識ID及原內容；補充分類、適用範圍與本次核讀狀態。",
-      "verification": "沿用2026-09-21知識；本次未重新核讀所引SSR及Requirement。",
+      "updated_at": "2026-10-05T14:50:35+08:00",
+      "change_summary": "補入本次原始來源核讀與最新案例追溯連結；既有待確認保留。",
+      "verification": "本次取得並核讀SSR文字；B2-043另核對最新Requirement及L6實體對應。未宣告跨主題承接全部覆蓋。",
       "exceptions": [
         "未載明其他例外"
       ],
       "product": "客票融資",
       "system": "依所引來源；未全面盤點",
       "period": "依來源版本與決議日期",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "sync_status": "知識頁已同步；原Requirement／L6未異動",
       "source_types": [
         "SSR明載"
@@ -91,16 +93,18 @@
       ],
       "l6_ids": [],
       "category": "業務規則",
-      "updated_at": "2026-09-21T11:40:00+08:00",
-      "change_summary": "沿用既有知識ID及原內容；補充分類、適用範圍與本次核讀狀態。",
-      "verification": "沿用2026-09-21知識；本次未重新核讀所引SSR及Requirement。",
+      "updated_at": "2026-10-05T14:50:35+08:00",
+      "change_summary": "補入本次原始來源核讀與最新案例追溯連結；既有待確認保留。",
+      "verification": "本次取得並核讀SSR文字；B2-043另核對最新Requirement及L6實體對應。未宣告跨主題承接全部覆蓋。",
       "exceptions": [
         "未載明其他例外"
       ],
       "product": "客票融資",
       "system": "依所引來源；未全面盤點",
       "period": "依來源版本與決議日期",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "sync_status": "知識頁已同步；原Requirement／L6未異動",
       "source_types": [
         "SSR明載"
@@ -150,16 +154,19 @@
         "原資料規則狀態為待定；改以歷史參考保留，確認狀態仍為衝突，未宣告現行有效。"
       ],
       "category": "業務規則",
-      "updated_at": "2026-09-21T11:40:00+08:00",
-      "change_summary": "沿用既有知識ID及原內容；補充分類、適用範圍與本次核讀狀態。",
-      "verification": "沿用2026-09-21知識；本次未重新核讀所引SSR及Requirement。",
+      "updated_at": "2026-10-05T14:50:35+08:00",
+      "change_summary": "補入本次原始來源核讀與最新案例追溯連結；既有待確認保留。",
+      "verification": "本次取得並核讀SSR文字；B2-043另核對最新Requirement及L6實體對應。未宣告跨主題承接全部覆蓋。",
       "exceptions": [
         "未載明其他例外"
       ],
       "product": "客票融資",
       "system": "依所引來源；未全面盤點",
       "period": "依來源版本與決議日期",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043",
+        "LN-L6-放_04_1206"
+      ],
       "sync_status": "知識頁已同步；原Requirement／L6未異動",
       "legacy_rule_status": "待定",
       "source_types": [
@@ -217,16 +224,31 @@
         "尚未取得可證明承接完整性的L6 ID。"
       ],
       "category": "業務規則",
-      "updated_at": "2026-09-21T11:40:00+08:00",
-      "change_summary": "沿用既有知識ID及原內容；補充分類、適用範圍與本次核讀狀態。",
-      "verification": "沿用2026-09-21知識；本次未重新核讀所引SSR及Requirement。",
+      "updated_at": "2026-10-05T14:50:35+08:00",
+      "change_summary": "補入本次原始來源核讀與最新案例追溯連結；既有待確認保留。",
+      "verification": "本次取得並核讀SSR文字；B2-043另核對最新Requirement及L6實體對應。未宣告跨主題承接全部覆蓋。",
       "exceptions": [
         "未載明其他例外"
       ],
       "product": "客票融資",
       "system": "依所引來源；未全面盤點",
       "period": "依來源版本與決議日期",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-016",
+        "LN-DOC-SSR-B2-043",
+        "LN-L6-放_04_1193",
+        "LN-L6-放_04_1194",
+        "LN-L6-放_04_1195",
+        "LN-L6-放_04_1196",
+        "LN-L6-放_04_1197",
+        "LN-L6-放_04_1198",
+        "LN-L6-放_04_1199",
+        "LN-L6-放_04_1200",
+        "LN-L6-放_04_1201",
+        "LN-L6-放_04_1202",
+        "LN-L6-放_04_1203",
+        "LN-L6-放_04_1204"
+      ],
       "sync_status": "知識頁已同步；原Requirement／L6未異動",
       "source_types": [
         "SSR明載",
@@ -315,6 +337,7 @@
       "system": "BaNCS／周邊，依來源敘述",
       "period": "SSR v1.99所載現況；非全面未來方案驗收",
       "related_ids": [
+        "LN-DOC-SSR-B2-031",
         "LN-KB-B2031-002",
         "LN-KB-B2031-003",
         "LN-KB-B2031-005"
@@ -366,6 +389,7 @@
       "system": "BaNCS／周邊，依來源敘述",
       "period": "SSR v1.99所載現況；非全面未來方案驗收",
       "related_ids": [
+        "LN-DOC-SSR-B2-031",
         "LN-KB-B2031-001",
         "LN-KB-B2031-003"
       ],
@@ -412,6 +436,7 @@
       "system": "BaNCS／周邊，依來源敘述",
       "period": "SSR v1.99所載現況；非全面未來方案驗收",
       "related_ids": [
+        "LN-DOC-SSR-B2-031",
         "LN-KB-B2031-001",
         "LN-KB-B2031-002"
       ],
@@ -462,7 +487,9 @@
       "product": "勞工紓困貸款",
       "system": "BaNCS／周邊，依來源敘述",
       "period": "SSR v1.99所載現況；非全面未來方案驗收",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-031"
+      ],
       "updated_at": "2026-10-05T14:24:19+08:00",
       "change_summary": "本次新增可重用知識，按具體主張標示來源。",
       "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
@@ -553,7 +580,9 @@
       "product": "間接保證案件",
       "system": "BaNCS／周邊，依來源敘述",
       "period": "SSR v1.99所載現況；非全面未來方案驗收",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-031"
+      ],
       "updated_at": "2026-10-05T14:24:19+08:00",
       "change_summary": "本次新增可重用知識，按具體主張標示來源。",
       "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
@@ -602,7 +631,9 @@
       "product": "法金信保案件",
       "system": "BaNCS／周邊，依來源敘述",
       "period": "SSR v1.99所載現況；非全面未來方案驗收",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-031"
+      ],
       "updated_at": "2026-10-05T14:24:19+08:00",
       "change_summary": "本次新增可重用知識，按具體主張標示來源。",
       "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
@@ -649,7 +680,9 @@
       "product": "信保案件",
       "system": "BaNCS／周邊，依來源敘述",
       "period": "SSR v1.99所載現況；非全面未來方案驗收",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-031"
+      ],
       "updated_at": "2026-10-05T14:24:19+08:00",
       "change_summary": "本次新增可重用知識，按具體主張標示來源。",
       "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
@@ -697,7 +730,9 @@
       "product": "勞工紓困理賠款回寫",
       "system": "BaNCS／周邊，依來源敘述",
       "period": "SSR v1.99所載現況；非全面未來方案驗收",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-031"
+      ],
       "updated_at": "2026-10-05T14:24:19+08:00",
       "change_summary": "本次新增可重用知識，按具體主張標示來源。",
       "verification": "本次核讀SSR原文；未核實Requirement／L6實體對應。",
@@ -1136,12 +1171,24 @@
       ],
       "sources": [
         {
-          "document": "Edan對話確認",
-          "location": "2026-10-01 B2-032修正確認；本次比對表無可讀文字，未核實儲存格"
+          "document": "L6對照SSR比對表_B2-032債清_20261001134841.xlsx",
+          "location": "L6對照SSR比對表 第55列"
+        },
+        {
+          "document": "測試資料表_放_14債清_20261001134841.xlsx",
+          "location": "測試資料表_放_14-債清 第58列"
+        },
+        {
+          "document": "需求清單20220030BCSSRB2032債清2_1_20260930161137.xlsx",
+          "location": "需求清單_債清 第11列"
         }
       ],
-      "requirement_ids": [],
-      "l6_ids": [],
+      "requirement_ids": [
+        "20220030-BC-SSR-B2-032(債清)_007"
+      ],
+      "l6_ids": [
+        "放_14_0054"
+      ],
       "category": "待確認追蹤",
       "exceptions": [
         "來源未載明其他例外；不可自行補規則"
@@ -1149,15 +1196,16 @@
       "product": "債清",
       "system": "BaNCS／周邊，依來源敘述",
       "period": "2026-10-01對話確認基準；未核實最新正式文件",
-      "related_ids": [],
-      "updated_at": "2026-10-05T14:24:19+08:00",
-      "change_summary": "本次新增可重用知識，按具體主張標示來源。",
-      "verification": "已確認分類修正；未重新核實最新L6與比對表實體內容",
+      "related_ids": [
+        "LN-L6-放_14_0054"
+      ],
+      "updated_at": "2026-10-05T14:50:35+08:00",
+      "change_summary": "以最新實體L6及比對表核實原對話摘要，補齊追溯。",
+      "verification": "已核讀最新L6放_14_0054、Requirement_007及比對表；來源未提供具體錯誤碼／訊息。",
       "sync_status": "知識頁已同步；Requirement／L6對應待補，本次未修改原檔",
       "notes": [
         "[Edan撰寫｜2026-10-05 14:24]",
-        "比對表的其他待註明分類與知識記錄的使用者對話確認來源是不同層次。",
-        "No.54不是完整L6 ID，未填入l6_ids；B2-032全主題Coverage未宣告驗收。"
+        "比對表的其他待註明分類與知識記錄的使用者對話確認來源是不同層次。"
       ]
     },
     {
@@ -6060,7 +6108,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6138,7 +6189,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6216,7 +6270,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6294,7 +6351,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6373,7 +6433,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6451,7 +6514,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6529,7 +6595,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6608,7 +6677,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6687,7 +6759,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6766,7 +6841,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6844,7 +6922,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -6923,7 +7004,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7001,7 +7085,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7080,7 +7167,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7159,7 +7249,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7238,7 +7331,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7316,7 +7412,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7394,7 +7493,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7472,7 +7574,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7550,7 +7655,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7628,7 +7736,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7706,7 +7817,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7784,7 +7898,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7862,7 +7979,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -7940,7 +8060,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8018,7 +8141,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8096,7 +8222,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8174,7 +8303,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8252,7 +8384,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8330,7 +8465,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8408,7 +8546,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8486,7 +8627,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8564,7 +8708,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8642,7 +8789,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8720,7 +8870,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8798,7 +8951,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8876,7 +9032,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -8954,7 +9113,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9032,7 +9194,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9110,7 +9275,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9188,7 +9356,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9266,7 +9437,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9344,7 +9518,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9422,7 +9599,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9500,7 +9680,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9578,7 +9761,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9656,7 +9842,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9734,7 +9923,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9812,7 +10004,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9890,7 +10085,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -9968,7 +10166,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10046,7 +10247,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10124,7 +10328,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10166,12 +10373,13 @@
       "codes": [],
       "currency": [],
       "rule_status": "歷史參考",
-      "evidence_status": "已確認",
+      "evidence_status": "待確認",
       "source_type": "SSR原文＋既有案例追溯",
       "source_types": [
         "SSR明載",
         "其他待註明：既有L6與比對表",
-        "FSD明載"
+        "FSD明載",
+        "其他待註明：錯誤代碼尚待取得"
       ],
       "sources": [
         {
@@ -10202,7 +10410,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10280,7 +10491,10 @@
       "product": "債清",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-FSD-B2-032",
+        "LN-DOC-SSR-B2-032"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10358,7 +10572,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10436,7 +10652,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10513,7 +10731,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10590,7 +10810,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10667,7 +10889,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10744,7 +10968,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10821,7 +11047,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10898,7 +11126,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -10975,7 +11205,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11052,7 +11284,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11129,7 +11363,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11206,7 +11442,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11283,7 +11521,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11361,7 +11601,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11439,7 +11681,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11516,7 +11760,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11594,7 +11840,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11672,7 +11920,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11749,7 +11999,9 @@
       "product": "客票融資",
       "system": "CTBC／TCS BaNCS",
       "period": "依收錄文件版本；現況與未來方案請分開閱讀",
-      "related_ids": [],
+      "related_ids": [
+        "LN-DOC-SSR-B2-043"
+      ],
       "updated_at": "2026-10-05T14:50:35+08:00",
       "change_summary": "補入來源可查的放款知識與L6撰寫參考",
       "verification": "已反查Requirement實體ID、L6實體Key及二者對應；SSR/FSD內容保留比對表判斷，未重新完成全主題驗收。",
@@ -11956,7 +12208,13 @@
         "LN-L6-放_04_1210",
         "LN-L6-放_09_0227"
       ],
-      "updated_ids": []
+      "updated_ids": [
+        "LN-KB-B2043-001",
+        "LN-KB-B2043-002",
+        "LN-KB-B2043-003",
+        "LN-KB-XREF-001",
+        "LN-KB-B2032-001"
+      ]
     },
     {
       "date": "2026-10-05T14:24:19+08:00",
