@@ -1,7 +1,7 @@
 window.CLOUD_SA_DATA = {
-  "updatedAt": "2026-10-02",
-  "completedDays": 14,
-  "currentTrack": "DR Strategy / Pilot Light / Warm Standby",
+  "updatedAt": "2026-10-05",
+  "completedDays": 15,
+  "currentTrack": "Migration / 7 Rs / MGN / DMS Cutover",
   "scores": [
     {
       "day": 1,
@@ -58,6 +58,10 @@ window.CLOUD_SA_DATA = {
     {
       "day": 14,
       "score": 78
+    },
+    {
+      "day": 15,
+      "score": 98
     }
   ],
   "roadmap": [
@@ -84,19 +88,19 @@ window.CLOUD_SA_DATA = {
     "summary": [
       {
         "label": "完成訓練",
-        "value": "Day 1–14"
+        "value": "Day 1–15"
       },
       {
         "label": "目前主題",
-        "value": "DR Strategy Patterns"
+        "value": "Migration / 7 Rs"
       },
       {
         "label": "已建立基礎",
-        "value": "6 大領域"
+        "value": "DR + Migration"
       },
       {
         "label": "下一階段",
-        "value": "Migration / Modernization"
+        "value": "Modernization / Containers"
       }
     ],
     "domains": [
@@ -205,10 +209,27 @@ window.CLOUD_SA_DATA = {
         "status": "next",
         "statusLabel": "接下來",
         "items": [
-          "Migration Strategies",
           "Modernization",
+          "Containers / ECS / EKS",
           "Terraform",
-          "Containers"
+          "CI/CD"
+        ]
+      },
+      {
+        "name": "Migration / 7 Rs",
+        "status": "current",
+        "statusLabel": "目前學習中",
+        "items": [
+          "Rehost",
+          "Replatform",
+          "Refactor / Re-architect",
+          "Repurchase",
+          "Retain",
+          "Retire",
+          "Relocate",
+          "AWS Transform MGN",
+          "AWS DMS Full Load + CDC",
+          "Cutover / CDC Lag / Validation"
         ]
       }
     ],
@@ -238,7 +259,12 @@ window.CLOUD_SA_DATA = {
       "Backup & Restore = Lowest cost / Longer RTO",
       "Warm Standby = Fully functional but scaled down",
       "Warm Standby lower cost than Active/Active",
-      "DR Dependency Chain beyond Database"
+      "DR Dependency Chain beyond Database",
+      "Rehost = Move with minimal architecture change",
+      "Replatform = Move + limited platform optimization",
+      "Refactor = Architecture / code redesign",
+      "DMS Full Load + CDC for low-downtime DB migration",
+      "Cutover = Stop/control writes → Catch up → Validate → Switch → Smoke Test → Open Traffic"
     ],
     "confused": [
       "Trust Policy vs Permission Policy",
@@ -261,13 +287,16 @@ window.CLOUD_SA_DATA = {
       "Pilot Light vs Warm Standby",
       "Active/Active Data Consistency / Conflict Resolution",
       "ALB vs Cross-Region Traffic Routing",
-      "RTO Restore Service vs Failback"
+      "RTO Restore Service vs Failback",
+      "Rehost DB on EC2 vs later Replatform to managed database",
+      "When Replatform is enough vs when Refactor is justified",
+      "CDC exists ≠ zero-lag replication"
     ],
     "upcoming": [
-      "Migration Strategies",
-      "Migration / Modernization",
+      "Modernization",
+      "ECS vs EKS",
+      "Docker",
       "Terraform",
-      "Docker / Kubernetes",
       "CI/CD",
       "Observability",
       "FinOps",
@@ -656,6 +685,45 @@ window.CLOUD_SA_DATA = {
         }
       ],
       "memory": "Pilot Light 不能立即服務；Warm Standby 可以立即服務但容量較小。"
+    },
+    {
+      "tag": "Migration",
+      "title": "案例 11｜Legacy Loan Migration：先 Rehost，再 Modernize",
+      "subtitle": "6 個月退出 Data Center，降低 Cutover Risk",
+      "description": "情境：Legacy .NET Loan App + Oracle + 大量 Integration + 月底批次，Data Center 6 個月後關閉，Business 不能接受長停機。",
+      "steps": [
+        {
+          "aws": "Phase 1 - Rehost",
+          "real": "App 優先搬至 EC2，DB 可先維持 Oracle on EC2，降低短期限內的大幅程式與架構變更。"
+        },
+        {
+          "aws": "AWS Transform MGN",
+          "real": "用於 Server / VM rehost；2026 年 AWS Application Migration Service 已更名為 AWS Transform MGN。"
+        },
+        {
+          "aws": "AWS DMS - Full Load + CDC",
+          "real": "先搬既有資料，再持續同步來源變更，縮小 Cutover 時的資料差距。"
+        },
+        {
+          "aws": "Cutover",
+          "real": "Stop / Control Source Writes → Wait CDC Catch-up → Validate Target → Switch DB Connection → Smoke Test → Open Traffic。"
+        },
+        {
+          "aws": "Phase 2 - Replatform / Refactor",
+          "real": "上雲穩定後，先判斷 managed service / limited code changes 是否足以達成目標；必要時再做較高成本 Refactor。"
+        }
+      ],
+      "compare": [
+        {
+          "title": "Rehost",
+          "text": "短期限、Legacy、Integration 多時風險較低；但 Cloud-native benefit 較少。"
+        },
+        {
+          "title": "Refactor",
+          "text": "長期彈性與可維護性可能更好，但需要更多時間、測試、人力與風險承擔。"
+        }
+      ],
+      "memory": "Migration Success = Data moved + Cutover validated，不只是 Copy 完成。"
     }
   ],
   "glossary": [
@@ -1787,6 +1855,89 @@ window.CLOUD_SA_DATA = {
         "ARC",
         "Warm Standby"
       ]
+    },
+    {
+      "term": "Rehost",
+      "fullName": "Rehost / Lift and Shift",
+      "category": "Migration",
+      "aliases": [
+        "Lift and Shift"
+      ],
+      "definition": "將既有 workload 搬到 AWS，但盡量不改變 Application Architecture 或程式邏輯。",
+      "example": "Legacy .NET VM 搬至 EC2，Oracle 先維持在 EC2。",
+      "confusion": "Rehost 的重點是低變更、快速搬遷，不代表已經充分使用 managed / cloud-native services。",
+      "related": [
+        "Replatform",
+        "Refactor",
+        "AWS Transform MGN"
+      ]
+    },
+    {
+      "term": "Replatform",
+      "fullName": "Replatform / Lift, Tinker and Shift",
+      "category": "Migration",
+      "aliases": [
+        "Platform Optimization"
+      ],
+      "definition": "在 Migration 過程做有限度平台最佳化，但不進行完整 Application Rewrite。",
+      "example": "App 仍跑 EC2，但 Self-managed Oracle 改為 Amazon RDS。",
+      "confusion": "Replatform 會改平台或 managed service 使用方式，但通常不會像 Refactor 一樣全面改 Application Architecture。",
+      "related": [
+        "Rehost",
+        "Refactor",
+        "Amazon RDS"
+      ]
+    },
+    {
+      "term": "Refactor",
+      "fullName": "Refactor / Re-architect",
+      "category": "Migration / Modernization",
+      "aliases": [
+        "Re-architect"
+      ],
+      "definition": "為了 Cloud-native capability、scalability、resilience 或 agility，大幅調整 Application architecture、code、deployment 或 data model。",
+      "example": "Monolith 拆成 Microservices，改用 ECS / EKS / Lambda 與 managed services。",
+      "confusion": "Refactor 通常帶來最大長期改善潛力，但時間、成本與 migration risk 也最高。",
+      "related": [
+        "Modernization",
+        "Microservices",
+        "ECS",
+        "EKS"
+      ]
+    },
+    {
+      "term": "AWS Transform MGN",
+      "fullName": "AWS Transform MGN",
+      "category": "Migration",
+      "aliases": [
+        "MGN",
+        "Application Migration Service"
+      ],
+      "definition": "AWS 的 rehosting replication engine，用於將來源 server / VM 持續複寫並在 AWS 啟動 cutover instance。2026 年由 AWS Application Migration Service 更名為 AWS Transform MGN。",
+      "example": "把 On-Prem Windows / Linux Legacy Server rehost 到 Amazon EC2。",
+      "confusion": "MGN 主要處理 server rehost；database logical migration / CDC 通常由 DMS 等工具處理。",
+      "related": [
+        "Rehost",
+        "EC2",
+        "AWS DMS"
+      ]
+    },
+    {
+      "term": "CDC",
+      "fullName": "Change Data Capture",
+      "category": "Migration / Database",
+      "aliases": [
+        "Ongoing Replication"
+      ],
+      "definition": "從來源資料庫 transaction / change logs 捕捉持續異動並套用到 Target，用於降低 Migration Cutover 的資料差距。",
+      "example": "DMS Full Load 完成後持續把 Oracle redo log 的變更同步至 Target DB。",
+      "confusion": "AWS DMS CDC 不是 real-time replication，可能有 latency，Cutover 前要監控並等待 Target catch up。",
+      "related": [
+        "AWS DMS",
+        "Full Load",
+        "Cutover",
+        "Replication Lag"
+      ]
     }
   ],
   "quizBank": [
@@ -2449,6 +2600,66 @@ window.CLOUD_SA_DATA = {
       "answer": 1,
       "explanation": "Multi-Region multi-writer 會涉及一致性、同筆資料競爭寫入、衝突處理與交易順序等問題。",
       "memory": "Active/Active 最難的常常不是 Compute，而是 Data。"
+    },
+    {
+      "id": "MG01",
+      "category": "Migration",
+      "difficulty": "基礎",
+      "question": "Data Center 6 個月內關閉、Legacy App 沒時間大量改程式，第一階段只求安全搬上 AWS，最合理的 7R 是？",
+      "options": [
+        "Refactor",
+        "Rehost",
+        "Retire",
+        "Repurchase"
+      ],
+      "answer": 1,
+      "explanation": "期限短且變更風險高時，Rehost 可先降低 Migration complexity，再於後續階段 Modernize。",
+      "memory": "Rehost = 搬，不太改。"
+    },
+    {
+      "id": "MG02",
+      "category": "Migration",
+      "difficulty": "中等",
+      "question": "Oracle on VM 搬到 Amazon RDS，Application 只有少量調整，較接近哪個 Strategy？",
+      "options": [
+        "Rehost",
+        "Replatform",
+        "Retain",
+        "Retire"
+      ],
+      "answer": 1,
+      "explanation": "從 self-managed database 改用 managed database 是典型有限度平台最佳化，因此偏 Replatform。",
+      "memory": "Replatform = 搬 + 平台最佳化。"
+    },
+    {
+      "id": "MG03",
+      "category": "Migration",
+      "difficulty": "中等",
+      "question": "AWS DMS Full Load + CDC 的核心用途是？",
+      "options": [
+        "保證零延遲",
+        "先搬既有資料並持續同步來源變更，以降低 cutover downtime / data gap",
+        "自動把 Monolith 拆成 microservices",
+        "取代 Route 53"
+      ],
+      "answer": 1,
+      "explanation": "Full Load 遷移既有資料；CDC 捕捉 ongoing changes。但 CDC latency 並非 0。",
+      "memory": "Full Load + CDC = Existing Data + Ongoing Changes。"
+    },
+    {
+      "id": "MG04",
+      "category": "Migration",
+      "difficulty": "進階",
+      "question": "DMS CDC 已 Running，Cutover 前最重要的動作順序何者較合理？",
+      "options": [
+        "Switch App → Stop Writes → Validate",
+        "Stop/Control Writes → Wait CDC Catch-up → Validate → Switch App → Smoke Test → Open Traffic",
+        "Open Traffic → Validate → Stop Writes",
+        "只要 CDC Running 就直接切換"
+      ],
+      "answer": 1,
+      "explanation": "先控制來源寫入並等待 CDC catch up，確認 Target data 後再切 Application，做 smoke test 後才開正式流量。",
+      "memory": "Cutover 要先收斂資料，再切 Application。"
     }
   ],
   "days": [
@@ -2937,6 +3148,38 @@ window.CLOUD_SA_DATA = {
         "ALB 是 Regional；跨 Region 切流量要 Global Routing。",
         "Active/Active 最難的常常是 Data consistency / conflict。",
         "RTO = 恢復服務，不是 Failback。"
+      ]
+    },
+    {
+      "day": 15,
+      "date": "2026-10-05",
+      "topic": "Migration 7 Rs / AWS Transform MGN / AWS DMS Cutover",
+      "score": 98,
+      "status": "completed",
+      "mastered": [
+        "短 Deadline + Legacy + Integration 多時，第一階段 Rehost 是合理風險控制策略",
+        "Rehost / Replatform / Refactor 能正確配對企業情境",
+        "DMS Full Load + CDC 用於降低 Database Migration Cutover 的 downtime / data gap",
+        "Cutover 順序：Control Writes → CDC Catch-up → Validate → Switch → Smoke Test → Open Traffic",
+        "Phase 1 Migration 與 Phase 2 Modernization 能分階段決策"
+      ],
+      "corrections": [
+        [
+          "第二階段『Replatform 不行才全部重構』方向正確，但判斷條件可更精準",
+          "不是單純『做不到』才 Refactor；若 Business Goal 需要更高 deployment agility、elasticity、independent scaling、resilience 或解除 monolith coupling，Refactor 可能即使 Replatform 能運作仍值得評估。"
+        ],
+        [
+          "CDC 容易被理解成即時同步",
+          "AWS DMS CDC 沒有 real-time / zero-lag 保證；Cutover 前仍要監控 replication latency、停止或控制來源寫入並等 Target catch up。"
+        ]
+      ],
+      "memory": [
+        "Rehost = 搬，不太改。",
+        "Replatform = 搬 + 有限度平台最佳化。",
+        "Refactor = 改架構 / code / operating model。",
+        "MGN = Server Rehost。",
+        "DMS Full Load + CDC = Database Migration。",
+        "Migration 成功 = Cutover + Validation 成功，不只是 Copy 完成。"
       ]
     }
   ]
