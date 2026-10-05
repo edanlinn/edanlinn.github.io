@@ -1,0 +1,890 @@
+{
+  "updated_at": "2026-10-05T15:40:39+08:00",
+  "classification": [
+    {
+      "id": "上階額度",
+      "business": "額度管理",
+      "process": "集團(1G)、子集團(2S)、客戶(3C)建檔、維護與查詢",
+      "ssr": [
+        "B2-001",
+        "B2-005"
+      ],
+      "note": "圖片第一列未填放_XX，保留未編號分類；不建立正式情境編號。"
+    },
+    {
+      "id": "放_01",
+      "business": "額度管理",
+      "process": "額度(4F)及產品(5P)建檔、維護、查詢",
+      "ssr": [
+        "B2-001",
+        "B2-002",
+        "B2-003",
+        "B2-004",
+        "B2-006",
+        "B2-007",
+        "B2-008",
+        "B2-009",
+        "B2-010",
+        "B2-011",
+        "B2-014"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_02",
+      "business": "擔保品管理",
+      "process": "擔保品建檔、維護與查詢",
+      "ssr": [
+        "B2-012",
+        "B2-013",
+        "B2-015",
+        "B2-016",
+        "B2-017"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_03",
+      "business": "擔保品管理",
+      "process": "保證人建檔、維護與查詢",
+      "ssr": [
+        "B2-018"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_04",
+      "business": "帳戶管理",
+      "process": "帳戶建檔、維護與查詢",
+      "ssr": [
+        "B2-019",
+        "B2-020",
+        "B2-029",
+        "B2-031",
+        "B2-034",
+        "B2-035",
+        "B2-036",
+        "B2-037",
+        "B2-038",
+        "B2-039",
+        "B2-040",
+        "B2-041",
+        "B2-042",
+        "B2-043"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_05",
+      "business": "利息處理",
+      "process": "提息與計息",
+      "ssr": [
+        "B2-021",
+        "B2-023",
+        "B2-030"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_06",
+      "business": "利息處理",
+      "process": "撥提、補收及補退",
+      "ssr": [
+        "B2-027"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_07",
+      "business": "費用處理",
+      "process": "代墊、收費、撥提、補收及補退",
+      "ssr": [
+        "B2-027"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_08",
+      "business": "帳務處理",
+      "process": "還款",
+      "ssr": [
+        "B2-022",
+        "B2-025",
+        "B2-026"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_09",
+      "business": "帳務處理",
+      "process": "結清",
+      "ssr": [
+        "B2-028"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_10",
+      "business": "帳務處理",
+      "process": "調整（含減免）",
+      "ssr": [
+        "B2-028",
+        "B2-025"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_11",
+      "business": "貸後管理",
+      "process": "變更及展延",
+      "ssr": [
+        "B2-021",
+        "B2-022",
+        "B2-029",
+        "B2-033",
+        "B2-047"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_12",
+      "business": "不良債權",
+      "process": "延滯與逾期",
+      "ssr": [
+        "B2-024"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_13",
+      "business": "不良債權",
+      "process": "催收與呆帳",
+      "ssr": [
+        "B2-044",
+        "B2-046",
+        "B2-045"
+      ],
+      "note": "依使用者提供的分類圖片"
+    },
+    {
+      "id": "放_14",
+      "business": "債務協商",
+      "process": "債清條例",
+      "ssr": [
+        "B2-032"
+      ],
+      "note": "依使用者提供的分類圖片"
+    }
+  ],
+  "sources": [
+    {
+      "id": "450a076749b9",
+      "name": "L7_放_01-額度建檔、維護查詢.xlsx",
+      "kind": "l7",
+      "count": 274,
+      "sha256": "532efe4a4c437ae0a400f4ec44f46b4ade2a26e6ec012bf2ad22c51fa87fbc09",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "放_01",
+      "code": ""
+    },
+    {
+      "id": "3aa3b2d01a8e",
+      "name": "需求清單-20220030-BC-SSR-B2-001(額度架構)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 45,
+      "sha256": "31edd0794abd046bdc694fd7e90ddad3458fbab54d33a0714e0f694aa3936734",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-001"
+    },
+    {
+      "id": "e39da976eb7b",
+      "name": "需求清單-20220030-BC-SSR-B2-002(額度契約)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 64,
+      "sha256": "0a041b9d36c1af9918185a42ebdea813b98a80c4f24cb0d32c3358d39d4b1042",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-002"
+    },
+    {
+      "id": "7fde49269faf",
+      "name": "需求清單-20220030-BC-SSR-B2-003(額度資料匯入)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 31,
+      "sha256": "b3b0b4abd63e1a6bc16a5cfad64ca67363adc4ee6c41e3e3a469dff7f66ddc42",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-003"
+    },
+    {
+      "id": "710bec9f312f",
+      "name": "需求清單-20220030-BC-SSR-B2-004(台外幣額度控管)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 18,
+      "sha256": "14577d15c6554e02cdb4796349a1ca30f0632c4362b89ff83436d873f204529d",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-004"
+    },
+    {
+      "id": "6d71e23b3a95",
+      "name": "需求清單-20220030-BC-SSR-B2-005(集團額度)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 31,
+      "sha256": "18bf69b77bb0ea4ad9316fbd4a81e368cbd78d3e8ba696efe1508fa49d975712",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-005"
+    },
+    {
+      "id": "3d3152cb4091",
+      "name": "需求清單-20220030-BC-SSR-B2-006(共用額度)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 17,
+      "sha256": "8940eac1c5c9fb2b2058dbc222c24e6ebf381598aa10979dea0940eae36d7ba7",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-006"
+    },
+    {
+      "id": "7f6881d5d1e8",
+      "name": "需求清單-20220030-BC-SSR-B2-007(限額)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 25,
+      "sha256": "37b1dd680cca5b6a41d17f9f4ff12eb24c002b42a143e1d66a047d28771473ed",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-007"
+    },
+    {
+      "id": "14b9bb90a522",
+      "name": "需求清單-20220030-BC-SSR-B2-008(或有風險額度)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 32,
+      "sha256": "36b64e457d1babd21902319414dcab49129b3e67ff4c8157539a754bafa1d409",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-008"
+    },
+    {
+      "id": "e67bde7734b1",
+      "name": "需求清單-20220030-BC-SSR-B2-009(應收帳款額度控管)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 25,
+      "sha256": "b49dd2939823f57b9d4a6adfb4395ccb742f12169fcfce90f4ac340a55571ae8",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-009"
+    },
+    {
+      "id": "5c05c43e6675",
+      "name": "需求清單-20220030-BC-SSR-B2-010(投資額度)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 22,
+      "sha256": "fdec1d57dd3966c9a9e179e7c23c2becd329d540e7772295042df855a83c9a05",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-010"
+    },
+    {
+      "id": "6e7a88548330",
+      "name": "需求清單-20220030-BC-SSR-B2-011(額度凍結與解凍)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 27,
+      "sha256": "30fdb50bb00be0a50ae49182d637a4ebfed9b560c40f122ae0f47c2d7e7cf238",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-011"
+    },
+    {
+      "id": "dca2d43ef025",
+      "name": "需求清單-20220030-BC-SSR-B2-012(擔保品種類)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 11,
+      "sha256": "adb5cee44e3101e51a2caf86d30b71efee723275a59aa65cb06308522496e7f6",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-012"
+    },
+    {
+      "id": "5d405b8ea96f",
+      "name": "需求清單-20220030-BC-SSR-B2-013(擔保品建檔與維護)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 103,
+      "sha256": "001330007c56866c6707c7a6a597bbf73f91b254c3365d5f56e0eb148f19ea91",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-013"
+    },
+    {
+      "id": "3259aeb1f61b",
+      "name": "需求清單-20220030-BC-SSR-B2-014(與ID額度帳戶關聯)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 14,
+      "sha256": "e2081b5ffccd59860b070995ac3886976834208cd759bc01f33721271090eefa",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-014"
+    },
+    {
+      "id": "5d5eea0d102e",
+      "name": "需求清單-20220030-BC-SSR-B2-015(擔保品重估)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 31,
+      "sha256": "dcfbe6c373f5b86b5dd845d05d0e3164f6d3e8dfb7db7ab7198f6e4e187f16aa",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-015"
+    },
+    {
+      "id": "1d812f814b7f",
+      "name": "需求清單-20220030-BC-SSR-B2-016(擔保維持率控管)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 27,
+      "sha256": "652ee87a733202728377201d68c4306e598eed1faa87d7573c03644cde49df24",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-016"
+    },
+    {
+      "id": "c2a3c7cd0c67",
+      "name": "需求清單-20220030-BC-SSR-B2-017(保險作業)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 50,
+      "sha256": "a3990d6dc75f078acfccf32253d237d1b632da29795836ff48658fdedd136799",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-017"
+    },
+    {
+      "id": "f8901ed84400",
+      "name": "需求清單-20220030-BC-SSR-B2-018(保證人)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 25,
+      "sha256": "a98b8b9a035b0589748e2a30d907274a38a9e0e116e7a7bf7906bc1ea78882b4",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-018"
+    },
+    {
+      "id": "3d469d3c530f",
+      "name": "需求清單-20220030-BC-SSR-B2-019(放款帳戶建檔)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 64,
+      "sha256": "166590450eac736eff7b60f72c98aec937506bc69bf944fa5249d37499b25196",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-019"
+    },
+    {
+      "id": "8bf7e5684434",
+      "name": "需求清單-20220030-BC-SSR-B2-020(撥款)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 78,
+      "sha256": "025c65ae5bc30f2b0ccba0a335af2620b9d839bd915dca0dc4ea7ed2bcac8bda",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-020"
+    },
+    {
+      "id": "647511443dbe",
+      "name": "需求清單-20220030-BC-SSR-B2-021(利率)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 57,
+      "sha256": "7093e9535ffadb0eb3a7ab55e548aba8d17bd18a1729a7ab7f732227ba7f66ec",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-021"
+    },
+    {
+      "id": "0ddd322d28b7",
+      "name": "需求清單-20220030-BC-SSR-B2-022(還款方式計畫)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 53,
+      "sha256": "3970f1f77158fdc8a554d41cd87539c823a7f047a7aa0bdab1facc848c395c6c",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-022"
+    },
+    {
+      "id": "bacf5b40f124",
+      "name": "需求清單-20220030-BC-SSR-B2-023(計息)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 42,
+      "sha256": "9d758abbb6f89cdfd7298afc9f74ea0e72ecb2ddf04b64508c3ef4f9a7d52bb1",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-023"
+    },
+    {
+      "id": "7bb5f18e7c68",
+      "name": "需求清單-20220030-BC-SSR-B2-024(遲延利息及違約金)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 36,
+      "sha256": "1424fa56cd4ae265083868f5fde6fdfdaf9fc06611d2a087aad57661b6ed3ff7",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-024"
+    },
+    {
+      "id": "79bcbe9d22e4",
+      "name": "需求清單-20220030-BC-SSR-B2-025(還款與銷帳順序)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 114,
+      "sha256": "08caf42409e16866b0800f0a299644944655e2e0f30838b54ae20d316aee76a7",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-025"
+    },
+    {
+      "id": "c5cbaeba5af8",
+      "name": "需求清單-20220030-BC-SSR-B2-026(提前還本)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 23,
+      "sha256": "a6fbc2d86cce67121e7507eae294b044425b1f27ae5dea835c41e7442f04bc78",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-026"
+    },
+    {
+      "id": "923d88caea32",
+      "name": "需求清單-20220030-BC-SSR-B2-027(費用與收費)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 37,
+      "sha256": "6188c705617b6edc301a8ae0788fc731534796d9b3ab99fde30a7a03692e1fe3",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-027"
+    },
+    {
+      "id": "7cd32405e8ea",
+      "name": "需求清單-20220030-BC-SSR-B2-028(結清)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 78,
+      "sha256": "a9d6e0ee91e96cc4a950febed6b89dfc852b2a01b06dd370abb30883cca2ed19",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-028"
+    },
+    {
+      "id": "0dde0ed9fd03",
+      "name": "需求清單-20220030-BC-SSR-B2-029(貸後作業管理)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 190,
+      "sha256": "0996060d406a4599c0c29146c2fc4e2c81183d76bf157f206722a6f43ba8797e",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-029"
+    },
+    {
+      "id": "36067a6a626c",
+      "name": "需求清單-20220030-BC-SSR-B2-030(政策性貸款補貼利率暨補貼息計算)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 55,
+      "sha256": "a6d8d70bfb65f41ec57242c158162483ed2377185b6e7c0ccce43405ec223f24",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-030"
+    },
+    {
+      "id": "73c9845e9511",
+      "name": "需求清單-20220030-BC-SSR-B2-031(信保基金)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 48,
+      "sha256": "64b3120c4c1ca498d462e16d092ec86bd6e1cccd7848776342387196f1efd3ad",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-031"
+    },
+    {
+      "id": "05e19816d03f",
+      "name": "需求清單-20220030-BC-SSR-B2-032(債清)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 73,
+      "sha256": "80788ea74b77ce77aefa1341edb6ccd6d081c86bd86c4e04a5b6d9515705a087",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-032"
+    },
+    {
+      "id": "7fccb8f3abbf",
+      "name": "需求清單-20220030-BC-SSR-B2-033(展期)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 48,
+      "sha256": "cf3cb095a01017aa43955bca8083e332f7668addf6798052e55d9491784338b3",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-033"
+    },
+    {
+      "id": "977b5e405bf0",
+      "name": "需求清單-20220030-BC-SSR-B2-034(回復型房貸)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 6,
+      "sha256": "04527f1a99a2cfeda3fb0cc73152a3e0717485de9bd08ed277b148f67169b659",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-034"
+    },
+    {
+      "id": "43cc20cc78ff",
+      "name": "需求清單-20220030-BC-SSR-B2-035(透支型融資)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 79,
+      "sha256": "1973f227f0f6e244a35a2c985ee50341270c6040608ff19ca9760fb08aa0c89f",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-035"
+    },
+    {
+      "id": "4c5be3f3d010",
+      "name": "需求清單-20220030-BC-SSR-B2-036(循環型貸款)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 70,
+      "sha256": "55db4599eb8b258974ba0dd156c77fb0df8f5e41a36c5beb6717f25f75ba1789",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-036"
+    },
+    {
+      "id": "6bb3b08b520b",
+      "name": "需求清單-20220030-BC-SSR-B2-037(現金卡)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 32,
+      "sha256": "9e59b3536f8737199a1949d68f8aec41911049f8fd3bfb75379aee8451634a20",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-037"
+    },
+    {
+      "id": "2d478dd4fc71",
+      "name": "需求清單-20220030-BC-SSR-B2-038(貼現)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 16,
+      "sha256": "25a1a38c7e54f20c327ed76245b707a5799c724cf8e7da40a69039da1f327c0c",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-038"
+    },
+    {
+      "id": "d24475ffeef9",
+      "name": "需求清單-20220030-BC-SSR-B2-039(聯合貸款)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 41,
+      "sha256": "3c734dc9339330942b43ae2c02de65e03396351b4b53f5260c39b0a7ca81ee77",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-039"
+    },
+    {
+      "id": "8b10e28673b9",
+      "name": "需求清單-20220030-BC-SSR-B2-040(存單質借／綜定質借)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 51,
+      "sha256": "497930e0b2900d670a2bb59c374c640a67ab80b10c7749ca6b06fd133249354f",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-040"
+    },
+    {
+      "id": "bec317e5ba8c",
+      "name": "需求清單-20220030-BC-SSR-B2-041(逆向房貸)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 28,
+      "sha256": "092a0b7d9f41f7f6695cad7d91c1529cc140bdc644627b2d1f72e705ca77bcfb",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-041"
+    },
+    {
+      "id": "024f62cb0a9b",
+      "name": "需求清單-20220030-BC-SSR-B2-042(Lombard Loan自行質借)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 59,
+      "sha256": "3085a8c10005a5c2c5d03c4c45c6ad187ddba04baaf0e2d0dac8c64d1723ab75",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-042"
+    },
+    {
+      "id": "82b40d3749c3",
+      "name": "需求清單-20220030-BC-SSR-B2-043(客票融資)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 23,
+      "sha256": "6c2103e91cba5832f665b8e590c1932e662b4df069bf831c4aa63b01b6dc79bc",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-043"
+    },
+    {
+      "id": "e790256aa2a2",
+      "name": "需求清單-20220030-BC-SSR-B2-044(轉催收)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 58,
+      "sha256": "7385551216b34ca68b7ad8bc8efe3258e3f599fc4b0242e88c72ae375455038a",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-044"
+    },
+    {
+      "id": "22b9395c222f",
+      "name": "需求清單-20220030-BC-SSR-B2-045(資產評估備抵提列作業)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 17,
+      "sha256": "df0e16aefa54500e14143603f8f5edd3d8fc296e44ae411144bae5c2910b0f8f",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-045"
+    },
+    {
+      "id": "0560c7cea514",
+      "name": "需求清單-20220030-BC-SSR-B2-046(轉呆)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 46,
+      "sha256": "8f43a9b953f959177932714c19788ce031cdfa1427bc661965a865eaa7f4d22f",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-046"
+    },
+    {
+      "id": "0850a6f6c2d1",
+      "name": "需求清單-20220030-BC-SSR-B2-047(其它)-2.1.xlsx",
+      "kind": "requirements",
+      "count": 42,
+      "sha256": "415c76fb8c7fceaa27178aed0043f7e51cf034b8ce19e51a251c89b407af4d20",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-047"
+    },
+    {
+      "id": "68571dea45c0",
+      "name": "需求清單-20240424-BC-FSD-B2-049(放款帳戶建檔)-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "bdc0290c5d4cb7dbd86ae81f55b8a71408169e2a0e409cf52d76758f458422ea",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-049"
+    },
+    {
+      "id": "63f5f13b4c4e",
+      "name": "需求清單-20240424-BC-FSD-B2-054(結清)-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "c9285674ddb883b1830357be5c6f266ca5c39c7bc329c50a284ac9d4ecea7e58",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-054"
+    },
+    {
+      "id": "ded6898f9ae2",
+      "name": "需求清單-20241230-BC-FSD-B2-051(利率)-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "63c4fdf2e9ff142f4292f35538676757d29a254172d82c92b93a4378480e170a",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-051"
+    },
+    {
+      "id": "046b40245d7d",
+      "name": "需求清單-20250313-BC-FSD-B2-050(撥款)-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "5a59c76b94d4ae5b15521ece8d832a1a6f30b7c12660a2c77c377ebb9ea240f5",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-050"
+    },
+    {
+      "id": "0b6bdafc1936",
+      "name": "需求清單-20250410-BC-FSD-B2-053(轉呆)-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "9278ed90f14220afb84e3772b4310a0faceba0dd4203e881f224f97b39d54992",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-053"
+    },
+    {
+      "id": "4f5de8ccee3f",
+      "name": "需求清單-20250918-BC-FSD-B2-901(過渡期解決方案)-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "2ec5aace3154beaed41a5d2d392846c4223bc2664d655e6f2fe70863e40626c4",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-901"
+    },
+    {
+      "id": "c5315caffa56",
+      "name": "需求清單-20251002-BC-FSD-B2-061(貸後作業管理)-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "b4127cfe23673444f7f70d3edd53edc931ef2dea58907901d00a55bf5cf641ba",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-061"
+    },
+    {
+      "id": "c4fa49b9b684",
+      "name": "需求清單-20251017-BC-FSD-B2-060(遲延利息及違約金)-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "8e5a49a1a0d5e1c07bdecfe5f4b4f96e46c9208844800a6f11180580395e8cc8",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-060"
+    },
+    {
+      "id": "72737cb0f23b",
+      "name": "需求清單-20251110-BC-FSD-B2-059-放款帳號建檔、撥款-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "36d44dcafca5533362a15ec0c276d4e7d06f9e9719c1b70e7c5e9b685178dd2c",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-059"
+    },
+    {
+      "id": "f0f5f7e78892",
+      "name": "需求清單-20251204-BC-FSD-B2-058-額度、保證人、利害關係人-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "1e0a2cf5a9af4d5e42d1454397ff35d886bb89385adb5c8d13d8a9ef247859a1",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-058"
+    },
+    {
+      "id": "76413f6e9760",
+      "name": "需求清單-20260225-BC-FSD-B2-062-計息-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "37bc0f40f1c767dc9567619016efb6235be1aac29924ab270c1a20229a32d785",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-062"
+    },
+    {
+      "id": "d038c25f303f",
+      "name": "需求清單-20260407-BC-FSD-B2-065-撥款-CR.xlsx",
+      "kind": "requirements",
+      "count": 0,
+      "sha256": "0dd5e48cdf76be20425e82709ce5345883f873f9da85fc6befb538a9311a5e88",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-065"
+    },
+    {
+      "id": "65f3f4363ffe",
+      "name": "測試資料表_放_04帳戶建檔、維護與查詢_20261002170755.xlsx",
+      "kind": "l6",
+      "count": 1573,
+      "sha256": "9d308d6a846b6d2fb473e19d75c68e906c0a22218e822a52b39bfa66b2c6b260",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "放_04",
+      "code": ""
+    },
+    {
+      "id": "c132f317f115",
+      "name": "測試資料表_放_09結清_20261002160335(2).xlsx",
+      "kind": "l6",
+      "count": 243,
+      "sha256": "fcce19daf4cc8524bbbdbd0088b2096885ae2a7cf7842176cedfd1d848ebb7e9",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "放_09",
+      "code": ""
+    },
+    {
+      "id": "49f93a8afc19",
+      "name": "測試資料表_放_14債清_20261001134841.xlsx",
+      "kind": "l6",
+      "count": 55,
+      "sha256": "3ed2f368c75be236be6690f1c05646cff89fade2e52f3ae398e5ca0be0ebb088",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "放_14",
+      "code": ""
+    },
+    {
+      "id": "94b169ff8f65",
+      "name": "需求清單20220030BCSSRB2032債清2_1_20260930161137.xlsx",
+      "kind": "requirements",
+      "count": 74,
+      "sha256": "093cc071550e50b47cdb33a8bebddcace8487a1b4a92e0c5d60b0536b40c1967",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-032"
+    },
+    {
+      "id": "9c240091e3d4",
+      "name": "需求清單20220030BCSSRB2043客票融資2.1_20261002165417(1).xlsx",
+      "kind": "requirements",
+      "count": 23,
+      "sha256": "abb4b056270869f14b6826a2bda3a5884bf51e6e3c458faf3a0130ddacf8a903",
+      "imported_at": "2026-10-05T15:40:39+08:00",
+      "group": "",
+      "code": "B2-043"
+    }
+  ],
+  "datasets": {
+    "l6": [
+      "catalog/l6-000.json",
+      "catalog/l6-001.json",
+      "catalog/l6-002.json",
+      "catalog/l6-003.json",
+      "catalog/l6-004.json",
+      "catalog/l6-005.json",
+      "catalog/l6-006.json",
+      "catalog/l6-007.json",
+      "catalog/l6-008.json",
+      "catalog/l6-009.json",
+      "catalog/l6-010.json",
+      "catalog/l6-011.json",
+      "catalog/l6-012.json",
+      "catalog/l6-013.json",
+      "catalog/l6-014.json",
+      "catalog/l6-015.json",
+      "catalog/l6-016.json",
+      "catalog/l6-017.json",
+      "catalog/l6-018.json"
+    ],
+    "l7": [
+      "catalog/l7-000.json",
+      "catalog/l7-001.json",
+      "catalog/l7-002.json"
+    ],
+    "requirements": [
+      "catalog/requirements-000.json",
+      "catalog/requirements-001.json",
+      "catalog/requirements-002.json",
+      "catalog/requirements-003.json",
+      "catalog/requirements-004.json",
+      "catalog/requirements-005.json",
+      "catalog/requirements-006.json",
+      "catalog/requirements-007.json",
+      "catalog/requirements-008.json",
+      "catalog/requirements-009.json",
+      "catalog/requirements-010.json",
+      "catalog/requirements-011.json",
+      "catalog/requirements-012.json",
+      "catalog/requirements-013.json",
+      "catalog/requirements-014.json",
+      "catalog/requirements-015.json",
+      "catalog/requirements-016.json",
+      "catalog/requirements-017.json",
+      "catalog/requirements-018.json",
+      "catalog/requirements-019.json",
+      "catalog/requirements-020.json",
+      "catalog/requirements-021.json",
+      "catalog/requirements-022.json"
+    ]
+  },
+  "counts": {
+    "l6": 1871,
+    "l7": 274,
+    "requirements": 2259
+  },
+  "scope_note": "本次匯入可取得的完整原檔：L6放_04、放_09、放_14；L7放_01。其他分類缺原始案例檔，不以分類表或摘要補造案例。L7按步驟列收錄，同一L6編號可有多筆步驟。圖片第一列未填編號，網站保留為未編號的上階額度分類。"
+}
