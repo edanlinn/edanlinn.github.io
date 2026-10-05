@@ -7,24 +7,24 @@
   <meta name="description" content="放款業務規則查詢、學習與變更複核入口">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b3156'/%3E%3Cpath d='M16 18h32v7H16zm0 13h22v7H16zm0 13h28v7H16z' fill='%23f2c66d'/%3E%3C/svg%3E">
   <meta name="theme-color" content="#edf6ff">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=20261005-sources-l6">
 </head>
 <body>
   <aside class="sidebar" aria-label="放款知識庫導覽"><div class="brand-icon">L</div><div class="side-brand"><b>LOAN KNOWLEDGE</b><small>EDAN’S WORKSPACE</small></div><div class="side-label">WORKSPACE</div><nav><a class="side-link active" href="#knowledge">知識查詢</a></nav><div class="side-bottom">業務規則 · 來源追溯<br>正式需求請回查原始文件。</div></aside>
-  <header><div class="head"><div><div class="eyebrow">CTBC LOAN KNOWLEDGE</div><h1>放款知識庫</h1></div><div class="updated" id="updated">更新 · 2026-10-05</div></div></header>
+  <header><div class="head"><div><div class="eyebrow">CTBC LOAN KNOWLEDGE</div><h1>中國信託放款知識庫</h1></div><div class="updated" id="updated">更新 · 2026-10-05</div></div></header>
   <main>
     <section id="knowledge" class="toolbar" aria-label="知識搜尋">
       <div class="search"><input id="q" type="search" placeholder="搜尋主題、條件、交易代碼、Requirement ID…" aria-label="搜尋知識"></div>
-      <div class="filters"><label>主題 <select id="topic" class="chip" aria-label="主題篩選"></select></label><label>來源 <select id="source" class="chip" aria-label="來源篩選"></select></label></div><div class="filters" id="filters"></div><div class="filters" aria-label="閱讀視圖"><button class="chip active" data-view="work">工作查詢</button><button class="chip" data-view="learn">學習閱讀</button><button class="chip" data-view="review">變更複核</button></div>
+      <div class="filters" id="categories" aria-label="內容類型"></div><div class="filters"><label>主題 <select id="topic" class="chip" aria-label="主題篩選"></select></label><label>來源 <select id="source" class="chip" aria-label="來源篩選"></select></label></div><div class="filters" id="filters"></div><div class="filters" aria-label="閱讀視圖"><button class="chip active" data-view="work">工作查詢</button><button class="chip" data-view="learn">學習閱讀</button><button class="chip" data-view="review">變更複核</button></div>
     </section>
     <section class="summary" id="summary"></section>
     <div class="notice" id="coverage"></div>
-    <div class="list-heading"><h2>業務規則</h2><span id="result-count" aria-live="polite"></span></div>
+    <div class="list-heading"><h2>知識、文件與L6依據</h2><span id="result-count" aria-live="polite"></span></div>
     <section class="layout">
       <div class="list" id="list"></div>
       <article class="detail" id="detail"><div class="empty">請選擇左側知識項目</div></article>
     </section>
   </main>
-  <script src="./app.js?v=20261005-knowledge24" defer></script>
+  <script src="./app.js?v=20261005-sources-l6" defer></script>
 </body>
 </html>
