@@ -13,5 +13,16 @@ vm.runInContext("knowledgeUpdates.entries=[{id:'LN-KB-B2043-001',origin:'AI',rev
 vm.runInContext("knowledgeUpdates.entries=[{id:'LN-KB-TEST',origin:'人工',review_status:'已確認',reviewer:'Edan',title:'<script>alert(1)</script>',content:'new content',source:'source',reason:'edit',source_type:'網路參考',updated_at:'2026-10-06'}];applyPublishedKnowledge();category='知識庫';render();show('LN-KB-TEST')",ctx);assert(!get('#detail').innerHTML.includes('<script>'));assert(get('#detail').innerHTML.includes('&lt;script&gt;'));assert.equal(vm.runInContext("records.find(r=>r.id==='LN-KB-TEST').sync_status",ctx),'已發布共用版本');
 vm.runInContext("saveDrafts([{id:'d',origin:'人工'}]);showUpdateCenter('人工')",ctx);assert(get('#editor-dialog').innerHTML.includes('此裝置草稿'));vm.runInContext("showUpdateCenter('AI')",ctx);assert(get('#editor-dialog').innerHTML.includes('自動執行尚未啟用'));
 vm.runInContext("knowledgeUpdates.entries.push({id:'LN-KB-TEST',origin:'AI',review_status:'待確認',content:'unreviewed'});applyPublishedKnowledge()",ctx);assert.equal(vm.runInContext("records.find(r=>r.id==='LN-KB-TEST').plain_language",ctx),'new content');
+
+vm.runInContext("publishedRecords=records.slice();saveDrafts([])",ctx);
+vm.runInContext("saveDrafts([{id:'LN-KB-CRUD-TEST',title:'CRUD新增',content:'新增內容',source:'測試來源',source_type:'網路參考',reason:'新增驗證',origin:'人工',operation:'upsert',review_status:'待確認',updated_at:'2026-10-06'}]);applyLocalKnowledge()",ctx);
+assert.equal(vm.runInContext("records.find(r=>r.id==='LN-KB-CRUD-TEST').plain_language",ctx),'新增內容');
+vm.runInContext("saveDrafts([...drafts(),{...drafts()[0],content:'修改內容'}]);applyLocalKnowledge()",ctx);assert.equal(vm.runInContext("records.find(r=>r.id==='LN-KB-CRUD-TEST').plain_language",ctx),'修改內容');
+vm.runInContext("saveDrafts([...drafts(),{...drafts()[1],operation:'delete'}]);applyLocalKnowledge()",ctx);assert(!vm.runInContext("records.some(r=>r.id==='LN-KB-CRUD-TEST')",ctx));assert.equal(vm.runInContext('deletedKnowledge().length',ctx),1);
+vm.runInContext("saveDrafts([...drafts(),{...drafts()[1],operation:'upsert',reason:'還原'}]);applyLocalKnowledge()",ctx);assert.equal(vm.runInContext('deletedKnowledge().length',ctx),0);assert.equal(vm.runInContext("records.find(r=>r.id==='LN-KB-CRUD-TEST').plain_language",ctx),'修改內容');
+vm.runInContext("saveDrafts([{id:'LN-DOC-SSR-B2-001',operation:'delete',origin:'人工'}]);applyLocalKnowledge()",ctx);assert(vm.runInContext("records.some(r=>r.id==='LN-DOC-SSR-B2-001')",ctx));
+vm.runInContext("knowledgeUpdates.entries=[{id:'LN-KB-B2043-001',origin:'人工',operation:'delete'}];applyPublishedKnowledge()",ctx);assert(!vm.runInContext("records.some(r=>r.id==='LN-KB-B2043-001')",ctx));assert(knowledgeOriginalsCheck=vm.runInContext("knowledgeOriginals.has('LN-KB-B2043-001')",ctx));
+console.log('PASS: local CRUD and restore; published soft deletion; protected documents; original record retained');
+
 console.log('PASS: all source counts and scenario keys; document reader/search/summary; requirements table/CSV; AI pending protection; shared revisions; escaping; local drafts and automation state');
 })().catch(e=>{console.error(e);process.exit(1)});
