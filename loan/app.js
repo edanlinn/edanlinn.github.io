@@ -13,7 +13,7 @@ async function init(){
  for(const r of records){const codes=new Set((JSON.stringify(r.requirement_ids||[])+' '+(r.document_key||'')+' '+(r.imported?.code||'')).match(/B2-\d{3}/g)||[]);if(!r.groups)r.groups=manifest.classification.filter(g=>g.ssr.some(c=>codes.has(c))).map(g=>g.id);if(r.imported)r.related_ids=[...codes].flatMap(c=>['LN-DOC-SSR-'+c,'LN-DOC-FSD-'+c]).filter(id=>data.records.some(x=>x.id===id));r.search_text=(r.imported?[r.imported.key,r.title,r.imported.source,r.imported.requirement,r.imported.ticket,...r.imported.fields.map(f=>f.value)].join('\n'):JSON.stringify(r)).toLowerCase();}
  $('#group').innerHTML='<option value="">全部流程分類</option>'+manifest.classification.map(g=>'<option value="'+g.id+'">'+esc(g.id+' · '+g.business+' · '+g.process)+'</option>').join('');$('#group').onchange=()=>{page=0;selected=null;render()};
  records.forEach(r=>{if(!r.groups?.length)r.groups=['待分類']});
- $('#updated').textContent='更新 · '+manifest.updated_at.slice(0,16).replace('T',' ');$('#coverage').textContent=manifest.scope_note;
+ $('#updated').textContent='介面 2026-10-06 · 資料 '+manifest.updated_at.slice(0,16).replace('T',' ');$('#coverage').textContent=manifest.scope_note;
  for(const [id,values] of [['topic',[...new Set(records.map(r=>r.topic))]],['source',[...new Set(records.flatMap(r=>r.source_types||[r.source_type]))]]]){
   $( '#'+id).innerHTML='<option value="">全部'+(id==='topic'?'主題':'來源')+'</option>'+values.map(v=>'<option>'+esc(v)+'</option>').join('');
   $('#'+id).onchange=()=>{selected=null;render()};
@@ -75,7 +75,7 @@ function show(id){
  if(r.related_ids?.length)appendix+=section('相關知識與文件',r.related_ids.filter(id=>records.some(x=>x.id===id)).map(id=>'<p><a href="#'+encodeURIComponent(id)+'">'+esc(records.find(x=>x.id===id).title)+'</a></p>').join(''));
  if(r.document_key&&documents[r.document_key]){renderDocumentReader(r,body);return;}
  $('#detail').innerHTML='<div class="item-id">'+esc(r.id)+' · '+esc(r.topic)+' · '+esc(r.category)+'</div><h2>'+esc(r.title)+'</h2><div class="tags"><span class="tag '+cls(r.rule_status)+'">規則：'+esc(r.rule_status)+'</span><span class="tag">確認：'+esc(r.evidence_status)+'</span><span class="tag">'+esc(r.source_type)+'</span></div><p class="lead">'+esc(r.plain_language)+'</p>'+appendix+body;
- if(!r.imported&&!r.document_key)renderKnowledgeActions(r);
+ if(!r.imported&&!r.document_key&&!r.case)renderKnowledgeActions(r);
 }
 function renderUpdates(){
  $('#result-count').textContent=manifest.sources.length+' 份匯入來源';$('#pagination').innerHTML='';$('#list').innerHTML=manifest.classification.map(g=>{const l6=records.filter(r=>r.category==='L6'&&r.groups.includes(g.id)).length,l7=records.filter(r=>r.category==='L7'&&r.groups.includes(g.id)).length;return '<div class="source"><b>'+esc(g.id+' · '+g.process)+'</b>L6 '+l6+' 筆 · L7 '+l7+' 步驟列<br>'+esc(g.ssr.join('、'))+(l6===0?'\nL6缺來源':'')+(l7===0?'\nL7缺來源':'')+'</div>'}).join('');$('#detail').innerHTML='<h2>來源與持續更新</h2><p>'+esc(manifest.scope_note)+'</p><p>原檔新增或修訂後，依來源版本、檔案SHA-256與情境編號比對。更新保留原編號、版本與待確認標示，不自行補造缺少的L6／L7。</p>'+section('圖片流程分類',manifest.classification.map(g=>'<div class="source"><b>'+esc(g.id+' · '+g.business)+'</b>'+esc(g.process)+'<br>'+esc(g.ssr.join('、'))+'<br>'+esc(g.note)+'</div>').join(''))+section('本次來源盤點',manifest.sources.map(s=>'<div class="source"><b>'+esc(s.name)+'</b>'+esc(s.kind.toUpperCase())+' · '+s.count+' 列\n匯入 '+esc(s.imported_at)+'\nSHA-256 '+esc(s.sha256)+'</div>').join(''));}
