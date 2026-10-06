@@ -1,7 +1,7 @@
 window.CLOUD_SA_DATA = {
-  "updatedAt": "2026-10-05",
-  "completedDays": 15,
-  "currentTrack": "Migration / 7 Rs / MGN / DMS Cutover",
+  "updatedAt": "2026-10-06",
+  "completedDays": 16,
+  "currentTrack": "Modernization / Containers / ECS vs EKS",
   "scores": [
     {
       "day": 1,
@@ -62,6 +62,10 @@ window.CLOUD_SA_DATA = {
     {
       "day": 15,
       "score": 98
+    },
+    {
+      "day": 16,
+      "score": 98
     }
   ],
   "roadmap": [
@@ -88,15 +92,15 @@ window.CLOUD_SA_DATA = {
     "summary": [
       {
         "label": "完成訓練",
-        "value": "Day 1–15"
+        "value": "Day 1–16"
       },
       {
         "label": "目前主題",
-        "value": "Migration / 7 Rs"
+        "value": "Docker / ECR / ECS Task Definition"
       },
       {
         "label": "已建立基礎",
-        "value": "DR + Migration"
+        "value": "DR + Migration + Container Platform Selection"
       },
       {
         "label": "下一階段",
@@ -3181,6 +3185,45 @@ window.CLOUD_SA_DATA = {
         "DMS Full Load + CDC = Database Migration。",
         "Migration 成功 = Cutover + Validation 成功，不只是 Copy 完成。"
       ]
-    }
+    },
+    {
+      "day": 16,
+      "date": "2026-10-06",
+      "topic": "Modernization / EC2 vs ECS vs EKS vs Lambda",
+      "score": 98,
+      "status": "completed",
+      "mastered": [
+        "能依 Workload、Team Capability、Operational Complexity 與 Portability Requirement 選擇 EC2 / ECS / EKS / Lambda",
+        "Dockerized REST API、AWS-only、無 Kubernetes 經驗且希望少管理 Server 時，優先評估 ECS + Fargate",
+        "Microservices 不等於一定需要 Kubernetes；ECS 也能承載 Microservices",
+        "Legacy OS dependency 且短期不能改程式時，EC2 仍可能是合理選擇",
+        "Event-driven、短時間且不規則流量的工作可優先評估 Lambda",
+        "Modernization 可採 Containerize + CI/CD、Database Replatform Assessment、Batch Independent Scaling 的漸進策略",
+        "公司 Kubernetes Standardized、已有成熟 Platform Team，或 Hybrid / Multi-cloud portability 成為 Requirement 時再重新評估 EKS"
+      ],
+      "corrections": [
+        [
+          "把『團隊沒有 Kubernetes 經驗』當成排除 EKS 的唯一理由",
+          "更完整的 SA 判斷是：目前沒有足夠的 Kubernetes Requirement 去承擔額外 operational complexity；Team capability 是重要 constraint，但不是唯一因素。"
+        ],
+        [
+          "認為選 EKS 後『成本會變高很多』",
+          "EKS 通常增加平台與維運複雜度，也可能提高整體 TCO，但成本不必然大幅高於 ECS/Fargate；仍要比較 workload size、利用率、compute model 與平台人力成本。"
+        ],
+        [
+          "容易把 ECS / EKS 與 Fargate / EC2 視為互斥的同一層選項",
+          "ECS / EKS 是 container orchestration 選擇；Fargate / EC2 是 compute 選擇。可有 ECS + Fargate、ECS + EC2、EKS + Fargate、EKS + EC2。"
+        ]
+      ],
+      "memory": [
+        "EC2 = VM Control。",
+        "ECS = AWS-native Container Orchestration。",
+        "EKS = Managed Kubernetes。",
+        "Lambda = Event-driven Serverless Compute。",
+        "Microservices ≠ Kubernetes。",
+        "ECS / EKS = Orchestration；Fargate / EC2 = Compute。",
+        "Modernization 的目標不是把架構變複雜，而是用值得的複雜度解決真正的問題。"
+      ]
+
   ]
 };
