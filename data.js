@@ -3224,6 +3224,6 @@ window.CLOUD_SA_DATA = {
         "ECS / EKS = Orchestration；Fargate / EC2 = Compute。",
         "Modernization 的目標不是把架構變複雜，而是用值得的複雜度解決真正的問題。"
       ]
-
+    }
   ]
 };
