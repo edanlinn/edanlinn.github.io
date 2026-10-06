@@ -1,3 +1,4 @@
+function moduleIcon(name){const paths={'知識庫':'M4 4h6a3 3 0 0 1 2 2 3 3 0 0 1 2-2h6v15h-6a3 3 0 0 0-2 2 3 3 0 0 0-2-2H4zM12 6v15','SSR':'M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5','FSD':'M6 3h9l4 4v14H6zM14 3v5h5M9 12h7M9 16h5','需求清單':'M4 4h16v16H4zM4 9h16M9 4v16M4 14h16','L6':'m5 7 2 2 4-4M13 7h7M5 15l2 2 4-4M13 15h7','L7':'M4 6h5v5H4zM15 13h5v5h-5zM9 8h8v5M6 11v5h9','撰寫爭議':'M4 4h16v13H9l-5 4zM12 7v4M12 14h.01','更新紀錄':'M4 11a8 8 0 1 1 2 7M4 4v7h7M12 7v5l3 2'};return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="'+(paths[name]||paths['知識庫'])+'"/></svg>'; }
 
 let data,documents={},records=[],active='全部',selected=null,view='work',category='知識庫',manifest={},page=0;
 const $=s=>document.querySelector(s);
@@ -25,7 +26,7 @@ function importRecord(c){return {id:c.id,title:c.key+'｜'+c.title,topic:c.group
 function drawCategories(){
  const modules=['知識庫','SSR','FSD','需求清單','L6','L7','撰寫爭議','更新紀錄','全部'];
  $('#categories').innerHTML=modules.map(x=>'<button class="chip '+(x===category?'active':'')+'" data-category="'+esc(x)+'">'+esc(x)+'</button>').join('');
- $('#module-nav').innerHTML=modules.filter(x=>x!=='全部').map(x=>'<a href="#module-'+encodeURIComponent(x)+'" class="side-link '+(x===category?'active':'')+'" data-module="'+esc(x)+'">'+esc(x)+'</a>').join('');
+ $('#module-nav').innerHTML=modules.filter(x=>x!=='全部').map(x=>'<a href="#module-'+encodeURIComponent(x)+'" class="side-link '+(x===category?'active':'')+'" data-module="'+esc(x)+'">'+moduleIcon(x)+'<span>'+esc(x)+'</span></a>').join('');
  document.querySelectorAll('[data-category],[data-module]').forEach(b=>b.onclick=e=>{e.preventDefault();setModule(b.dataset.category||b.dataset.module)});
 }
 function setModule(x){category=x;page=0;selected=null;active='全部';$('#q').value='';$('#topic').value='';$('#source').value='';drawFilters();drawCategories();render();}
@@ -45,7 +46,7 @@ function render(){
  $('#module-title').textContent=category==='全部'?'全部內容':category;
  if(category==='更新紀錄'){renderUpdates();return;}
  const rs=filtered();if(category==='需求清單')rs.sort((a,b)=>String(a.imported[reqSort.column]||'').localeCompare(String(b.imported[reqSort.column]||''),'zh-Hant',{numeric:true})*reqSort.direction);if(!rs.some(r=>r.id===selected))selected=rs[0]?.id||null;
- $('#summary').innerHTML=[['L6案例',manifest.counts.l6],['L7步驟列',manifest.counts.l7],['需求清單列',manifest.counts.requirements],['SSR／FSD文件',Object.keys(documents).length]].map(([a,b])=>'<div class="metric"><strong>'+b+'</strong><span>'+a+'</span></div>').join('');
+ $('#summary').innerHTML=[['L6案例',manifest.counts.l6],['L7步驟列',manifest.counts.l7],['需求清單列',manifest.counts.requirements],['SSR／FSD文件',Object.keys(documents).length]].map(([a,b])=>'<div class="metric"><span>'+a+'</span><strong>'+b.toLocaleString()+'</strong><small>已收錄 · 可查詢追溯</small></div>').join('');
  const totalPages=Math.ceil(rs.length/100);page=Math.min(page,Math.max(0,totalPages-1));
  if(!selected||!rs.some(r=>r.id===selected)||(!$('#q').value&&page&&!rs.slice(page*100,(page+1)*100).some(r=>r.id===selected)))selected=rs[page*100]?.id||null;
  $('#list').innerHTML=rs.length?rs.slice(page*100,(page+1)*100).map(r=>'<button class="item '+(r.id===selected?'active':'')+'" data-id="'+esc(r.id)+'"><div class="item-id">'+esc(r.imported?.key||r.id)+' · '+esc(r.category)+(r.imported?.kind==='l7'?' · '+esc(r.imported.action):'')+'</div><div class="item-title">'+esc(r.title)+'</div><div class="tags"><span class="tag '+cls(r.rule_status)+'">'+esc(r.rule_status)+'</span><span class="tag">'+esc(r.evidence_status)+'</span><span class="tag">'+esc(r.topic)+'</span></div></button>').join(''):'<div class="empty">'+(category==='L6'||category==='L7'?'此分類尚未取得原始案例檔；請見更新紀錄的來源範圍。':'找不到符合條件的內容')+'</div>';
