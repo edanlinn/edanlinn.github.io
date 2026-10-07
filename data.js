@@ -1,6 +1,6 @@
 window.CLOUD_SA_DATA = {
-  "updatedAt": "2026-10-06",
-  "completedDays": 16,
+  "updatedAt": "2026-10-07",
+  "completedDays": 17,
   "currentTrack": "Modernization / Containers / ECS vs EKS",
   "scores": [
     {
@@ -3223,6 +3223,37 @@ window.CLOUD_SA_DATA = {
         "Microservices ≠ Kubernetes。",
         "ECS / EKS = Orchestration；Fargate / EC2 = Compute。",
         "Modernization 的目標不是把架構變複雜，而是用值得的複雜度解決真正的問題。"
+      ]
+    },
+    {
+      "day": 17,
+      "date": "2026-10-07",
+      "topic": "Docker & Container / Image → ECR → ECS Task Definition → ECS Service",
+      "score": 100,
+      "status": "completed",
+      "answers": {
+        "Q1": "B",
+        "Q2": "1→D, 2→E, 3→B, 4→C, 5→A",
+        "Q3": "A, B, D",
+        "deploymentOrder": "B → D → E → A → C",
+        "scaling": "C"
+      },
+      "mastered": [
+        "能區分 Dockerfile、Docker Image、Container、ECR、ECS Task Definition 與 ECS Service 的責任",
+        "理解 Container 部署流程：Build Image → Push ECR → Update Task Definition → ECS Service 啟動 Tasks → ALB 導流",
+        "Production Image 應使用可識別版本或 immutable digest，避免只依賴 latest",
+        "明確 Image Version 有助於追蹤部署版本與 Rollback",
+        "ECS Service 負責維持 Desired Count，並可搭配 Service Auto Scaling 因應尖峰流量"
+      ],
+      "corrections": [],
+      "memory": [
+        "Dockerfile = Image 建置說明書。",
+        "Image = Immutable Application Package；Container = Image 的 Running Instance。",
+        "ECR = Image Registry，不負責執行 Container。",
+        "Task Definition = ECS 執行規格；Task = 實際 Running Instance。",
+        "ECS Service = 維持 Tasks 數量、健康狀態與長期服務。",
+        "部署主線：Build → ECR → Task Definition → Service/Task → ALB。",
+        "流量尖峰擴縮容主要由 ECS Service Auto Scaling 處理，不是修改 ECR 或 Dockerfile。"
       ]
     }
   ]
