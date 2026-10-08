@@ -1,6 +1,6 @@
 window.CLOUD_SA_DATA = {
-  "updatedAt": "2026-10-07",
-  "completedDays": 17,
+  "updatedAt": "2026-10-08",
+  "completedDays": 18,
   "currentTrack": "Modernization / Containers / ECS vs EKS",
   "scores": [
     {
@@ -3254,6 +3254,38 @@ window.CLOUD_SA_DATA = {
         "ECS Service = 維持 Tasks 數量、健康狀態與長期服務。",
         "部署主線：Build → ECR → Task Definition → Service/Task → ALB。",
         "流量尖峰擴縮容主要由 ECS Service Auto Scaling 處理，不是修改 ECR 或 Dockerfile。"
+      ]
+    },
+    {
+      "day": 18,
+      "date": "2026-10-08",
+      "topic": "ECS Production Architecture / Health Check / Rolling Deployment / Auto Scaling",
+      "score": 90,
+      "status": "completed",
+      "answers": {
+        "Q1": "A",
+        "Q2": "1→C, 2→D, 3→A, 4→B",
+        "Q3": "A, B, D",
+        "deploymentOrder": "C → D → B → A → E",
+        "databaseCompatibility": "C"
+      },
+      "mastered": [
+        "理解 minimumHealthyPercent 100% 與 maximumPercent 200% 的部署容量控制",
+        "區分 Health Check Grace Period、ALB Target Group Health Check、Service Auto Scaling 與 Deployment Circuit Breaker",
+        "認識 Production Health Check 不等於交易端到端成功",
+        "能判斷 Database Schema 不相容應停止擴大部署影響並評估相容版本回復"
+      ],
+      "corrections": [
+        [
+          "Rolling Deployment 事件順序誤答 C → D → B → A → E",
+          "本題邏輯順序為 B → D → A → C → E：更新 Service/Task Definition、啟動新版 Tasks、確認健康、舊版 Draining、完成部署；實際 ECS 啟停可交錯進行。"
+        ]
+      ],
+      "memory": [
+        "ECS Service 部署新 Task Definition 後才會啟動新版本 Tasks。",
+        "ALB Healthy ≠ Loan Transaction Healthy；必須搭配交易級 Smoke Test。",
+        "Rolling Deployment 的 Task 啟停取決於 minimumHealthyPercent、maximumPercent 與健康檢查。",
+        "Database Schema Migration 應考慮向前/向後相容與安全 Rollback。"
       ]
     }
   ]
